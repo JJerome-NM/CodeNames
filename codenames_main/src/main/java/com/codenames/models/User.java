@@ -1,18 +1,10 @@
 package com.codenames.models;
 
-public class User {
+import com.codenames.dto.UserDto;
 
-    private final int id;
+public record User(int id, String ip, String nickname) {
 
-    private final int ip;
-
-    private final String nickname;
-
-
-    User(int id, int ip, String nickname){
-        this.id = id;
-        this.ip = ip;
-        this.nickname = nickname;
+    public UserDto toUserDto() {
+        return new UserDto(this.id, this.nickname);
     }
-
 }
