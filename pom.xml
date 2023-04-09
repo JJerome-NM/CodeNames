@@ -19,7 +19,10 @@
     <description>CodeNames</description>
 
     <modules>
-        <module>codenames_main</module>
+        <module>codenames-domain</module>
+<!--        <module>codenames-web-services</module>-->
+        <module>code-names-common</module>
+        <module>codenames-web-services</module>
     </modules>
 
 
@@ -81,8 +84,11 @@
             <version>5.7.1</version>
         </dependency>
 
-
-
+<!--        <dependency>-->
+<!--            <groupId>org.mapstruct</groupId>-->
+<!--            <artifactId>mapstruct</artifactId>-->
+<!--            <version>1.5.3.Final</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -99,6 +105,22 @@
                     </excludes>
                 </configuration>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <version>3.5.1</version>-->
+<!--                <configuration>-->
+<!--                    <source>1.8</source>-->
+<!--                    <target>1.8</target>-->
+<!--                    <annotationProcessorPaths>-->
+<!--                        <path>-->
+<!--                            <groupId>org.mapstruct</groupId>-->
+<!--                            <artifactId>mapstruct-processor</artifactId>-->
+<!--                            <version>1.5.3.Final</version>-->
+<!--                        </path>-->
+<!--                    </annotationProcessorPaths>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
