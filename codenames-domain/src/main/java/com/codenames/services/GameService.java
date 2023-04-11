@@ -1,11 +1,13 @@
 package com.codenames.services;
 
 import com.codenames.exceptions.RoomLimitIsOver;
-import com.codenames.models.for_game.CodeNamesGame;
-import com.codenames.models.for_game.User;
-import com.codenames.models.for_rooms.Room;
-import com.codenames.models.for_game.Player;
+import com.codenames.models.forgame.CodeNamesGame;
+import com.codenames.models.forgame.User;
+import com.codenames.models.forooms.Room;
+import com.codenames.models.forgame.Player;
 import com.codenames.utils.IntegerUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +18,8 @@ public class GameService {
     private static final int MAX_ROOM_ID = 1000000;
 
     private static final int ROOM_LIMIT = MAX_ROOM_ID - MIN_ROOM_ID;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
 
     public boolean checkAvailabilityRoom(CodeNamesGame codeNamesGame, int roomID){
         return codeNamesGame.getGameRooms().containsKey(roomID);
@@ -40,6 +44,8 @@ public class GameService {
         int newRoomID = generateRoomID(codeNamesGame);
 
         codeNamesGame.getGameRooms().put(newRoomID, new Room(newRoomID, roomAdmin));
+
+        LOGGER.info("Created new room, id - " + newRoomID);
 
         return newRoomID;
     }

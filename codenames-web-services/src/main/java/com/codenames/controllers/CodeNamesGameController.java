@@ -5,15 +5,18 @@ import com.codenames.dto.RoomDto;
 import com.codenames.enums.GameStatus;
 import com.codenames.enums.PlayerRole;
 import com.codenames.filters.method.AvailableRoomFilter;
+import com.codenames.filters.method.GameRunningFilter;
+import com.codenames.filters.method.SendMessageFilter;
+import com.codenames.filters.method.SkipGameTurnFilter;
 import com.codenames.filters.method.UserAuthorizedFilter;
-import com.codenames.models.for_game.AuthorizedUsers;
-import com.codenames.models.for_game.CodeNamesGame;
-import com.codenames.models.for_game.Player;
-import com.codenames.models.for_rooms.Room;
-import com.codenames.models.for_rooms.Settings;
-import com.codenames.models.for_game.User;
-import com.codenames.models.for_game.UserRoomSession;
-import com.codenames.services.GameRoomService;
+import com.codenames.models.forgame.AuthorizedUsers;
+import com.codenames.models.forgame.CodeNamesGame;
+import com.codenames.models.forgame.Player;
+import com.codenames.models.forooms.Room;
+import com.codenames.models.forooms.Settings;
+import com.codenames.models.forgame.User;
+import com.codenames.models.forgame.UserRoomSession;
+import com.codenames.services.RoomService;
 import com.codenames.services.GameService;
 import com.jjerome.annotations.SocketConnectMapping;
 import com.jjerome.annotations.SocketController;
@@ -40,7 +43,7 @@ public class CodeNamesGameController {
 
     private final GameService gameService;
 
-    private final GameRoomService gameRoomService;
+    private final RoomService gameRoomService;
 
     private final CodeNamesGame codeNamesGame;
 
@@ -58,18 +61,18 @@ public class CodeNamesGameController {
 
 
 
-    @SocketDisconnectMapping
-    public void disconnect(WebSocketSession session, CloseStatus status){
-        authorizedUsers.removeUserRoomSession(session.getId());
-    }
-
-
     @SocketConnectMapping
     public void userConnect(WebSocketSession session) {
         authorizedUsers.addUserRoomSession(session.getId(), -1, new User(100, "100", "random"));
 
         LOGGER.info(session.getId() + " - connected");
     }
+
+    @SocketDisconnectMapping
+    public void disconnect(WebSocketSession session, CloseStatus status){
+        authorizedUsers.removeUserRoomSession(session.getId());
+    }
+
 
 
     @SocketMapping(reqPath = "/room/connect")
@@ -78,7 +81,7 @@ public class CodeNamesGameController {
             AvailableRoomFilter.class
     })
     public void connectToRoom(Request<Integer> request){
-        Room room = codeNamesGame.getGameRoom(getUserRoomSession(request).getRoomID());
+        Room room = codeNamesGame.getGameRoom(request.getRequestBody());
         Player player = getUserRoomSession(request).getPlayer();
 
         gameRoomService.addUserToRoom(room, player);
@@ -109,7 +112,7 @@ public class CodeNamesGameController {
 
     @SocketMapping(reqPath = "/room/select/role")
     @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class
+            UserAuthorizedFilter.class,
     })
     public void selectRoomRole(Request<String> request){
         Room room = codeNamesGame.getGameRoom(getUserRoomSession(request).getRoomID());
@@ -117,6 +120,55 @@ public class CodeNamesGameController {
         PlayerRole playerRole = PlayerRole.convertToPlayerRole(request.getRequestBody());
 
         gameRoomService.selectRole(room, player, playerRole);
+
+        RoomDto roomDto = gameRoomService.getRoomInfo(room, player);
+        messageSender.send(request.getSessionID(), NEW_ROOM_INFO_PATH, roomDto);
+    }
+
+
+    @SocketMapping(reqPath = "/room/select/word")
+    @SocketMappingFilters(filters = {
+            UserAuthorizedFilter.class,
+            GameRunningFilter.class
+    })
+    public void selectWord(Request<Integer> request){
+        Room room = codeNamesGame.getGameRoom(getUserRoomSession(request).getRoomID());
+        Player player = getUserRoomSession(request).getPlayer();
+
+        gameRoomService.selectWord(room, player, request.getRequestBody());
+
+        RoomDto roomDto = gameRoomService.getRoomInfo(room, player);
+        messageSender.send(request.getSessionID(), NEW_ROOM_INFO_PATH, roomDto);
+    }
+
+
+    @SocketMapping(reqPath = "/room/endTurn")
+    @SocketMappingFilters(filters = {
+            UserAuthorizedFilter.class,
+            GameRunningFilter.class,
+            SkipGameTurnFilter.class
+    })
+    public void endTurn(Request<String> request){
+        Room room = codeNamesGame.getGameRoom(getUserRoomSession(request).getRoomID());
+        Player player = getUserRoomSession(request).getPlayer();
+
+        gameRoomService.skipTurn(room, player);
+
+        RoomDto roomDto = gameRoomService.getRoomInfo(room, player);
+        messageSender.send(request.getSessionID(), NEW_ROOM_INFO_PATH, roomDto);
+    }
+
+    @SocketMapping(reqPath = "/room/sendMassage")
+    @SocketMappingFilters(filters = {
+            UserAuthorizedFilter.class,
+            GameRunningFilter.class,
+            SendMessageFilter.class
+    })
+    public void sendMasterMassage(Request<String> request){
+        Room room = codeNamesGame.getGameRoom(getUserRoomSession(request).getRoomID());
+        Player player = getUserRoomSession(request).getPlayer();
+
+        gameRoomService.sendMessage(room, player, request.getRequestBody());
 
         RoomDto roomDto = gameRoomService.getRoomInfo(room, player);
         messageSender.send(request.getSessionID(), NEW_ROOM_INFO_PATH, roomDto);
@@ -137,18 +189,4 @@ public class CodeNamesGameController {
         messageSender.send(request.getSessionID(), NEW_ROOM_INFO_PATH, roomDto);
     }
 
-
-    @SocketMapping(reqPath = "/room/select/word")
-    @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class
-    })
-    public void selectWord(Request<Integer> request){
-        Room room = codeNamesGame.getGameRoom(getUserRoomSession(request).getRoomID());
-        Player player = getUserRoomSession(request).getPlayer();
-
-        gameRoomService.selectWord(room, player, request.getRequestBody());
-
-        RoomDto roomDto = gameRoomService.getRoomInfo(room, player);
-        messageSender.send(request.getSessionID(), NEW_ROOM_INFO_PATH, roomDto);
-    }
 }

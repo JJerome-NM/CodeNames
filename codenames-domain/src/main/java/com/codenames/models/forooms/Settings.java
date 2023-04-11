@@ -1,4 +1,4 @@
-package com.codenames.models.for_rooms;
+package com.codenames.models.forooms;
 
 import com.codenames.enums.Language;
 import com.codenames.enums.WordsSettings;

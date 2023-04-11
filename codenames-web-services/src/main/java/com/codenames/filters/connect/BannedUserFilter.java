@@ -1,8 +1,7 @@
 package com.codenames.filters.connect;
 
-import com.codenames.models.for_game.AuthorizedUsers;
-import com.codenames.models.for_game.CodeNamesGame;
-import com.codenames.models.for_game.User;
+import com.codenames.models.forgame.AuthorizedUsers;
+import com.codenames.models.forgame.CodeNamesGame;
 import com.codenames.services.GameService;
 import com.jjerome.filters.SocketConnectionFilter;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ public class BannedUserFilter implements SocketConnectionFilter {
 
     @Override
     public boolean doFilter(WebSocketSession session) {
-        User user = authorizedUsers.getUserRoomSession(session.getId()).getPlayer().user();
-        return gameService.checkUserBlocked(codeNamesGame, user);
+        return true;
     }
 }

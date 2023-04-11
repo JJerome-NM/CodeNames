@@ -1,7 +1,7 @@
 package com.codenames.services;
 
-import com.codenames.models.for_game.Player;
-import com.codenames.models.for_rooms.Team;
+import com.codenames.models.forgame.Player;
+import com.codenames.models.forooms.Team;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +20,10 @@ public class TeamService {
             }
         }
         return true;
+    }
+
+    public void addMessage(Team team, String message){
+        team.getMessages().add(message);
     }
 
     public void addUserToTeam(Team team, Player player){
@@ -55,6 +59,6 @@ public class TeamService {
     }
 
     public boolean playerRoleAvailable(Team team){
-        return true;
+        return team.getPlayers().size() < 10;
     }
 }

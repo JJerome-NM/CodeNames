@@ -1,8 +1,10 @@
 package com.codenames.filters.method;
 
-
+import com.codenames.enums.GameStatus;
+import com.codenames.models.forgame.AuthorizedUsers;
 import com.codenames.models.forgame.CodeNamesGame;
-import com.codenames.services.GameService;
+import com.codenames.models.forooms.Room;
+import com.codenames.services.RoomService;
 import com.jjerome.annotations.FilteringOrder;
 import com.jjerome.dto.Request;
 import com.jjerome.filters.SocketMethodFilter;
@@ -12,18 +14,21 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 @Component
-@RequiredArgsConstructor
 @FilteringOrder(order = 2)
-public class AvailableRoomFilter implements SocketMethodFilter {
+@RequiredArgsConstructor
+public class GameRunningFilter implements SocketMethodFilter {
 
     private final CodeNamesGame codeNamesGame;
 
-    private final GameService gameService;
+    private final RoomService roomService;
+
+    private final AuthorizedUsers authorizedUsers;
+
 
     @Override
     public boolean doFilter(WebSocketSession session, TextMessage message, Request<?> request) {
-        Integer roomID = (Integer) request.getRequestBody();
+        Room room = codeNamesGame.getGameRoom(authorizedUsers.getUserRoomSession(session.getId()).getRoomID());
 
-        return gameService.checkAvailabilityRoom(codeNamesGame, roomID);
+        return roomService.checkGameStatus(room, GameStatus.RUN);
     }
 }

@@ -1,32 +1,25 @@
 package com.codenames.services;
 
 import com.codenames.dto.RoomDto;
-import com.codenames.dto.UserDto;
-import com.codenames.dto.WordDto;
 import com.codenames.enums.GameStatus;
 import com.codenames.enums.GameTurn;
 import com.codenames.enums.PlayerRole;
-import com.codenames.models.for_game.Player;
-import com.codenames.models.for_rooms.Room;
-import com.codenames.models.for_rooms.Team;
+import com.codenames.mapper.RoomMapper;
+import com.codenames.models.forgame.Player;
+import com.codenames.models.forooms.Room;
+import com.codenames.models.forooms.Team;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class GameRoomService {
+public class RoomService {
 
     private final TeamService teamService;
 
     public RoomDto getRoomInfo(Room room, Player player){
-        List<UserDto> spectatorList = room.getSpectators().stream().map(spec -> spec.getUser().toUserDto()).toList();
-        List<WordDto> wordDtoList = room.getWords().stream().map(word -> word.toWordDto(player.getPlayerRole())).toList();
-
-        return new RoomDto(room.getStatus(), room.getBlueTeam().toTeamDto(), room.getYellowTeam().toTeamDto(),
-                spectatorList, wordDtoList, room.getSettings().getWordsSettings().getWordsCount(), room.getTimer().getTime());
+        return RoomMapper.roomToRoomDto(room, player);
     }
 
     public void changeGameStatus(Room room, Player player, GameStatus newStatus){
@@ -44,15 +37,20 @@ public class GameRoomService {
         generateGameWords(room);
 
         room.setStatus(GameStatus.RUN);
-        room.setGameTurn(GameTurn.BLUE_PLAYERS);
+        room.setGameTurn(GameTurn.BLUE_MASTER);
     }
 
     private void stopGame(Room room){
-
+        room.setStatus(GameStatus.STOPPED);
+        room.setGameTurn(null);
     }
 
     private void pauseGame(Room room){
+        room.setStatus(GameStatus.PAUSED);
+    }
 
+    public boolean checkGameStatus(Room room, GameStatus gameStatus){
+        return room.getStatus() == gameStatus;
     }
 
     private void generateGameWords(Room room){
@@ -60,26 +58,21 @@ public class GameRoomService {
         room.getWords().addAll(WordsService.generateRandomWords(room.getSettings()));
     }
 
-    public void selectWord(final Room room, Player player, int wordID){
-        final Map<Integer, List<Player>> selectedWords = room.getSelectedWords();
-        final GameTurn gameTurn = room.getGameTurn();
-
-        if (gameTurn.checkUserTurn(player.getPlayerRole())){
-            if (selectedWords.containsKey(wordID)){
-                selectedWords.get(wordID).add(player);
-            } else {
-                selectedWords.put(wordID, List.of(player));
-            }
-
-            if (gameTurn == GameTurn.BLUE_PLAYERS
-                    && teamService.compareTeamPlayers(room.getBlueTeam(), selectedWords.get(wordID))
-                    || gameTurn == GameTurn.YELLOW_PLAYERS
-                    && teamService.compareTeamPlayers(room.getYellowTeam(), selectedWords.get(wordID))) {
-                selectWord(room, wordID);
-            }
+    public void sendMessage(Room room, Player player, String message){
+        if (player.getPlayerRole() == PlayerRole.BLUE_MASTER){
+            teamService.addMessage(room.getBlueTeam(), message);
+        } else {
+            teamService.addMessage(room.getYellowTeam(), message);
         }
+
+        skipTurn(room, player);
     }
-    private void selectWord(Room room, int wordID){
+
+    public void skipTurn(Room room, Player player){
+        room.setGameTurn(room.getGameTurn().nextTurn());
+    }
+
+    public void selectWord(Room room, Player player, int wordID){
         room.getWords().forEach(word -> {
             if (word.getId() == wordID){
                 word.selectWord();

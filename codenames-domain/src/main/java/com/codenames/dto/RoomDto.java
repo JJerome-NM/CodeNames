@@ -1,6 +1,7 @@
 package com.codenames.dto;
 
 import com.codenames.enums.GameStatus;
+import com.codenames.enums.GameTurn;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,8 @@ import java.util.List;
 @Getter @Setter
 public class RoomDto {
     private GameStatus status;
+
+    private GameTurn gameTurn;
 
     private TeamDto blueTeam;
 

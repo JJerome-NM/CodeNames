@@ -3,8 +3,8 @@ package com.codenames.services;
 
 import com.codenames.enums.Color;
 import com.codenames.enums.Language;
-import com.codenames.models.for_rooms.Settings;
-import com.codenames.models.for_rooms.Word;
+import com.codenames.models.forooms.Settings;
+import com.codenames.models.forooms.Word;
 import com.codenames.utils.IntegerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

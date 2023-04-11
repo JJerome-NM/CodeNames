@@ -1,4 +1,4 @@
-package com.codenames.models.for_game;
+package com.codenames.models.forgame;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
