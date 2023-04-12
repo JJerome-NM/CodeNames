@@ -5,7 +5,6 @@ import com.codenames.enums.Color;
 import com.codenames.enums.Language;
 import com.codenames.models.forooms.Settings;
 import com.codenames.models.forooms.Word;
-import com.codenames.utils.IntegerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.function.BiConsumer;
 
 public class WordsService {
@@ -28,6 +28,9 @@ public class WordsService {
     private static final String RESOURCES_PATH = "codenames-domain/src/main/resources/";
 
     private static final String FILE_NAME = "game-words-";
+
+    private static final Random RANDOM = new Random();
+
 
     private static List<String> readWordsFile(Language language){
         List<String> words = new ArrayList<>();
@@ -53,7 +56,7 @@ public class WordsService {
         BiConsumer<Integer, Color> wordsRandomizer = (wordsCount, color) -> {
             int randWordIndex;
             for (int createdWordsCount = 0; createdWordsCount < wordsCount; createdWordsCount++){
-                randWordIndex = IntegerUtils.randInt(0, tempWords.size() - 1);
+                randWordIndex = RANDOM.nextInt(tempWords.size() - 1);
 
                 resultWords.add(new Word(randWordIndex, tempWords.get(randWordIndex), color));
 
@@ -66,7 +69,7 @@ public class WordsService {
         int blueTeamWordsCount;
         int yellowTeamWordsCount;
 
-        if (IntegerUtils.randInt(0, 100) > 50){
+        if (RANDOM.nextInt(100) > 50){
             blueTeamWordsCount = settings.getWordsSettings().getFirstTeamWordsCount();
             yellowTeamWordsCount = settings.getWordsSettings().getSecondTeamWordsCount();
         } else {

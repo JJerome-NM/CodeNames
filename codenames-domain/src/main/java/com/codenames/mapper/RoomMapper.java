@@ -9,12 +9,15 @@ import com.codenames.dto.UserDto;
 import com.codenames.dto.WordDto;
 import com.codenames.models.forgame.Player;
 import com.codenames.models.forooms.Room;
+//import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 //@Mapper
 public class RoomMapper {
 
+//    RoomMapper INSTANCE = Mappers.getMapper(RoomMapper.class);
+//
 //    @Mapping(target = "status", source = "room.status")
 //    @Mapping(target = "blueTeam", source = "room.blueTeam")
 //    @Mapping(target = "yellowTeam", source = "room.yellowTeam")

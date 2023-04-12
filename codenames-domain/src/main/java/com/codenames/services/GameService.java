@@ -5,10 +5,11 @@ import com.codenames.models.forgame.CodeNamesGame;
 import com.codenames.models.forgame.User;
 import com.codenames.models.forooms.Room;
 import com.codenames.models.forgame.Player;
-import com.codenames.utils.IntegerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
 
 @Service
 public class GameService {
@@ -51,7 +52,8 @@ public class GameService {
     }
 
     private int generateRoomID(CodeNamesGame codeNamesGame){
-        int newRoomId = IntegerUtils.randInt(MIN_ROOM_ID, MAX_ROOM_ID);
+        Random random = new Random();
+        int newRoomId = random.nextInt(MAX_ROOM_ID - MIN_ROOM_ID) + MIN_ROOM_ID;
         while (codeNamesGame.getGameRooms().containsKey(newRoomId)){
             newRoomId++;
         }

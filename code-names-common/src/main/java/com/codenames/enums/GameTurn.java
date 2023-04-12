@@ -13,11 +13,6 @@ public enum GameTurn {
     }
 
     public boolean checkUserTurn(PlayerRole playerRole){
-        GameTurn gameTurn = playerRole.toGameTurn();
-
-        if (gameTurn == null){
-            return false;
-        }
-        return this == gameTurn;
+        return this == playerRole.toGameTurn();
     }
 }

@@ -27,7 +27,9 @@
 
 
     <properties>
-        <java.version>20</java.version>
+        <maven.compiler.source>20</maven.compiler.source>
+        <maven.compiler.target>20</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
 
@@ -78,12 +80,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>5.7.1</version>
-        </dependency>
-
 <!--        <dependency>-->
 <!--            <groupId>org.mapstruct</groupId>-->
 <!--            <artifactId>mapstruct</artifactId>-->
@@ -110,8 +106,8 @@
 <!--                <artifactId>maven-compiler-plugin</artifactId>-->
 <!--                <version>3.5.1</version>-->
 <!--                <configuration>-->
-<!--                    <source>1.8</source>-->
-<!--                    <target>1.8</target>-->
+<!--                    <source>${java.version}</source>-->
+<!--                    <target>${java.version}</target>-->
 <!--                    <annotationProcessorPaths>-->
 <!--                        <path>-->
 <!--                            <groupId>org.mapstruct</groupId>-->

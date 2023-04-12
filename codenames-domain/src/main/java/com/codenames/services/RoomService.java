@@ -20,6 +20,7 @@ public class RoomService {
 
     public RoomDto getRoomInfo(Room room, Player player){
         return RoomMapper.roomToRoomDto(room, player);
+//        return RoomMapper.INSTANCE.roomToRoomDto(room);
     }
 
     public void changeGameStatus(Room room, Player player, GameStatus newStatus){

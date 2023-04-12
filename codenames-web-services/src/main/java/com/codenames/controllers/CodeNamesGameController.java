@@ -6,6 +6,7 @@ import com.codenames.enums.GameStatus;
 import com.codenames.enums.PlayerRole;
 import com.codenames.filters.method.AvailableRoomFilter;
 import com.codenames.filters.method.GameRunningFilter;
+import com.codenames.filters.method.SelectWordAvailableFilter;
 import com.codenames.filters.method.SendMessageFilter;
 import com.codenames.filters.method.SkipGameTurnFilter;
 import com.codenames.filters.method.UserAuthorizedFilter;
@@ -129,7 +130,8 @@ public class CodeNamesGameController {
     @SocketMapping(reqPath = "/room/select/word")
     @SocketMappingFilters(filters = {
             UserAuthorizedFilter.class,
-            GameRunningFilter.class
+            GameRunningFilter.class,
+            SelectWordAvailableFilter.class
     })
     public void selectWord(Request<Integer> request){
         Room room = codeNamesGame.getGameRoom(getUserRoomSession(request).getRoomID());
