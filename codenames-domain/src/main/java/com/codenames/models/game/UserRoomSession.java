@@ -1,4 +1,4 @@
-package com.codenames.models.forgame;
+package com.codenames.models.game;
 
 
 import lombok.AllArgsConstructor;

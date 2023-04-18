@@ -1,25 +1,21 @@
 package com.codenames.mapper;
 
 import com.codenames.dto.TeamDto;
-import com.codenames.dto.UserDto;
-import com.codenames.models.forooms.Team;
-//import org.mapstruct.Mapper;
-//import org.mapstruct.Mapping;
-//import org.mapstruct.factory.Mappers;
+import com.codenames.models.room.Team;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
-import java.util.List;
+@Mapper
+public interface TeamMapper {
 
-//@Mapper
-public class TeamMapper {
+    TeamMapper INSTANCE = Mappers.getMapper(TeamMapper.class);
 
-//    TeamMapper INSTANCE = Mappers.getMapper(TeamMapper.class);
+    PlayerMapper PLAYER_MAPPER = Mappers.getMapper(PlayerMapper.class);
 
-//    TeamDto teamToTeamDto(Team team);
 
-    public static TeamDto teamToTeamDto(Team team){
-        UserDto masterDto = team.getMaster() == null ? null : UserMapper.userToRoomDto(team.getMaster().getUser());
-        List<UserDto> playersDtoList = UserMapper.usersToUserDtoList(team.getPlayers());
+    @Mapping(target = "master", expression = "java(PLAYER_MAPPER.playerToUserDto(team.getMaster()))")
+    @Mapping(target = "players", expression = "java(PLAYER_MAPPER.playerListToUserDtoList(team.getPlayersList()))")
+    TeamDto teamToTeamDto(Team team);
 
-        return new TeamDto(team.getColor(), team.getScore(), masterDto, playersDtoList, team.getMessages());
-    }
 }

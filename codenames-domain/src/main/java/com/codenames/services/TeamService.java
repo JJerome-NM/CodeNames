@@ -1,7 +1,7 @@
 package com.codenames.services;
 
-import com.codenames.models.forgame.Player;
-import com.codenames.models.forooms.Team;
+import com.codenames.models.game.Player;
+import com.codenames.models.room.Team;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

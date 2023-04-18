@@ -1,4 +1,4 @@
-package com.codenames.models.forgame;
+package com.codenames.models.game;
 
 import com.codenames.enums.PlayerRole;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package com.codenames.filters.connect;
 
-import com.codenames.models.forgame.AuthorizedUsers;
-import com.codenames.models.forgame.CodeNamesGame;
+import com.codenames.models.game.AuthorizedUsers;
+import com.codenames.models.game.CodeNamesGame;
 import com.codenames.services.GameService;
 import com.jjerome.filters.SocketConnectionFilter;
 import lombok.RequiredArgsConstructor;

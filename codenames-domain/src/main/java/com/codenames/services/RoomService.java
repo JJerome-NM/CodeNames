@@ -5,9 +5,9 @@ import com.codenames.enums.GameStatus;
 import com.codenames.enums.GameTurn;
 import com.codenames.enums.PlayerRole;
 import com.codenames.mapper.RoomMapper;
-import com.codenames.models.forgame.Player;
-import com.codenames.models.forooms.Room;
-import com.codenames.models.forooms.Team;
+import com.codenames.models.game.Player;
+import com.codenames.models.room.Room;
+import com.codenames.models.room.Team;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +18,10 @@ public class RoomService {
 
     private final TeamService teamService;
 
+    private final WordsService wordsService;
+
     public RoomDto getRoomInfo(Room room, Player player){
-        return RoomMapper.roomToRoomDto(room, player);
-//        return RoomMapper.INSTANCE.roomToRoomDto(room);
+        return RoomMapper.INSTANCE.roomToRoomDto(room, player);
     }
 
     public void changeGameStatus(Room room, Player player, GameStatus newStatus){
@@ -56,7 +57,7 @@ public class RoomService {
 
     private void generateGameWords(Room room){
         room.getWords().clear();
-        room.getWords().addAll(WordsService.generateRandomWords(room.getSettings()));
+        room.getWords().addAll(wordsService.generateRandomWords(room.getSettings()));
     }
 
     public void sendMessage(Room room, Player player, String message){
@@ -76,7 +77,7 @@ public class RoomService {
     public void selectWord(Room room, Player player, int wordID){
         room.getWords().forEach(word -> {
             if (word.getId() == wordID){
-                word.selectWord();
+                word.setHidden(false);
             }
         });
         room.getSelectedWords().clear();

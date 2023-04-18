@@ -1,7 +1,7 @@
-package com.codenames.models.forooms;
+package com.codenames.models.room;
 
 import com.codenames.enums.Color;
-import com.codenames.models.forgame.Player;
+import com.codenames.models.game.Player;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -24,4 +24,8 @@ public class Team {
     private final Map<Integer, Player> players = new HashMap<>();
 
     private final List<String> messages = new ArrayList<>();
+
+    public List<Player> getPlayersList(){
+        return players.values().stream().toList();
+    }
 }

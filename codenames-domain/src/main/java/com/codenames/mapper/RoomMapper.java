@@ -1,43 +1,32 @@
 package com.codenames.mapper;
 
-//import org.mapstruct.Mapper;
-//import org.mapstruct.Mapping;
+import com.codenames.models.game.Player;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import com.codenames.dto.RoomDto;
-import com.codenames.dto.TeamDto;
-import com.codenames.dto.UserDto;
-import com.codenames.dto.WordDto;
-import com.codenames.models.forgame.Player;
-import com.codenames.models.forooms.Room;
-//import org.mapstruct.factory.Mappers;
+import com.codenames.models.room.Room;
+import org.mapstruct.factory.Mappers;
 
-import java.util.List;
 
-//@Mapper
-public class RoomMapper {
+@Mapper
+public interface RoomMapper {
 
-//    RoomMapper INSTANCE = Mappers.getMapper(RoomMapper.class);
-//
-//    @Mapping(target = "status", source = "room.status")
-//    @Mapping(target = "blueTeam", source = "room.blueTeam")
-//    @Mapping(target = "yellowTeam", source = "room.yellowTeam")
-//    @Mapping(target = "spectators", source = "room.spectators")
-//    @Mapping(target = "words", source = "room.words")
-//    @Mapping(target = "wordCount", source = "room.wordCount")
-//    @Mapping(target = "timer", source = "room.timer.getTime")
-//    RoomDto roomToRoomDto(Room room);
+    RoomMapper INSTANCE = Mappers.getMapper(RoomMapper.class);
 
-    public static RoomDto roomToRoomDto(Room room, Player player){
-        TeamDto blueTeamDto = TeamMapper.teamToTeamDto(room.getBlueTeam());
-        TeamDto yellowTeamDto = TeamMapper.teamToTeamDto(room.getYellowTeam());
-        List<UserDto> spectatorsDtoList = UserMapper.usersToUserDtoList(room.getSpectators().stream()
-                .map(Player::getUser).toList());
-        List<WordDto> wordDtoList = WordsMapper.wordsToWordsDtoList(room.getWords(), player);
+    TeamMapper TEAM_MAPPER = Mappers.getMapper(TeamMapper.class);
 
-        int wordsCount = room.getSettings().getWordsSettings().getWordsCount();
+    PlayerMapper PLAYER_MAPPER = Mappers.getMapper(PlayerMapper.class);
 
-        return new RoomDto(room.getStatus(), room.getGameTurn(), blueTeamDto, yellowTeamDto, spectatorsDtoList,
-                wordDtoList, wordsCount, room.getTimer().getTime());
-    }
+    WordsMapper WORDS_MAPPER = Mappers.getMapper(WordsMapper.class);
+
+
+    @Mapping(target = "blueTeam", expression = "java(TEAM_MAPPER.teamToTeamDto(room.getBlueTeam()))")
+    @Mapping(target = "yellowTeam", expression = "java(TEAM_MAPPER.teamToTeamDto(room.getYellowTeam()))")
+    @Mapping(target = "spectators", expression = "java(PLAYER_MAPPER.playerListToUserDtoList(room.getSpectators()))")
+    @Mapping(target = "words", expression = "java(WORDS_MAPPER.wordsListToWordsDtoList(room.getWords(), player))")
+    @Mapping(target = "wordCount", expression = "java(room.getWords().size())")
+    @Mapping(target = "timer", expression = "java(room.getTimer().getTime())")
+    RoomDto roomToRoomDto(Room room, Player player);
 
 }

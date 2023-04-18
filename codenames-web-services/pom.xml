@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.jjerome</groupId>
         <artifactId>codenames</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <groupId>com.codenames</groupId>
@@ -22,12 +22,12 @@
         <dependency>
             <groupId>com.codenames</groupId>
             <artifactId>code-names-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>com.jjerome</groupId>
             <artifactId>codenames-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

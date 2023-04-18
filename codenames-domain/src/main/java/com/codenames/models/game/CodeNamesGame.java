@@ -1,6 +1,6 @@
-package com.codenames.models.forgame;
+package com.codenames.models.game;
 
-import com.codenames.models.forooms.Room;
+import com.codenames.models.room.Room;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,6 +15,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Getter
 public class CodeNamesGame {
+
+    // TODO: 18.04.2023  bannedUsers - will be taken from the database at the moment it is a temporary variable
 
     private final List<User> bannedUsers = new ArrayList<>();
 

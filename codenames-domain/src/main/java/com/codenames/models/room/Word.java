@@ -1,8 +1,6 @@
-package com.codenames.models.forooms;
+package com.codenames.models.room;
 
-import com.codenames.dto.WordDto;
 import com.codenames.enums.Color;
-import com.codenames.enums.PlayerRole;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +16,7 @@ public class Word {
 
     private boolean hidden = true;
 
-    public void selectWord(){
-        this.hidden = false;
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 }

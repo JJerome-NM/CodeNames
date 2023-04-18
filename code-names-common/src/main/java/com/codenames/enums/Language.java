@@ -9,5 +9,5 @@ public enum Language {
     UA("ua"),
     EN("en");
 
-    private final String strType;
+    private final String languageCode;
 }

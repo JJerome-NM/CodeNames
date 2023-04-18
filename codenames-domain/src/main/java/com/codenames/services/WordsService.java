@@ -3,10 +3,13 @@ package com.codenames.services;
 
 import com.codenames.enums.Color;
 import com.codenames.enums.Language;
-import com.codenames.models.forooms.Settings;
-import com.codenames.models.forooms.Word;
+import com.codenames.models.room.Settings;
+import com.codenames.models.room.Word;
+import com.codenames.properties.WordsProperties;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,25 +20,21 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
+@Service
+@RequiredArgsConstructor
 public class WordsService {
-
-    private WordsService() throws IllegalAccessException {
-        throw new IllegalAccessException("Service class");
-    }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WordsService.class);
 
-    private static final String RESOURCES_PATH = "codenames-domain/src/main/resources/";
+    private final Random random = new Random();
 
-    private static final String FILE_NAME = "game-words-";
-
-    private static final Random RANDOM = new Random();
+    private final WordsProperties wordsProperties;
 
 
-    private static List<String> readWordsFile(Language language){
+    private List<String> readWordsFile(Language language){
         List<String> words = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(
-                RESOURCES_PATH + FILE_NAME + language.getStrType() + ".txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(wordsProperties.getResourcesPath()
+                + wordsProperties.getFileName() + language.getLanguageCode() + ".txt"))) {
 
             String line;
             while((line = reader.readLine()) != null){
@@ -49,14 +48,14 @@ public class WordsService {
         return words;
     }
 
-    public static List<Word> generateRandomWords(Settings settings){
+    public List<Word> generateRandomWords(Settings settings){
         List<String> tempWords = readWordsFile(settings.getLanguage());
         List<Word> resultWords = new ArrayList<>();
 
         BiConsumer<Integer, Color> wordsRandomizer = (wordsCount, color) -> {
             int randWordIndex;
             for (int createdWordsCount = 0; createdWordsCount < wordsCount; createdWordsCount++){
-                randWordIndex = RANDOM.nextInt(tempWords.size() - 1);
+                randWordIndex = random.nextInt(tempWords.size() - 1);
 
                 resultWords.add(new Word(randWordIndex, tempWords.get(randWordIndex), color));
 
@@ -69,7 +68,7 @@ public class WordsService {
         int blueTeamWordsCount;
         int yellowTeamWordsCount;
 
-        if (RANDOM.nextInt(100) > 50){
+        if (random.nextInt(100) > 50){
             blueTeamWordsCount = settings.getWordsSettings().getFirstTeamWordsCount();
             yellowTeamWordsCount = settings.getWordsSettings().getSecondTeamWordsCount();
         } else {

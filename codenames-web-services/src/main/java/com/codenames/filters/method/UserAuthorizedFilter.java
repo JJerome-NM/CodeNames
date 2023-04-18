@@ -1,6 +1,6 @@
 package com.codenames.filters.method;
 
-import com.codenames.models.forgame.AuthorizedUsers;
+import com.codenames.models.game.AuthorizedUsers;
 import com.jjerome.annotations.FilteringOrder;
 import com.jjerome.dto.Request;
 import com.jjerome.filters.SocketMethodFilter;

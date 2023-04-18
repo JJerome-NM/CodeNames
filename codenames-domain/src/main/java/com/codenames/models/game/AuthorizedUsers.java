@@ -1,4 +1,4 @@
-package com.codenames.models.forgame;
+package com.codenames.models.game;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -10,6 +10,8 @@ import java.util.Map;
 @Data
 public class AuthorizedUsers {
 
+    // TODO: 18.04.2023  This class will be reworked
+    
     private final Map<String, UserRoomSession> authorizedUsers = new HashMap<>();
 
     public UserRoomSession getUserRoomSession(String sessionID){

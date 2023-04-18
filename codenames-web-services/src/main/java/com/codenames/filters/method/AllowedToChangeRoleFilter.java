@@ -1,9 +1,9 @@
 package com.codenames.filters.method;
 
 import com.codenames.enums.PlayerRole;
-import com.codenames.models.forgame.AuthorizedUsers;
-import com.codenames.models.forgame.CodeNamesGame;
-import com.codenames.models.forooms.Room;
+import com.codenames.models.game.AuthorizedUsers;
+import com.codenames.models.game.CodeNamesGame;
+import com.codenames.models.room.Room;
 import com.codenames.services.RoomService;
 import com.jjerome.dto.Request;
 import com.jjerome.filters.SocketMethodFilter;

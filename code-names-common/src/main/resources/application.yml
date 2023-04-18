@@ -1,0 +1,8 @@
+
+
+default-messages-paths:
+  new-room-info-path: /room/new/info
+
+codenames-game:
+  min-room-id: 100000
+  max-room-id: 1000000

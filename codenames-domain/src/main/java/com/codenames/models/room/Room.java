@@ -1,7 +1,7 @@
-package com.codenames.models.forooms;
+package com.codenames.models.room;
 
-import com.codenames.models.forgame.Player;
-import com.codenames.models.forgame.User;
+import com.codenames.models.game.Player;
+import com.codenames.models.game.User;
 import com.codenames.enums.Color;
 import com.codenames.enums.GameTurn;
 import com.codenames.enums.GameStatus;
@@ -47,5 +47,9 @@ public class Room {
         this.roomAdminID = roomAdmin.getUser().id();
 
         this.spectators.add(roomAdmin);
+    }
+
+    public int getWordsCount(){
+        return this.words.size();
     }
 }
