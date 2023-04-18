@@ -5,14 +5,11 @@ import com.codenames.models.game.Player;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 @Mapper
 public interface PlayerMapper {
-
-    PlayerMapper INSTANCE = Mappers.getMapper(PlayerMapper.class);
 
     @Mapping(target = "id", expression = "java(player.getUser().id())")
     @Mapping(target = "nickname", expression = "java(player.getUser().nickname())")

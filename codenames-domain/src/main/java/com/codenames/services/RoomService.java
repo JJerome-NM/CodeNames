@@ -9,6 +9,7 @@ import com.codenames.models.game.Player;
 import com.codenames.models.room.Room;
 import com.codenames.models.room.Team;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 
@@ -20,8 +21,10 @@ public class RoomService {
 
     private final WordsService wordsService;
 
+    private final RoomMapper roomMapper = Mappers.getMapper(RoomMapper.class);
+
     public RoomDto getRoomInfo(Room room, Player player){
-        return RoomMapper.INSTANCE.roomToRoomDto(room, player);
+        return roomMapper.roomToRoomDto(room, player);
     }
 
     public void changeGameStatus(Room room, Player player, GameStatus newStatus){

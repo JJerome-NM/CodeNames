@@ -9,9 +9,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(uses = {PlayerMapper.class})
 public interface TeamMapper {
 
-    TeamMapper INSTANCE = Mappers.getMapper(TeamMapper.class);
-
-
     @Mapping(target = "players", expression = "java(playerMapper.playerListToUserDtoList(team.getPlayersList()))")
     TeamDto teamToTeamDto(Team team);
 
