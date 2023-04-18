@@ -10,6 +10,7 @@ import org.springframework.web.socket.WebSocketSession;
 public class UserBannedConnectFilter implements SocketConnectionFilter {
     @Override
     public boolean doFilter(WebSocketSession session) {
+        // TODO: 18.04.2023 Temporarily empty method it will be finalized
         return true;
     }
 }

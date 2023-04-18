@@ -18,6 +18,7 @@ public class UserAuthorizedFilter implements SocketMethodFilter {
 
     @Override
     public boolean doFilter(WebSocketSession session, TextMessage message, Request<?> request) {
+        // TODO: 18.04.2023 Temporarily empty method it will be finalized
         return true;
     }
 }

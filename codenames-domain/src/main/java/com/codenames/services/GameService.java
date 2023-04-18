@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class GameService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
@@ -36,20 +36,26 @@ public class GameService {
 
     private final DefaultMessagePathProperties defaultMessagePathProperties;
 
-    private int minRoomID;
+    private final int minRoomID;
 
-    private int maxRoomID;
+    private final int maxRoomID;
 
-    private int roomLimit;
+    private final int roomLimit;
 
-    @PostConstruct
-    public void initialization(){
+    public GameService(CodeNamesGameProperties gameProperties,
+                       MessageSender messageSender,
+                       PlayerService playerService,
+                       RoomService roomService,
+                       DefaultMessagePathProperties defaultMessagePathProperties) {
+        this.gameProperties = gameProperties;
+        this.messageSender = messageSender;
+        this.playerService = playerService;
+        this.roomService = roomService;
+        this.defaultMessagePathProperties = defaultMessagePathProperties;
         this.minRoomID = gameProperties.getMinRoomId();
         this.maxRoomID = gameProperties.getMaxRoomId();
-
-        roomLimit = maxRoomID - minRoomID;
+        this.roomLimit = maxRoomID - minRoomID;
     }
-
 
     public boolean checkAvailabilityRoom(CodeNamesGame codeNamesGame, int roomID){
         return codeNamesGame.getGameRooms().containsKey(roomID);

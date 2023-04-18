@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface PlayerMapper {
 
-    TeamMapper INSTANCE = Mappers.getMapper(TeamMapper.class);
+    PlayerMapper INSTANCE = Mappers.getMapper(PlayerMapper.class);
 
     @Mapping(target = "id", expression = "java(player.getUser().id())")
     @Mapping(target = "nickname", expression = "java(player.getUser().nickname())")
