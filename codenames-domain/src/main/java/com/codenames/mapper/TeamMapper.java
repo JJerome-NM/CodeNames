@@ -6,10 +6,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {PlayerMapper.class})
-public interface TeamMapper {
+@Mapper(
+        uses = {PlayerMapper.class},
+        componentModel = "spring"
+)
+public abstract class TeamMapper {
 
     @Mapping(target = "players", expression = "java(playerMapper.playerListToUserDtoList(team.getPlayersList()))")
-    TeamDto teamToTeamDto(Team team);
+    public abstract TeamDto teamToTeamDto(Team team);
 
 }

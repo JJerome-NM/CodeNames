@@ -13,21 +13,21 @@ import org.mapstruct.Named;
 import java.util.List;
 
 
-@Mapper
-public interface WordsMapper {
+@Mapper(componentModel = "spring")
+public abstract class WordsMapper {
 
     @Named("wordToWordDto")
     @Mapping(target = "color", expression = "java(this.getWordColor(word, player))")
-    WordDto wordToWordDto(Word word, Player player);
+    public abstract WordDto wordToWordDto(Word word, Player player);
 
-    default Color getWordColor(Word word, Player player){
+    Color getWordColor(Word word, Player player){
         return player.getPlayerRole() == PlayerRole.BLUE_MASTER
                 || player.getPlayerRole() == PlayerRole.YELLOW_MASTER
                 ? word.getColor() : Color.DEFAULT;
     }
 
     @IterableMapping(elementTargetType = WordDto.class)
-    default List<WordDto> wordsListToWordsDtoList(List<Word> words, Player player){
+    List<WordDto> wordsListToWordsDtoList(List<Word> words, Player player){
         return words.stream()
                 .map(word -> this.wordToWordDto(word, player))
                 .toList();

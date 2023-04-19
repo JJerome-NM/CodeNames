@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.codenames</groupId>
-            <artifactId>code-names-common</artifactId>
+            <artifactId>codenames-common</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>

@@ -20,7 +20,7 @@
 
     <modules>
         <module>codenames-domain</module>
-        <module>code-names-common</module>
+        <module>codenames-common</module>
         <module>codenames-web-services</module>
     </modules>
 

@@ -8,13 +8,13 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper
-public interface PlayerMapper {
+@Mapper(componentModel = "spring")
+public abstract class PlayerMapper {
 
     @Mapping(target = "id", expression = "java(player.getUser().id())")
     @Mapping(target = "nickname", expression = "java(player.getUser().nickname())")
-    UserDto playerToUserDto(Player player);
+    public abstract UserDto playerToUserDto(Player player);
 
     @IterableMapping(elementTargetType = UserDto.class)
-    List<UserDto> playerListToUserDtoList(List<Player> players);
+    public abstract List<UserDto> playerListToUserDtoList(List<Player> players);
 }

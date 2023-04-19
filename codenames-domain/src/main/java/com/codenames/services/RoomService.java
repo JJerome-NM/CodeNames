@@ -21,7 +21,7 @@ public class RoomService {
 
     private final WordsService wordsService;
 
-    private final RoomMapper roomMapper = Mappers.getMapper(RoomMapper.class);
+    private final RoomMapper roomMapper;
 
     public RoomDto getRoomInfo(Room room, Player player){
         return roomMapper.roomToRoomDto(room, player);
