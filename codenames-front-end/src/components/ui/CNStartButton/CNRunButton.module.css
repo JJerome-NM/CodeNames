@@ -1,0 +1,14 @@
+
+
+
+.RunButton{
+    --btn-size: 30px;
+
+    width: var(--btn-size);
+    height: var(--btn-size);
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

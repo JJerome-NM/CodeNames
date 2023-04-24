@@ -1,0 +1,18 @@
+
+.CNDefaultBtn{
+    min-width: 100px;
+
+    padding: 3px 40px;
+
+    font-family: 'Roboto Thin', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 26px;
+
+    color: #FFFFFF;
+
+    border: none;
+    border-radius: 10px;
+
+    background-color: rgba(0, 0, 0, .5);
+}

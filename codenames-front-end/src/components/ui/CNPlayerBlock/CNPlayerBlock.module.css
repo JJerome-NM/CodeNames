@@ -1,0 +1,42 @@
+
+.TeamPlayersBlock{
+    display: inline-block;
+}
+
+.TeamPlayerLabel{
+    display: flex;
+    width: max-content;
+
+    margin-bottom: 5px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 35px;
+}
+
+.JoinButton{
+    margin-left: 10px;
+
+    color: #ffffff;
+    font-size: 25px;
+
+    border: none;
+    border-bottom: 2px solid #ffffff;
+
+
+    background: none;
+}
+
+.Blue{
+    color: var(--cn-blue)
+}
+
+.Yellow{
+    color: var(--cn-yellow);
+}
+
+.TeamPlayers{
+    list-style: none;
+}

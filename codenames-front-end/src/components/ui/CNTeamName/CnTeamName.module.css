@@ -1,0 +1,25 @@
+
+
+.TeamName{
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 35px;
+}
+
+
+.Blue{
+    color: var(--cn-blue)
+}
+
+.Yellow{
+    color: var(--cn-yellow);
+}

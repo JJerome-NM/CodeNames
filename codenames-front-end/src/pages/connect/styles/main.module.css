@@ -1,0 +1,36 @@
+
+
+.main{
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Roboto Light", sans-serif;
+}
+
+.myForm{
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    width: min-content;
+    height: min-content;
+
+    padding: 50px;
+
+    border-radius: 25px;
+
+    background: rgba(0, 0, 0, 0.65);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+}
+
+.Button{
+    margin-top: 20px;
+}
