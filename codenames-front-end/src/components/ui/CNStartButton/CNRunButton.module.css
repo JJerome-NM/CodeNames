@@ -7,8 +7,16 @@
     width: var(--btn-size);
     height: var(--btn-size);
 
+    border-radius: 8px;
+
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    transition: ease .2s;
+}
+
+.RunButton:hover{
+    background-color: rgba(55, 55, 55, 0.3);
 }

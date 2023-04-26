@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 
-import cl from "./styles/main.module.css"
+import css from "./styles/main.module.css"
 
 import BlueYellowBg from "../../components/ui/BlueYellowBG/BlueYellowBG";
 import CNDefaultInput from "../../components/ui/CNDefaultInput/CNDefaultInput";
@@ -27,9 +27,9 @@ const Connect: FC = () => {
     }
 
     return (
-        <div className={cl.main}>
+        <div className={css.main}>
             <form
-                className={cl.myForm}
+                className={css.myForm}
                 onSubmit={tryConnectToRoom}
             >
                 <CNDefaultInput
@@ -38,7 +38,7 @@ const Connect: FC = () => {
                     type="number"
                     placeholder="Write room id"
                 />
-                <CNDefaultBtn className={cl.Button}>Connect</CNDefaultBtn>
+                <CNDefaultBtn className={css.Button}>Connect</CNDefaultBtn>
             </form>
 
             <BlueYellowBg/>

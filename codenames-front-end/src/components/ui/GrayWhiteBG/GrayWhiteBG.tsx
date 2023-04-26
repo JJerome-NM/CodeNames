@@ -13,9 +13,9 @@ interface GrayYellowBgProps{
 const GrayYellowBg: FC<GrayYellowBgProps> = ({className, ...props}) => {
     return (
         <div {...props} className={[cl.bg, className].join(" ")}>
-            <img className={cl.bg__image} src={darkBgImage} alt="dark bg image"/>
-            <img className={cl.bg__image} src={whiteBgImage} alt="white bg image"/>
-            <img className={cl.bg__image} src={grayBgImage} alt="gray bg image"/>
+            <img className={cl.bg__image} src={darkBgImage} alt="dark bg"/>
+            <img className={cl.bg__image} src={whiteBgImage} alt="white bg"/>
+            <img className={cl.bg__image} src={grayBgImage} alt="gray bg"/>
         </div>
     );
 };

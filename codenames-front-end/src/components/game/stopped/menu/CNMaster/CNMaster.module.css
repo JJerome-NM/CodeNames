@@ -19,15 +19,27 @@
 }
 
 .SelectButton{
-
     color: #ffffff;
     font-size: 25px;
+
+    user-select: none;
 
     border: none;
     border-bottom: 2px solid #ffffff;
 
+    transition: ease .2s;
 
     background: none;
+}
+
+.SelectButtonBlue:hover{
+    color: var(--cn-blue);
+    border-bottom: 2px solid var(--cn-blue);
+}
+
+.SelectButtonYellow:hover{
+    color: var(--cn-yellow);
+    border-bottom: 2px solid var(--cn-yellow);
 }
 
 .Blue{

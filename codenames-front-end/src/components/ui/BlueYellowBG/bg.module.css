@@ -1,17 +1,12 @@
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
 .bg{
     position: absolute;
     top: 0;
     left: 0;
 
     z-index: -1;
+
+    overflow: hidden;
 
     min-height: 100vh;
     min-width: 100vw;

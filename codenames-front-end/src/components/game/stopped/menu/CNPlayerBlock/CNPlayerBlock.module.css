@@ -17,6 +17,8 @@
 }
 
 .JoinButton{
+    user-select: none;
+
     margin-left: 10px;
 
     color: #ffffff;
@@ -25,8 +27,19 @@
     border: none;
     border-bottom: 2px solid #ffffff;
 
+    transition: ease .2s;
 
     background: none;
+}
+
+.Blue .JoinButton:hover{
+    color: var(--cn-blue);
+    border-bottom: 2px solid var(--cn-blue);
+}
+
+.Yellow .JoinButton:hover{
+    color: var(--cn-yellow);
+    border-bottom: 2px solid var(--cn-yellow);
 }
 
 .Blue{

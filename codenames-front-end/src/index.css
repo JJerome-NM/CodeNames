@@ -5,11 +5,21 @@
   --cn-blue: #2858FF;
   --cn-yellow: #FFCD1C;
 
+  --words-width: 170px;
+  --words-default-color: #DDC4BA;
+
   font-family: "Roboto", sans-serif;
+
+  padding: 0;
+  margin: 0;
+}
+
+*::selection{
+  background-color: #0c0c0c;
+  color: #c90000;
 }
 
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

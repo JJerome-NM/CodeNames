@@ -1,4 +1,7 @@
 import WebSocketRequest from "../models/WebSocketRequest";
+import {IGameRoom} from "../models/IGameRoom";
+import WebSocketResponse from "../models/WebSocketResponse";
+import {Color} from "../models/Color";
 
 
 class CodeNameGameService {
@@ -9,43 +12,81 @@ class CodeNameGameService {
 
     private roomId: number;
 
-    constructor(roomID?: number) {
-        this.socket = new WebSocket("ws://localhost:8080/socket");
-        this.roomId = roomID ? roomID : -1;
+    private onNewRoomInfo: (newInfo: IGameRoom) => void;
 
-        this.socket.onopen = this.onConnect.bind(this);
-        this.socket.onmessage = this.onMessage.bind(this);
-        this.socket.onclose = this.onClose.bind(this);
-        this.socket.onerror = this.onError.bind(this);
+    private onConnect: () => void;
+
+    constructor(
+        onNewRoomInfo: (newInfo: IGameRoom) => void,
+        onConnect: () => void
+    ) {
+        this.socket = new WebSocket("ws://localhost:8080/socket");
+        this.roomId = -1;
+
+        this.onNewRoomInfo = onNewRoomInfo.bind(this);
+        this.onConnect = onConnect.bind(this);
+
+        this.socket.onopen = this.onConnectEvent.bind(this);
+        this.socket.onmessage = this.onMessageEvent.bind(this);
+        this.socket.onclose = this.onCloseEvent.bind(this);
+        this.socket.onerror = this.onErrorEvent.bind(this);
     }
 
-    private onConnect(event: Event) {
+    private onConnectEvent(event: Event) {
         this.isConnected = true;
+        this.onConnect();
 
         console.log("connected")
     }
 
-    private onMessage(message: MessageEvent) {
-        console.log(JSON.parse(message.data))
+    private onMessageEvent(message: MessageEvent) {
+        const messageData: WebSocketResponse<IGameRoom> = JSON.parse(message.data)
+
+        console.log(messageData.responsePath)
+
+        if (messageData.responsePath === "/GameRoom/new/info"){
+            this.onNewRoomInfo(messageData.responseBody)
+        }
+
     }
 
-    private onClose(event: Event) {
+    private onCloseEvent(event: Event) {
         console.log("Close")
     }
 
-    private onError(error: Event) {
+    private onErrorEvent(error: Event) {
         console.log(error)
+    }
+
+    private sendRequest(requestPath: string, requestBody: any){
+        this.socket.send(new WebSocketRequest(requestPath, requestBody).toJson());
     }
 
     public createRoom(){
         console.log(`create room - ${this.isConnected}`)
         if (this.isConnected){
-            this.socket.send(new WebSocketRequest("/room/create", "").toJson());
+            this.sendRequest("/room/create", "");
         }
     }
 
+    public startGame(){
+        this.sendRequest("/room/admin/start", {})
+    }
+
+    public joinToSpectator(){
+        this.sendRequest("/room/select/role", '')
+    }
+
+    public selectMaster(team: Color.BLUE | Color.YELLOW){
+        this.sendRequest("/room/select/role", `${team}_MASTER`)
+    }
+
+    public joinToTeam(team: Color.BLUE | Color.YELLOW){
+        this.sendRequest("/room/select/role", `${team}_PLAYER`)
+    }
+
     public connectToRoom(){
-        this.socket.send(new WebSocketRequest("/room/connect", this.roomId).toJson())
+        this.sendRequest("/room/connect", this.roomId)
     }
 }
 

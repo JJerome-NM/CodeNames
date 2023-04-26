@@ -6,6 +6,7 @@ import {IWord} from "./IWord";
 
 
 export interface IGameRoom{
+    id: number;
     status: Status;
     gameTurn: GameTurn;
     blueTeam: ITeam;

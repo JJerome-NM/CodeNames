@@ -19,6 +19,8 @@ declare module "\*.json" {
     export default content;
 }
 
+declare module 'react-transition-group'
+
 interface Mapping{
     [key: string]: string;
 }

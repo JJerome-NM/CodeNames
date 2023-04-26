@@ -1,20 +1,20 @@
 import React, {FC} from 'react';
-import CNPlayer from "../CNPlayer/CNPlayer";
-import {IUser} from "../../../models/IUser";
+import {IUser} from "../../../../../models/IUser";
 
 import css from "./CNPlayerBlock.module.css"
-import {Color} from "../../../models/Color";
+import {Color} from "../../../../../models/Color";
+import CNPlayer from "../CNPlayer/CNPlayer";
 
 interface CnPlayerBlockProps {
     color: Color.BLUE | Color.YELLOW;
-    players: IUser[];
+    players?: IUser[];
     onTeamSelect?: () => void;
     maxPlayers?: number;
     className?: string;
 }
 
 const CnPlayerBlock: FC<CnPlayerBlockProps> = ({
-                                                   players,
+                                                   players = [],
                                                    color,
                                                    onTeamSelect,
                                                    maxPlayers = 5,
