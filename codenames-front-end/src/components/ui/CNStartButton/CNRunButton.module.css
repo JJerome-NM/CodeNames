@@ -20,3 +20,7 @@
 .RunButton:hover{
     background-color: rgba(55, 55, 55, 0.3);
 }
+
+.RunButton:active{
+    transform: scale(0.9);
+}

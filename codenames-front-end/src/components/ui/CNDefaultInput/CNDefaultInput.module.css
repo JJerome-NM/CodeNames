@@ -1,11 +1,30 @@
 
+.InputBlock{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    width: max-content;
+
+    color: #FFFFFF;
+}
+
+.InputLabel{
+    margin-right: 10px;
+
+    font-size: 22px;
+    font-weight: 400;
+}
 
 .CNDefaultInput{
-    color: #fff;
     padding: 0 5px;
 
     border: 0;
     border-bottom: 2px solid white;
+
+    color: #c0c0c0;
+    background: none;
 
     font-family: 'Roboto Light', sans-serif;
     font-style: normal;
@@ -15,14 +34,13 @@
 
     text-align: center;
 
-    background: none;
-
     transition: ease .25s;
 }
 
 .CNDefaultInput:focus{
     outline: none;
     background-color: rgba(0, 0, 0, .4);
+    color: #ffffff;
 }
 
 

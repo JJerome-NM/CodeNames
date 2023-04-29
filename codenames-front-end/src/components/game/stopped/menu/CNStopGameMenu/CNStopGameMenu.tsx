@@ -1,16 +1,16 @@
 import React, {FC} from 'react';
-import {IGameRoom} from "../../../../../models/IGameRoom";
+import {IGameRoom} from "../../../../../models/CodeNames/IGameRoom";
 import css from "./CnStopGameMenu.module.css";
-import {Color} from "../../../../../models/Color";
-import CodeNameGameService from "../../../../../services/CodeNameGameService";
-import {Status} from "../../../../../models/Status";
+import {Color} from "../../../../../models/CodeNames/Color";
+import CodeNameGameWebSocketService from "../../../../../services/CodeNameGameWebSocketService";
+import {Status} from "../../../../../models/CodeNames/Status";
 import CNSpectateBlock from "../settings/CNSpectateBlock/CNSpectateBlock";
 import CNTeam from "../CNTeam/CNTeam";
 import AdminControl from "../settings/AdminControl/AdminControl";
 
 interface CNStopGameMenuProps {
     room?: IGameRoom;
-    service?: CodeNameGameService;
+    service?: CodeNameGameWebSocketService;
     className?: string;
 }
 
@@ -41,7 +41,7 @@ const CNStopGameMenu: FC<CNStopGameMenuProps> = ({
                 </div>
                 <div className={css.SettingBlock}>
                     <CNSpectateBlock
-                        onClick={() => service?.joinToSpectator()}
+                        onClick={service?.joinToSpectator}
                     />
 
                     <AdminControl

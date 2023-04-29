@@ -1,27 +1,28 @@
-import WebSocketRequest from "../models/WebSocketRequest";
-import {IGameRoom} from "../models/IGameRoom";
-import WebSocketResponse from "../models/WebSocketResponse";
-import {Color} from "../models/Color";
+import WebSocketRequest from "../models/CodeNames/WebSocketRequest";
+import {IGameRoom} from "../models/CodeNames/IGameRoom";
+import WebSocketResponse from "../models/CodeNames/WebSocketResponse";
+import {Color} from "../models/CodeNames/Color";
 
 
-class CodeNameGameService {
+class CodeNameGameWebSocketService {
 
     private socket: WebSocket;
 
     private isConnected: boolean = false;
 
-    private roomId: number;
+    private readonly roomId: number;
 
-    private onNewRoomInfo: (newInfo: IGameRoom) => void;
+    private readonly onNewRoomInfo: (newInfo: IGameRoom) => void;
 
-    private onConnect: () => void;
+    private readonly onConnect: () => void;
 
     constructor(
+        roomID: number | undefined,
         onNewRoomInfo: (newInfo: IGameRoom) => void,
         onConnect: () => void
     ) {
         this.socket = new WebSocket("ws://localhost:8080/socket");
-        this.roomId = -1;
+        roomID ? this.roomId = roomID: this.roomId = -1;
 
         this.onNewRoomInfo = onNewRoomInfo.bind(this);
         this.onConnect = onConnect.bind(this);
@@ -32,11 +33,22 @@ class CodeNameGameService {
         this.socket.onerror = this.onErrorEvent.bind(this);
     }
 
+    private sendSocketRequest(requestPath: string, requestBody: any){
+        this.socket.send(new WebSocketRequest(requestPath, requestBody).toJson())
+    }
+
+    private connectToRoom() {
+        if (this.isConnected && this.roomId !== -1) {
+            this.sendSocketRequest("/room/connect", this.roomId);
+        } else {
+            console.error("Something went wrong");
+        }
+    }
+
     private onConnectEvent(event: Event) {
         this.isConnected = true;
         this.onConnect();
-
-        console.log("connected")
+        this.connectToRoom();
     }
 
     private onMessageEvent(message: MessageEvent) {
@@ -47,7 +59,6 @@ class CodeNameGameService {
         if (messageData.responsePath === "/GameRoom/new/info"){
             this.onNewRoomInfo(messageData.responseBody)
         }
-
     }
 
     private onCloseEvent(event: Event) {
@@ -58,36 +69,21 @@ class CodeNameGameService {
         console.log(error)
     }
 
-    private sendRequest(requestPath: string, requestBody: any){
-        this.socket.send(new WebSocketRequest(requestPath, requestBody).toJson());
-    }
-
-    public createRoom(){
-        console.log(`create room - ${this.isConnected}`)
-        if (this.isConnected){
-            this.sendRequest("/room/create", "");
-        }
-    }
-
     public startGame(){
-        this.sendRequest("/room/admin/start", {})
+        this.sendSocketRequest("/room/admin/start", {})
     }
 
     public joinToSpectator(){
-        this.sendRequest("/room/select/role", '')
+        this.sendSocketRequest("/room/select/role", '')
     }
 
     public selectMaster(team: Color.BLUE | Color.YELLOW){
-        this.sendRequest("/room/select/role", `${team}_MASTER`)
+        this.sendSocketRequest("/room/select/role", `${team}_MASTER`)
     }
 
     public joinToTeam(team: Color.BLUE | Color.YELLOW){
-        this.sendRequest("/room/select/role", `${team}_PLAYER`)
-    }
-
-    public connectToRoom(){
-        this.sendRequest("/room/connect", this.roomId)
+        this.sendSocketRequest("/room/select/role", `${team}_PLAYER`)
     }
 }
 
-export default CodeNameGameService;
+export default CodeNameGameWebSocketService;

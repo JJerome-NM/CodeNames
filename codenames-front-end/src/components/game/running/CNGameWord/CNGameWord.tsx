@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Color} from "../../../../models/Color";
+import {Color} from "../../../../models/CodeNames/Color";
 
 import css from "./CNGameWord.module.css"
 

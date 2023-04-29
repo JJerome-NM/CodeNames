@@ -1,0 +1,36 @@
+
+.Cross{
+    --line-width: 3px;
+    --cross-size: 20px;
+    --cross-color: #D9D9D9;
+
+    width: var(--cross-size);
+    height: var(--cross-size);
+
+    border-radius: var(--line-width);
+
+    transition: ease .15s;
+}
+
+.Cross span{
+    position: absolute;
+    display: block;
+
+    width: 100%;
+    height: var(--line-width);
+
+    border-radius: var(--line-width);
+
+    transition: ease .15s;
+
+    background-color: var(--cross-color);
+    top: calc(50% - var(--line-width) / 2)
+}
+
+.Cross span:first-child{
+    transform: rotateZ(-45deg);
+}
+
+.Cross span:last-child{
+    transform: rotateZ(45deg);
+}

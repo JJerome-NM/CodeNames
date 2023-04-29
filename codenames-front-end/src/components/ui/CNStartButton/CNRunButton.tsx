@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 
 import buttonImage from "./images/ButtonImage.svg"
 import css from "./CNRunButton.module.css";
-import SVGRunImage from "../SVGRunImage/SVGRunImage";
+import SVGRunImage from "../svg/SVGRunImage";
 
 interface CNStartButtonProps {
     size?: number;

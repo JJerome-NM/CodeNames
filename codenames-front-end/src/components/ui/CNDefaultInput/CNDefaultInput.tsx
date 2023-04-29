@@ -1,31 +1,49 @@
 import React, {FC} from 'react';
 
-import cl from "./CNDefaultInput.module.css"
+import css from "./CNDefaultInput.module.css"
+import {v4} from "uuid";
 
-interface CNDefaultInputProps{
+
+interface CNDefaultInputProps {
     value?: string | number;
+    inputLabel?: React.ReactNode;
+    inputLabelText?: string
+    inputLabelID?: string;
     className?: string;
     onChange?: (e: React.ChangeEvent<any>) => void;
     type?: string;
     placeholder?: string;
 }
 
-const CNDefaultInput: FC<CNDefaultInputProps> = ((
-    {
-        value,
-        className,
-        onChange,
-        type,
-        placeholder,
-    }) => {
+const CNDefaultInput: FC<CNDefaultInputProps> = (({
+                                                      value,
+                                                      inputLabel,
+                                                      inputLabelText,
+                                                      inputLabelID = v4(),
+                                                      className,
+                                                      onChange,
+                                                      type,
+                                                      placeholder,
+                                                  }) => {
     return (
-        <input
-            value={value}
-            className={[cl.CNDefaultInput, className].join(" ")}
-            onChange={onChange}
-            type={type}
-            placeholder={placeholder}
-        />
+        <div className={[className, css.InputBlock].join(" ")}>
+            {inputLabel ? inputLabel :
+                <label
+                    htmlFor={inputLabelID}
+                    className={css.InputLabel}
+                >
+                    {inputLabelText}
+                </label>
+            }
+            <input
+                id={inputLabelID}
+                value={value}
+                className={css.CNDefaultInput}
+                onChange={onChange}
+                type={type}
+                placeholder={placeholder}
+            />
+        </div>
     )
 })
 

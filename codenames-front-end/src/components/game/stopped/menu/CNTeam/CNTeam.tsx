@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import CNTeamName from "../CNTeamName/CNTeamName";
 import CNMaster from "../CNMaster/CNMaster";
 import CNPlayerBlock from "../CNPlayerBlock/CNPlayerBlock";
-import {ITeam} from "../../../../../models/ITeam";
-import {Color} from "../../../../../models/Color";
+import {ITeam} from "../../../../../models/CodeNames/ITeam";
+import {Color} from "../../../../../models/CodeNames/Color";
 
 import css from "./CNTeam.module.css"
 

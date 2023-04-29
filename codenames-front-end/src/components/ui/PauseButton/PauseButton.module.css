@@ -1,0 +1,26 @@
+
+
+.PauseButton{
+    --btn-size: 30px;
+    --btn-bg-color: #fff;
+
+    display: flex;
+
+    justify-content: space-around;
+
+    width: var(--btn-size);
+}
+
+.PauseButton span{
+
+    display: block;
+
+    width: calc(var(--btn-size) / 3);
+    height: var(--btn-size);
+
+    border-radius: 1000px;
+
+    background-color: var(--btn-bg-color);
+}
+
+

@@ -32,6 +32,14 @@
     background: none;
 }
 
+.SelectButton:hover{
+    cursor: pointer;
+}
+
+.SelectButton:active{
+    transform: scale(0.9);
+}
+
 .SelectButtonBlue:hover{
     color: var(--cn-blue);
     border-bottom: 2px solid var(--cn-blue);

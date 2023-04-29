@@ -25,6 +25,10 @@
     background-color: rgba(55, 55, 55, 0.3);
 }
 
+.SettingButton:active{
+    transform: scale(0.9);
+}
+
 .SettingButtonLine{
     position: absolute;
     display: block;

@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
-import {IUser} from "../../../../../models/IUser";
+import {IUser} from "../../../../../models/CodeNames/IUser";
 
 import css from "./CNPlayerBlock.module.css"
-import {Color} from "../../../../../models/Color";
+import {Color} from "../../../../../models/CodeNames/Color";
 import CNPlayer from "../CNPlayer/CNPlayer";
 
 interface CnPlayerBlockProps {

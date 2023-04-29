@@ -1,4 +1,11 @@
 
+
+declare module 'react-transition-group'
+
+declare module 'uuid'
+
+
+
 declare module "*.svg" {
     const content: any;
     export default content;
@@ -18,8 +25,6 @@ declare module "\*.json" {
     const content: string;
     export default content;
 }
-
-declare module 'react-transition-group'
 
 interface Mapping{
     [key: string]: string;

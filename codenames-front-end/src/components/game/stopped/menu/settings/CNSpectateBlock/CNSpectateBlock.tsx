@@ -12,9 +12,7 @@ const CNSpectateBlock: FC<CNSpectateButtonProps> = ({
                                                     }) => {
     return (
         <div className={[css.SpectateBlock, className].join(" ")}>
-            <h2
-                onClick={onClick}
-            >
+            <h2 onClick={onClick}>
                 Spectate
             </h2>
         </div>
