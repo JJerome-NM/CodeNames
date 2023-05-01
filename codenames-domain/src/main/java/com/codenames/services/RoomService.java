@@ -23,19 +23,21 @@ public class RoomService {
 
     private final RoomMapper roomMapper;
 
-    public RoomDto getRoomInfo(Room room, Player player){
-        return roomMapper.roomToRoomDto(room, player);
+    public RoomDto getRoomInfo(Room room, boolean wordsColorHidden){
+        return roomMapper.roomToRoomDto(room, wordsColorHidden);
     }
 
-    public void changeGameStatus(Room room, Player player, GameStatus newStatus){
-        if (player.getUser().id() != room.getRoomAdminID()){
-            return;
-        }
+    public void changeGameStatus(Room room, GameStatus newStatus){
         switch (newStatus){
             case RUN -> startGame(room);
             case STOPPED -> stopGame(room);
             case PAUSED -> pauseGame(room);
         }
+    }
+
+    public void restartGame(Room room){
+        stopGame(room);
+        startGame(room);
     }
 
     private void startGame(Room room){
@@ -70,14 +72,14 @@ public class RoomService {
             teamService.addMessage(room.getYellowTeam(), message);
         }
 
-        skipTurn(room, player);
+        skipTurn(room);
     }
 
-    public void skipTurn(Room room, Player player){
+    public void skipTurn(Room room){
         room.setGameTurn(room.getGameTurn().nextTurn());
     }
 
-    public void selectWord(Room room, Player player, int wordID){
+    public void selectWord(Room room, int wordID){
         room.getWords().forEach(word -> {
             if (word.getId() == wordID){
                 word.setHidden(false);

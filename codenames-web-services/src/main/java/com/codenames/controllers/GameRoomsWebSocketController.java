@@ -1,11 +1,10 @@
 package com.codenames.controllers;
 
 
-import com.codenames.dto.RoomDto;
-import com.codenames.enums.GameStatus;
 import com.codenames.enums.PlayerRole;
 import com.codenames.filters.method.AvailableRoomFilter;
 import com.codenames.filters.method.GameRunningFilter;
+import com.codenames.filters.method.GameStoppedFilter;
 import com.codenames.filters.method.SelectWordAvailableFilter;
 import com.codenames.filters.method.SendMessageFilter;
 import com.codenames.filters.method.SkipGameTurnFilter;
@@ -14,9 +13,7 @@ import com.codenames.models.game.AuthorizedUsers;
 import com.codenames.models.game.CodeNamesGame;
 import com.codenames.models.game.Player;
 import com.codenames.models.room.Room;
-import com.codenames.models.room.Settings;
 import com.codenames.models.game.User;
-import com.codenames.properties.DefaultMessagePathProperties;
 import com.codenames.services.PlayerService;
 import com.codenames.services.RoomService;
 import com.codenames.services.GameService;
@@ -26,7 +23,6 @@ import com.jjerome.annotations.SocketDisconnectMapping;
 import com.jjerome.annotations.SocketMapping;
 import com.jjerome.annotations.SocketMappingFilters;
 import com.jjerome.dto.Request;
-import com.jjerome.models.MessageSender;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,11 +31,9 @@ import org.springframework.web.socket.WebSocketSession;
 
 @SocketController
 @RequiredArgsConstructor
-public class CodeNamesGameController {
+public class GameRoomsWebSocketController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CodeNamesGameController.class);
-
-    private final MessageSender messageSender;
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameRoomsWebSocketController.class);
 
     private final GameService gameService;
 
@@ -50,8 +44,6 @@ public class CodeNamesGameController {
     private final CodeNamesGame codeNamesGame;
 
     private final AuthorizedUsers authorizedUsers;
-
-    private final DefaultMessagePathProperties defaultMessagePath;
 
 
     @SocketConnectMapping
@@ -64,7 +56,7 @@ public class CodeNamesGameController {
 
     @SocketDisconnectMapping
     public void disconnect(WebSocketSession session, CloseStatus status){
-        authorizedUsers.removeUserRoomSession(session.getId());
+        authorizedUsers.removeUserRoomSession(playerService.getPlayerBuSessionID(session.getId()));
     }
 
 
@@ -81,33 +73,34 @@ public class CodeNamesGameController {
         roomService.addUserToRoom(room, player);
         this.authorizedUsers.setNewRoomID(request.getSessionID(), request.getRequestBody());
 
-        gameService.sendNewRoomInfoToPlayer(request, room, player);
+        gameService.sendRoomInfoToAllRoomPlayer(room);
     }
 
 
-    @SocketMapping(reqPath = "/room/create")
-    @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class
-    })
-    public void createNewRoom(Request<String> request){
-        // TODO: 18.04.2023  Add a check to see if the user has a room
-
-
-        int newRoomID = gameService.createNewRoom(codeNamesGame, playerService.getPlayerByRequest(request));
-        playerService.setPlayerRoomID(request, newRoomID);
-
-        Room room = gameService.getRoomByID(codeNamesGame, newRoomID);
-        Player player = playerService.getPlayerByRequest(request);
-
-        LOGGER.info("Created new room, id - " + newRoomID);
-
-        gameService.sendNewRoomInfoToPlayer(request, room, player);
-    }
+//    @SocketMapping(reqPath = "/room/create")
+//    @SocketMappingFilters(filters = {
+//            UserAuthorizedFilter.class
+//    })
+//    public void createNewRoom(Request<String> request){
+//        // TODO: 18.04.2023  Add a check to see if the user has a room
+//
+//
+//        int newRoomID = gameService.createNewRoom(codeNamesGame, playerService.getPlayerByRequest(request));
+//        playerService.setPlayerRoomID(request, newRoomID);
+//
+//        Room room = gameService.getRoomByID(codeNamesGame, newRoomID);
+//        Player player = playerService.getPlayerByRequest(request);
+//
+//        LOGGER.info("Created new room, id - " + newRoomID);
+//
+//        gameService.sendNewRoomInfoToPlayer(request, room, player);
+//    }
 
 
     @SocketMapping(reqPath = "/room/select/role")
     @SocketMappingFilters(filters = {
             UserAuthorizedFilter.class,
+            GameStoppedFilter.class
     })
     public void selectRoomRole(Request<String> request){
         Room room = codeNamesGame.getGameRoom(playerService.getPlayerRoomID(request));
@@ -115,7 +108,7 @@ public class CodeNamesGameController {
         PlayerRole playerRole = PlayerRole.convertToPlayerRole(request.getRequestBody());
 
         roomService.selectRole(room, player, playerRole);
-        gameService.sendNewRoomInfoToPlayer(request, room, player);
+        gameService.sendRoomInfoToAllRoomPlayer(room);
     }
 
 
@@ -127,10 +120,10 @@ public class CodeNamesGameController {
     })
     public void selectWord(Request<Integer> request){
         Room room = codeNamesGame.getGameRoom(playerService.getPlayerRoomID(request));
-        Player player = playerService.getPlayerByRequest(request);
 
-        roomService.selectWord(room, player, request.getRequestBody());
-        gameService.sendNewRoomInfoToPlayer(request, room, player);
+        roomService.selectWord(room, request.getRequestBody());
+
+        gameService.sendRoomInfoToAllRoomPlayer(room);
     }
 
 
@@ -142,10 +135,9 @@ public class CodeNamesGameController {
     })
     public void endTurn(Request<String> request){
         Room room = codeNamesGame.getGameRoom(playerService.getPlayerRoomID(request));
-        Player player = playerService.getPlayerByRequest(request);
 
-        roomService.skipTurn(room, player);
-        gameService.sendNewRoomInfoToPlayer(request, room, player);
+        roomService.skipTurn(room);
+        gameService.sendRoomInfoToAllRoomPlayer(room);
     }
 
     @SocketMapping(reqPath = "/room/sendMassage")
@@ -159,22 +151,7 @@ public class CodeNamesGameController {
         Player player = playerService.getPlayerByRequest(request);
 
         roomService.sendMessage(room, player, request.getRequestBody());
-        gameService.sendNewRoomInfoToPlayer(request, room, player);
+
+        gameService.sendRoomInfoToAllRoomPlayer(room);
     }
-
-
-    @SocketMapping(reqPath = "/room/admin/start")
-    @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class
-    })
-    public void startGameRoom(Request<Settings> request){
-        Room room = codeNamesGame.getGameRoom(playerService.getPlayerRoomID(request));
-        Player player = playerService.getPlayerByRequest(request);
-
-        roomService.changeGameStatus(room, player, GameStatus.RUN);
-
-        RoomDto roomDto = roomService.getRoomInfo(room, player);
-        messageSender.send(request.getSessionID(), defaultMessagePath.getNewRoomInfoPath(), roomDto);
-    }
-
 }

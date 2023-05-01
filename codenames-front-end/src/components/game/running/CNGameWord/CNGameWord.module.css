@@ -1,6 +1,8 @@
 
 
 .Word{
+    user-select: none;
+
     display: flex;
 
     color: #1E1E1E;
@@ -22,4 +24,30 @@
     border-radius: 20px;
 
     background-color: var(--words-default-color);
+    transition: ease 0.1s;
+}
+
+.Word:hover{
+    cursor: pointer;
+}
+
+.Word:active{
+    transform: scale(0.95);
+}
+
+.WHITE{
+    background-color: var(--words-white-color);
+}
+
+.BLUE{
+    background-color: var(--words-blue-color);
+}
+
+.YELLOW{
+    background-color: var(--words-yellow-color);
+}
+
+.BLACK{
+    background-color: var(--words-black-color);
+    color: #ffffff;
 }

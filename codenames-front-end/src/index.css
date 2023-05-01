@@ -7,6 +7,10 @@
 
   --words-width: 170px;
   --words-default-color: #DDC4BA;
+  --words-white-color: #FFFFFF;
+  --words-blue-color: #2858FF;
+  --words-yellow-color: #FFCD1C;
+  --words-black-color: #1E1E1E;
 
   font-family: "Roboto", sans-serif;
 

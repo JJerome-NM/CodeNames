@@ -16,16 +16,21 @@ class CodeNameGameWebSocketService {
 
     private readonly onConnect: () => void;
 
+    private readonly onClose: () => void;
+
     constructor(
         roomID: number | undefined,
         onNewRoomInfo: (newInfo: IGameRoom) => void,
-        onConnect: () => void
+        onConnect: () => void,
+        onClose: () => void,
     ) {
-        this.socket = new WebSocket("ws://localhost:8080/socket");
+        this.socket = new WebSocket("ws://26.193.49.236:8080/socket");
+        console.log(2323)
         roomID ? this.roomId = roomID: this.roomId = -1;
 
         this.onNewRoomInfo = onNewRoomInfo.bind(this);
         this.onConnect = onConnect.bind(this);
+        this.onClose = onClose.bind(this);
 
         this.socket.onopen = this.onConnectEvent.bind(this);
         this.socket.onmessage = this.onMessageEvent.bind(this);
@@ -63,6 +68,8 @@ class CodeNameGameWebSocketService {
 
     private onCloseEvent(event: Event) {
         console.log("Close")
+
+        this.onClose();
     }
 
     private onErrorEvent(error: Event) {
@@ -73,8 +80,16 @@ class CodeNameGameWebSocketService {
         this.sendSocketRequest("/room/admin/start", {})
     }
 
+    public stopGame(){
+        this.sendSocketRequest("/room/admin/stop", {})
+    }
+
+    public restartGame(){
+        this.sendSocketRequest("/room/admin/restart", {})
+    }
+
     public joinToSpectator(){
-        this.sendSocketRequest("/room/select/role", '')
+        this.sendSocketRequest("/room/select/role", 'SPECTATOR')
     }
 
     public selectMaster(team: Color.BLUE | Color.YELLOW){

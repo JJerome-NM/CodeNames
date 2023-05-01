@@ -4,7 +4,7 @@ import axios, {AxiosResponse} from "axios";
 
 export class CodeNamesGameRestService {
 
-    private static readonly REST_URL_CONFIG: CodeNamesRestUrlConfig = new CodeNamesRestUrlConfig("localhost", 8080);
+    private static readonly REST_URL_CONFIG: CodeNamesRestUrlConfig = new CodeNamesRestUrlConfig("26.193.49.236", 8080);
 
     public static async createRoom(): Promise<AxiosResponse<number>> {
         return await axios.get<number>(this.REST_URL_CONFIG.createRoomUrl)

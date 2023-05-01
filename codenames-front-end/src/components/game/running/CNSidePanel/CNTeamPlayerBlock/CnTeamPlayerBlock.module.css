@@ -1,0 +1,113 @@
+
+.PanelBlock{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+}
+
+.TextTeamColor{
+    color: var(--panel-team-color);
+}
+
+
+.TeamPlayersBlock{
+    display: flex;
+
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    padding: 10px;
+
+    height: 75%;
+}
+
+.TeamPanelName{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 47px;
+
+    color: var(--panel-team-color)
+}
+
+.TeamPanelScore{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 47px;
+
+    color: #FFFFFF;
+}
+
+.TeamPanelMaster,
+.TeamPanelPlayersBlock,
+.TeamPanelMessagesBlock{
+    display: flex;
+
+    flex-direction: column;
+
+    height: max-content;
+    width: 100%;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 29px;
+}
+
+.TeamPanelMaster{
+    height: 15%;
+}
+
+.TeamPanelPlayersBlock{
+    height: 35%;
+    margin-bottom: 20px;
+}
+
+.TeamPanelMessagesBlock{
+    height: 40%;
+}
+
+.TeamPanelPlayers{
+    overflow: auto;
+
+    height: 90%;
+}
+
+.TeamPanelMessages{
+    overflow: auto;
+
+    height: 300px;
+}
+
+.TeamPanelMessages::-webkit-scrollbar,
+.TeamPanelPlayers::-webkit-scrollbar {
+    width: 6px;
+
+    border-radius: 6px;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.TeamPanelMessages::-webkit-scrollbar-thumb,
+.TeamPanelPlayers::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.TeamPanelMessages::-webkit-scrollbar-thumb:hover,
+.TeamPanelPlayers::-webkit-scrollbar-thumb:hover {
+    background-color: #fff;
+}
+
+.TeamPanelMessages li{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+}

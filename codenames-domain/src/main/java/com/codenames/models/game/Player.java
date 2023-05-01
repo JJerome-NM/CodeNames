@@ -8,6 +8,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter @Setter
 public class Player {
+    private String wsSessionId;
     private PlayerRole playerRole;
     private final User user;
 }

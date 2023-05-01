@@ -2,7 +2,7 @@ import {Color} from "./Color";
 
 
 export interface IWord{
-    id: number;
+    id: string;
     text: string;
     color: Color;
 }

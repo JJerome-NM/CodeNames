@@ -19,10 +19,10 @@ const Connect: FC = () => {
 
     const navigate = useNavigate();
     const [selectedForm, setSelectedForm] = useState<"connect" | "create">("connect");
-    const [roomID, setRoomID] = useState<number>(minRoomID);
+    const [roomID, setRoomID] = useState<string>(String(minRoomID));
 
     const [fetchConnectToRoom, isLoadingConnectToRoom, errorConnectToRoom] = useFetching(async () => {
-        const response = await CodeNamesGameRestService.tryConnectToRoom(roomID);
+        const response = await CodeNamesGameRestService.tryConnectToRoom(Number(roomID));
 
         if (response.data === -1) {
             notify.error(`Room with number "${roomID}" was not found`)
@@ -44,9 +44,11 @@ const Connect: FC = () => {
     async function tryConnectToRoom(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        if (roomID < minRoomID) {
+        const tempRoomID = Number(roomID);
+
+        if (tempRoomID < minRoomID) {
             notify.warn(`Room numbers start from ${minRoomID}`)
-        } else if (roomID > maxRoomID) {
+        } else if (tempRoomID > maxRoomID) {
             notify.warn(`Room numbers end in ${maxRoomID}`)
         } else {
             await fetchConnectToRoom();
@@ -83,7 +85,7 @@ const Connect: FC = () => {
                                 className={css.ConnectInput}
                                 inputLabelText={"Room ID"}
                                 value={roomID}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRoomID(Number(e.target.value))}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRoomID(e.target.value)}
                                 type="number"
                                 placeholder="Write room id"
                             />

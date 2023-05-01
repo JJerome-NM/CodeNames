@@ -1,6 +1,8 @@
 package com.codenames.models.game;
 
+import com.codenames.services.PlayerService;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -8,6 +10,7 @@ import java.util.Map;
 
 @Component
 @Data
+@RequiredArgsConstructor
 public class AuthorizedUsers {
 
     // TODO: 18.04.2023  This class will be reworked
@@ -23,11 +26,12 @@ public class AuthorizedUsers {
     }
 
     public void addUserRoomSession(String sessionID, int roomID, User user){
-        authorizedUsers.put(sessionID, new UserRoomSession(roomID, new Player(null, user)));
+        authorizedUsers.put(sessionID, new UserRoomSession(roomID, new Player(sessionID, null, user)));
     }
 
-    public void removeUserRoomSession(String sessionID){
-        authorizedUsers.remove(sessionID);
+    public void removeUserRoomSession(Player player){
+        authorizedUsers.remove(player.getWsSessionId());
+        player.setWsSessionId(null);
     }
 
     public void setNewRoomID(String sessionID, int newRoomID){

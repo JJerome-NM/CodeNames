@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {IGameRoom} from "../../../../../models/CodeNames/IGameRoom";
 import css from "./CnStopGameMenu.module.css";
 import {Color} from "../../../../../models/CodeNames/Color";
@@ -19,10 +19,29 @@ const CNStopGameMenu: FC<CNStopGameMenuProps> = ({
                                                      className,
                                                      service
                                                  }) => {
+    const [menuDisplay, setMenuDisplay] = React.useState<string>("flex");
+    const [timeoutId, setTimeoutId] = React.useState<number>(0);
+
+    useEffect(() => {
+        clearTimeout(timeoutId);
+
+        if (room?.status && room?.status !== Status.STOPPED) {
+            setTimeoutId(setTimeout(() => {
+                setMenuDisplay("none");
+            }, 500));
+        } else {
+            setMenuDisplay("flex");
+        }
+    }, [room?.status])
+
     return (
-        <div className={css.StopGameMenuBlock}>
+        <div className={css.StopGameMenuBlock} style={{display: menuDisplay}}>
             <div
-                className={[room?.status !== Status.STOPPED ? css.Hidden : "", css.StopGameMenu, className].join(" ")}
+                className={[
+                    className,
+                    room?.status !== Status.STOPPED ? css.Hidden : "",
+                    css.StopGameMenu
+                ].join(" ")}
             >
                 <div className={css.TeamsBlock}>
                     <CNTeam
@@ -41,11 +60,10 @@ const CNStopGameMenu: FC<CNStopGameMenuProps> = ({
                 </div>
                 <div className={css.SettingBlock}>
                     <CNSpectateBlock
-                        onClick={service?.joinToSpectator}
+                        onClick={() => service?.joinToSpectator()}
                     />
 
                     <AdminControl
-                        className={css.Test23}
                         onClickToRun={() => service?.startGame()}
                         runButtonSize={35}
                     >

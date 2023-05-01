@@ -1,0 +1,16 @@
+
+
+.WordsBlock{
+    --words-line-count: 4;
+
+    display: flex;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    width: calc(var(--words-width) * var(--words-line-count) + (20px * var(--words-line-count)));
+
+    transition: ease .2s;
+}

@@ -1,0 +1,27 @@
+
+
+.StopGame{
+    --stop-bg-color: #ffffff;
+    --stop-btn-size: 30px;
+
+    transition: ease .1s;
+}
+
+.StopGame:hover{
+    cursor: pointer;
+}
+
+.StopGame:active{
+    transform: scale(0.9);
+}
+
+.StopGameImage{
+    display: block;
+
+    width: var(--stop-btn-size);
+    height: var(--stop-btn-size);
+
+    border-radius: 25%;
+
+    background-color: var(--stop-bg-color);
+}

@@ -9,6 +9,17 @@
     justify-content: space-around;
 
     width: var(--btn-size);
+    height: var(--btn-size);
+
+    transition: ease .1s;
+}
+
+.PauseButton:hover{
+    cursor: pointer;
+}
+
+.PauseButton:active{
+    transform: scale(0.9);
 }
 
 .PauseButton span{

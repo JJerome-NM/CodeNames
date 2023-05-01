@@ -14,8 +14,18 @@ const CNGameWord: FC<CNGameWordProps> = ({
                                              className,
                                              children
                                          }) => {
+
+    let cssClassColor;
+
+    switch (color) {
+        case Color.YELLOW: cssClassColor = css.YELLOW; break;
+        case Color.BLUE: cssClassColor = css.BLUE; break;
+        case Color.BLACK: cssClassColor = css.BLACK; break;
+        case Color.WHITE: cssClassColor = css.WHITE; break;
+    }
+
     return (
-        <div className={[color, css.Word, className].join(" ")}>
+        <div className={[cssClassColor, css.Word, className].join(" ")}>
             {children}
         </div>
     );

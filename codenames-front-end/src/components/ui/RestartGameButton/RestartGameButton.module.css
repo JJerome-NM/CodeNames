@@ -1,0 +1,25 @@
+
+
+.RestartButton{
+    user-select: none;
+
+    --btn-size: 30px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: var(--btn-size);
+    height: var(--btn-size);
+
+    transition: ease .1s;
+}
+
+.RestartButton:hover{
+    cursor: pointer;
+}
+
+.RestartButton:active{
+    transform: scale(0.9);
+}

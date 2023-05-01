@@ -11,7 +11,7 @@ interface PauseButtonProps {
 
 const PauseButton: FC<PauseButtonProps> = ({
                                                size = 30,
-                                               bgColor = "#fff",
+                                               bgColor = "#ffffff",
                                                className,
                                                onClick
                                            }) => {
