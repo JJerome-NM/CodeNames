@@ -1,19 +1,19 @@
 import React, {FC, useState} from 'react';
 
-import BlueYellowBg from "../../components/ui/BlueYellowBG/BlueYellowBG";
+import {useNavigate} from "react-router-dom";
+import {Flip, ToastContainer} from "react-toastify";
+import {notify} from "../../models/notifications/Notifications";
+import {CodeNamesRestService} from "../../services/CodeNamesRestService";
+import useFetching from "../../hooks/useFetching";
+
 import CNDefaultInput from "../../components/ui/CNDefaultInput/CNDefaultInput";
 import CNDefaultBtn from "../../components/ui/CNDefautBtn/CNDefaultBtn";
+import BlueYellowBg from "../../components/ui/BlueYellowBG/BlueYellowBG";
 
-import {useNavigate} from "react-router-dom";
-import useFetching from "../../hooks/useFetching";
-import {Flip, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import {notify} from "../../models/notifications/Notifications";
-import {CodeNamesGameRestService} from "../../services/CodeNamesGameRestService";
-
 import css from "./styles/main.module.css"
 
-const Connect: FC = () => {
+export const Connect: FC = () => {
     const minRoomID = 100000;
     const maxRoomID = 1000000;
 
@@ -22,7 +22,7 @@ const Connect: FC = () => {
     const [roomID, setRoomID] = useState<string>(String(minRoomID));
 
     const [fetchConnectToRoom, isLoadingConnectToRoom, errorConnectToRoom] = useFetching(async () => {
-        const response = await CodeNamesGameRestService.tryConnectToRoom(Number(roomID));
+        const response = await CodeNamesRestService.tryConnectToRoom(Number(roomID));
 
         if (response.data === -1) {
             notify.error(`Room with number "${roomID}" was not found`)
@@ -32,7 +32,7 @@ const Connect: FC = () => {
     });
 
     const [fetchCreateRoom, isLoadingCreateRoom, errorCreateRoom] = useFetching(async () => {
-        const response = await CodeNamesGameRestService.createRoom();
+        const response = await CodeNamesRestService.createRoom();
 
         if (response.data === -1) {
             notify.error(`${response.data}`)
@@ -122,5 +122,3 @@ const Connect: FC = () => {
             <BlueYellowBg/>
         </div>)
 }
-
-export default Connect;

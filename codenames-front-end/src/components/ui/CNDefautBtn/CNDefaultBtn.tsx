@@ -1,4 +1,4 @@
-import React, {CSSProperties, FC} from "react";
+import React, {FC} from "react";
 
 import css from "./CNDefaultBtn.module.css"
 

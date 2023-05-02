@@ -1,10 +1,10 @@
 import React, {FC, useEffect} from 'react';
-import {IGameRoom} from "../../../../models/CodeNames/IGameRoom";
-import CNTeamSidePanel from "../CNSidePanel/CNTeamSidePanel/CNTeamSidePanel";
-import CNGameWordsBlock from "../CNGameWordsBlock/CNGameWordsBlock";
+import {IGameRoom} from "@models/CodeNames/IGameRoom";
+import CNTeamSidePanel from '@game/running/CNSidePanel/CNTeamSidePanel/CNTeamSidePanel';
+import CNGameWordsBlock from "@game/running/CNGameWordsBlock/CNGameWordsBlock";
 
 import css from './CNRunGameFrame.module.css'
-import {Status} from "../../../../models/CodeNames/Status";
+import {Status} from "@models/CodeNames/Status";
 
 interface CNRunGameFrameProps {
     room?: IGameRoom

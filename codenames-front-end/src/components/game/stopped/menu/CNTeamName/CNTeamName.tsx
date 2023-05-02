@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import css from "./CnTeamName.module.css";
-import {Color} from "../../../../../models/CodeNames/Color";
+import {Color} from "@models/CodeNames/Color";
 
 interface CnTeamNameProps{
     color: Color.BLUE | Color.YELLOW;

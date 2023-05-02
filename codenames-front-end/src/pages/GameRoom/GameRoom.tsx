@@ -1,20 +1,19 @@
 import React, {useEffect, useRef, useState} from 'react';
-import GrayWhiteBG from "../../components/ui/GrayWhiteBG/GrayWhiteBG";
-import {IGameRoom} from "../../models/CodeNames/IGameRoom";
 
+import {useNavigate, useParams} from "react-router-dom";
+
+import CodeNamesWebSocketService from "../../services/CodeNamesWebSocketService";
+import {IGameRoom} from "../../models/CodeNames/IGameRoom";
+import useFetching from "../../hooks/useFetching";
+import {CodeNamesRestService} from "../../services/CodeNamesRestService";
+import {Status} from "../../models/CodeNames/Status";
+
+import CNRunGameFrame from "../../components/game/running/CNRunGameFrame/CNRunGameFrame";
+import CNStopGameMenu from "../../components/game/stopped/menu/CNStopGameMenu/CNStopGameMenu";
+import GRAdminControlBlock from "../../components/game/running/settings/GRAdminControlBlock/GRAdminControlBlock";
+import GrayWhiteBG from "../../components/ui/GrayWhiteBG/GrayWhiteBG";
 
 import css from './styles/main.module.css'
-import CodeNameGameWebSocketService from "../../services/CodeNameGameWebSocketService";
-import CNStopGameMenu from "../../components/game/stopped/menu/CNStopGameMenu/CNStopGameMenu";
-import {useNavigate, useParams} from "react-router-dom";
-import useFetching from "../../hooks/useFetching";
-import {CodeNamesGameRestService} from "../../services/CodeNamesGameRestService";
-import GRAdminControlBlock from "../../components/game/running/settings/GRAdminControlBlock/GRAdminControlBlock";
-import CNGameWordsBlock from "../../components/game/running/CNGameWordsBlock/CNGameWordsBlock";
-import {Status} from "../../models/CodeNames/Status";
-import CNTeamSidePanel from "../../components/game/running/CNSidePanel/CNTeamSidePanel/CNTeamSidePanel";
-import CNRunGameFrame from "../../components/game/running/CNRunGameFrame/CNRunGameFrame";
-
 
 interface GameRoomParamProps {
     [key: string]: string;
@@ -26,18 +25,18 @@ const GameRoom = () => {
 
     const params = useParams<GameRoomParamProps>()
     const navigate = useNavigate();
-    const socketService = useRef<CodeNameGameWebSocketService>()
+    const socketService = useRef<CodeNamesWebSocketService>()
 
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [room, setRoom] = useState<IGameRoom>();
 
     const [fetchConnectToRoom, isLoadingConnectToRoom, errorConnectToRoom] = useFetching(async () => {
-        const response = await CodeNamesGameRestService.tryConnectToRoom(Number(params.id));
+        const response = await CodeNamesRestService.tryConnectToRoom(Number(params.id));
 
         if (response.data === -1) {
             navigate("/room/connect");
         } else {
-            socketService.current = new CodeNameGameWebSocketService(Number(params.id), newRoomInfo, onConnect, onClose)
+            socketService.current = new CodeNamesWebSocketService(Number(params.id), newRoomInfo, onConnect, onClose)
             setIsConnected(true);
         }
     })
@@ -57,7 +56,7 @@ const GameRoom = () => {
 
     useEffect(() => {
         fetchConnectToRoom();
-        document.title = "Room " + params.id + " - CodeNames";
+        document.title = "Room " + params.id + " - CodeNamesConfig";
     }, [])
 
     return (

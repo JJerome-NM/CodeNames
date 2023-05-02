@@ -2,7 +2,7 @@ import React, {FC, useEffect} from 'react';
 import {IGameRoom} from "../../../../../models/CodeNames/IGameRoom";
 import css from "./CnStopGameMenu.module.css";
 import {Color} from "../../../../../models/CodeNames/Color";
-import CodeNameGameWebSocketService from "../../../../../services/CodeNameGameWebSocketService";
+import CodeNamesWebSocketService from "../../../../../services/CodeNamesWebSocketService";
 import {Status} from "../../../../../models/CodeNames/Status";
 import CNSpectateBlock from "../settings/CNSpectateBlock/CNSpectateBlock";
 import CNTeam from "../CNTeam/CNTeam";
@@ -10,7 +10,7 @@ import AdminControl from "../settings/AdminControl/AdminControl";
 
 interface CNStopGameMenuProps {
     room?: IGameRoom;
-    service?: CodeNameGameWebSocketService;
+    service?: CodeNamesWebSocketService;
     className?: string;
 }
 

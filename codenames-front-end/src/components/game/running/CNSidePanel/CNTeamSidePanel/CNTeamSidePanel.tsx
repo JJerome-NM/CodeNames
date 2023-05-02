@@ -1,11 +1,9 @@
-import React, {CSSProperties, FC, useEffect} from 'react';
-import {ITeam} from "../../../../../models/CodeNames/ITeam";
+import React, {CSSProperties, FC} from 'react';
+import {ITeam} from "@models/CodeNames/ITeam";
 
 import css from './CNTeamSidePanel.module.css'
 
-import {v4} from "uuid"
-import CNTeamPlayerBlock from "../CNTeamPlayerBlock/CNTeamPlayerBlock";
-import {Status} from "../../../../../models/CodeNames/Status";
+import CNTeamPlayerBlock from "@game/running/CNSidePanel/CNTeamPlayerBlock/CNTeamPlayerBlock";
 
 interface CNTeamSidePanelProps {
     hidden?: boolean;

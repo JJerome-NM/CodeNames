@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import SVGRestartGame from "../svg/SVGRestartGame";
+import SVGRestartGame from "@ui/svg/SVGRestartGame";
 
 import css from "./RestartGameButton.module.css"
 

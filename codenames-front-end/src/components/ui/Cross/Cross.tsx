@@ -1,4 +1,4 @@
-import React, {CSSProperties, FC, useRef} from 'react';
+import React, {CSSProperties, FC} from 'react';
 
 import css from "./Cross.module.css"
 

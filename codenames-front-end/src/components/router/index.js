@@ -1,7 +1,7 @@
-import Connect from "../../pages/connect/Connect";
-import GameRoom from "../../pages/GameRoom/GameRoom";
-import SingUp from "../../pages/SignUp/SingUp";
-import SingIn from "../../pages/SingIn/SingIn";
+import {Connect} from "@pages/connect";
+import GameRoom from "@pages/GameRoom/GameRoom";
+import SingUp from "@pages/SignUp/SingUp";
+import SingIn from "@pages/SingIn/SingIn";
 
 
 export const publicRouters = [

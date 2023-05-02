@@ -1,13 +1,19 @@
 
 
-default-messages-paths:
-  new-room-info-path: /GameRoom/new/info
+codenames:
+  words:
+    resources-path: codenames-domain/src/main/resources/
+    file-name: game-words-
 
-codenames-game:
-  min-room-id: 100000
-  max-room-id: 1000000
+  game-rooms:
+    min-room-id: 100000
+    max-room-id: 1000000
 
+  ws-response-paths:
+    new-room-info-path: /room/new/info
 
-codenames-words:
-  resources-path: codenames-domain/src/main/resources/
-  file-name: game-words-
+  rest-controller:
+    cross-origin:
+      - http://26.193.49.236:3000
+      - http://localhost:3000
+

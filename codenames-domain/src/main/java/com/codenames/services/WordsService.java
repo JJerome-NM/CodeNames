@@ -6,6 +6,7 @@ import com.codenames.enums.Language;
 import com.codenames.models.game.Player;
 import com.codenames.models.room.Settings;
 import com.codenames.models.room.Word;
+import com.codenames.properties.CodeNamesProperties;
 import com.codenames.properties.WordsProperties;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 
@@ -31,20 +31,12 @@ public class WordsService {
 
     private final Random random = new Random();
 
-    private final WordsProperties wordsProperties;
-
-
-    public boolean wordsIsHiddenForPlayer(Player player){
-        return switch (player.getPlayerRole()){
-            case BLUE_MASTER, YELLOW_MASTER -> true;
-            default -> false;
-        };
-    }
+    private final CodeNamesProperties codeNamesProperties;
 
     private List<String> readWordsFile(Language language){
         List<String> words = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(wordsProperties.getResourcesPath()
-                + wordsProperties.getFileName() + language.getLanguageCode() + ".txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(codeNamesProperties.getWords().getResourcesPath()
+                + codeNamesProperties.getWords().getFileName() + language.getLanguageCode() + ".txt"))) {
 
             String line;
             while((line = reader.readLine()) != null){

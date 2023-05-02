@@ -1,4 +1,4 @@
-import React, {Component, FC} from 'react';
+import React, {FC} from 'react';
 import css from "./bg.module.css"
 
 import firstBgImage from "./images/first_bg_image.svg"

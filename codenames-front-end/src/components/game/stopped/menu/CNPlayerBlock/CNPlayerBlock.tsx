@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import {IUser} from "../../../../../models/CodeNames/IUser";
+import {IUser} from "@models/CodeNames/IUser";
 
 import css from "./CNPlayerBlock.module.css"
-import {Color} from "../../../../../models/CodeNames/Color";
-import CNPlayer from "../CNPlayer/CNPlayer";
+import {Color} from "@models/CodeNames/Color";
+import CNPlayer from "@game/stopped/menu/CNPlayer/CNPlayer";
 
 interface CnPlayerBlockProps {
     color: Color.BLUE | Color.YELLOW;

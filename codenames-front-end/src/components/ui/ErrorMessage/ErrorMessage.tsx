@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react';
 
 import css from "./ErrorMessage.module.css"
-import Cross from "../Cross/Cross";
+import Cross from "@ui/Cross/Cross";
 
 interface ErrorMessageProps {
     showError: boolean;

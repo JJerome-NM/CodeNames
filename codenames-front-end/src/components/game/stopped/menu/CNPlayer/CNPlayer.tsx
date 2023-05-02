@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {IUser} from "../../../../../models/CodeNames/IUser";
+import {IUser} from "@models/CodeNames/IUser";
 
 import css from "./CNPlayer.module.css"
 
