@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import css from "./CNMaster.module.css";
-import {Color} from "@models/CodeNames/Color";
+import {Color} from "../../../../../models/CodeNames/Color";
 
 interface CNMasterProps {
     color: Color.BLUE | Color.YELLOW

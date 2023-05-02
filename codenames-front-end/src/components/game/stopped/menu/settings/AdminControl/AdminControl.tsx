@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import css from "./AdminControl.module.css";
-import CNRunButton from "@ui/CNStartButton/CNRunButton";
-import DropdownSetting from "@game/stopped/menu/settings/DropdownSetting/DropdownSetting";
+import CNRunButton from "../../../../../ui/CNStartButton/CNRunButton";
+import DropdownSetting from "../DropdownSetting/DropdownSetting";
 
 
 interface AdminControlProps {

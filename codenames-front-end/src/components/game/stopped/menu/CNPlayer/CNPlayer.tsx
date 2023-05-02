@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
-import {IUser} from "@models/CodeNames/IUser";
 
 import css from "./CNPlayer.module.css"
+import {IUser} from "../../../../../models/CodeNames/IUser";
 
 interface CNPlayerProps{
     user: IUser;

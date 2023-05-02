@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
-import {Color} from "@models/CodeNames/Color";
 
 import css from "./CNGameWord.module.css"
+import {Color} from "../../../../models/CodeNames/Color";
 
 interface CNGameWordProps {
     color?: Color;

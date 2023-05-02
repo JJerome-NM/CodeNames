@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
-import SVGRestartGame from "@ui/svg/SVGRestartGame";
 
 import css from "./RestartGameButton.module.css"
+import SVGRestartGame from "../svg/SVGRestartGame";
 
 interface RestartGameButtonProps {
     size?: number;

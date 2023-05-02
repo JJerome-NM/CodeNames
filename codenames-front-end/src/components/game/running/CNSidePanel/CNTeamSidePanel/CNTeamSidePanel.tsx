@@ -1,9 +1,9 @@
 import React, {CSSProperties, FC} from 'react';
-import {ITeam} from "@models/CodeNames/ITeam";
 
 import css from './CNTeamSidePanel.module.css'
+import {ITeam} from "../../../../../models/CodeNames/ITeam";
+import CNTeamPlayerBlock from "../CNTeamPlayerBlock/CNTeamPlayerBlock";
 
-import CNTeamPlayerBlock from "@game/running/CNSidePanel/CNTeamPlayerBlock/CNTeamPlayerBlock";
 
 interface CNTeamSidePanelProps {
     hidden?: boolean;

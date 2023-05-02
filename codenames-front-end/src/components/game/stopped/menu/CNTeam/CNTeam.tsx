@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
-import CNTeamName from "@game/stopped/menu/CNTeamName/CNTeamName";
-import CNMaster from "@game/stopped/menu/CNMaster/CNMaster";
-import CNPlayerBlock from "@game/stopped/menu/CNPlayerBlock/CNPlayerBlock";
-import {ITeam} from "@models/CodeNames/ITeam";
-import {Color} from "@models/CodeNames/Color";
 
 import css from "./CNTeam.module.css"
+import {Color} from "../../../../../models/CodeNames/Color";
+import CNTeamName from "../CNTeamName/CNTeamName";
+import CNMaster from "../CNMaster/CNMaster";
+import CNPlayerBlock from "../CNPlayerBlock/CNPlayerBlock";
+import {ITeam} from "../../../../../models/CodeNames/ITeam";
 
 interface CNTeamProps {
     team?: ITeam;

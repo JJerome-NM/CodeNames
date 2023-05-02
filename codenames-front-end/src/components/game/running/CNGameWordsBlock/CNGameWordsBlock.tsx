@@ -1,8 +1,8 @@
 import React, {CSSProperties, FC, useRef} from 'react';
-import {IWord} from "@models/CodeNames/IWord";
 
 import css from "./CNGameWordsBlock.module.css"
-import CNGameWord from "@game/running/CNGameWord/CNGameWord";
+import CNGameWord from "../CNGameWord/CNGameWord";
+import {IWord} from "../../../../models/CodeNames/IWord";
 
 interface CNGameWordsBlockProps {
     words?: IWord[];

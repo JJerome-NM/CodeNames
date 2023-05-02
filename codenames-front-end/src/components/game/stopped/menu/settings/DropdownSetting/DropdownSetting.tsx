@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
 
 import css from "./SettingButton.module.css"
-import {useOnClickOutside} from "@hooks/useOnClickOutside";
+import {useOnClickOutside} from "../../../../../../hooks/useOnClickOutside";
 
 interface DropdownSettingProps {
     className?: string;
