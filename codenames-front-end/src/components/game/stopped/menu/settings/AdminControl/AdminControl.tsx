@@ -13,13 +13,13 @@ interface AdminControlProps {
 }
 
 
-const AdminControl: FC<AdminControlProps> = ({
-                                                 onClickToRun,
-                                                 className,
-                                                 children,
-                                                 runButtonColor= "#fff",
-                                                 runButtonSize = 35
-                                             }) => {
+const AdminControl = ({
+                          onClickToRun,
+                          className,
+                          children,
+                          runButtonColor = "#fff",
+                          runButtonSize = 35
+                      }: AdminControlProps) => {
     return (
         <div className={[css.SettingAdminBlock, className].join(" ")}>
             <CNRunButton

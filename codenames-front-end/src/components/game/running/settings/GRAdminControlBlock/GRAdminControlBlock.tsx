@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 
 import css from "./GRAdminControlBlock.module.css"
 import PauseButton from "../../../../ui/PauseButton/PauseButton";
@@ -13,13 +13,13 @@ interface GRAdminControlBlockProps {
     className?: string;
 }
 
-const GRAdminControlBlock: FC<GRAdminControlBlockProps> = ({
-                                                               onClickToGamePause,
-                                                               onClickToGameStop,
-                                                               onClickToGameRestart,
-                                                               hidden = true,
-                                                               className
-                                                           }) => {
+const GRAdminControlBlock = ({
+                                 onClickToGamePause,
+                                 onClickToGameStop,
+                                 onClickToGameRestart,
+                                 hidden = true,
+                                 className
+                             }: GRAdminControlBlockProps) => {
     return (
         <div className={[className, css.AdminControl, hidden ? css.Hidden : ""].join(" ")}>
             <PauseButton
@@ -30,10 +30,10 @@ const GRAdminControlBlock: FC<GRAdminControlBlockProps> = ({
                 onClick={onClickToGameStop}
                 size={30}
             />
-           <RestartGameButton
+            <RestartGameButton
                 onClick={onClickToGameRestart}
                 size={30}
-           />
+            />
         </div>
     );
 };

@@ -1,9 +1,8 @@
-import React, {FC, useState} from 'react';
+import React, {useState} from 'react';
 
 import {useNavigate} from "react-router-dom";
 import {Flip, ToastContainer} from "react-toastify";
 import {notify} from "../../models/notifications/Notifications";
-import {CodeNamesRestService} from "../../services/CodeNamesRestService";
 import useFetching from "../../hooks/useFetching";
 
 import CNDefaultInput from "../../components/ui/CNDefaultInput/CNDefaultInput";
@@ -12,8 +11,9 @@ import BlueYellowBg from "../../components/ui/BlueYellowBG/BlueYellowBG";
 
 import 'react-toastify/dist/ReactToastify.css';
 import css from "./styles/main.module.css"
+import {useCodeNamesRestService} from "../../hooks/useCodeNamesRestService";
 
-export const Connect: FC = () => {
+export const Connect = () => {
     const minRoomID = 100000;
     const maxRoomID = 1000000;
 
@@ -21,8 +21,10 @@ export const Connect: FC = () => {
     const [selectedForm, setSelectedForm] = useState<"connect" | "create">("connect");
     const [roomID, setRoomID] = useState<string>(String(minRoomID));
 
+    const [createRoom, connectToRoom] = useCodeNamesRestService();
+
     const [fetchConnectToRoom, isLoadingConnectToRoom, errorConnectToRoom] = useFetching(async () => {
-        const response = await CodeNamesRestService.tryConnectToRoom(Number(roomID));
+        const response = await connectToRoom(Number(roomID));
 
         if (response.data === -1) {
             notify.error(`Room with number "${roomID}" was not found`)
@@ -32,7 +34,7 @@ export const Connect: FC = () => {
     });
 
     const [fetchCreateRoom, isLoadingCreateRoom, errorCreateRoom] = useFetching(async () => {
-        const response = await CodeNamesRestService.createRoom();
+        const response = await createRoom();
 
         if (response.data === -1) {
             notify.error(`${response.data}`)

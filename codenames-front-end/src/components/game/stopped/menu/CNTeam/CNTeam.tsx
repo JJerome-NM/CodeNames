@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 
 import css from "./CNTeam.module.css"
 import {Color} from "../../../../../models/CodeNames/Color";
@@ -14,12 +14,13 @@ interface CNTeamProps {
     className?: string;
 }
 
-const CnTeam: FC<CNTeamProps> = ({
-                                     team,
-                                     className,
-                                     onMasterSelect,
-                                     onTeamSelect
-                                 }) => {
+const CnTeam = ({
+                    team,
+                    className,
+                    onMasterSelect,
+                    onTeamSelect
+                }: CNTeamProps) => {
+
     const teamColor: Color.BLUE | Color.YELLOW = team?.color === "BLUE" || team?.color === "YELLOW"
         ? team.color : Color.BLUE;
 

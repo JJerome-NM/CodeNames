@@ -1,15 +1,19 @@
-import React, {FC} from 'react';
+import React from 'react';
 
 import css from "./CNPlayer.module.css"
 import {IUser} from "../../../../../models/CodeNames/IUser";
 
-interface CNPlayerProps{
+interface CNPlayerProps {
     user: IUser;
     type?: "div" | "li"
     className?: string;
 }
 
-const CNPlayer: FC<CNPlayerProps> = ({user, type, className}) => {
+const CNPlayer = ({
+                      user,
+                      type,
+                      className
+                  }: CNPlayerProps) => {
     return type === "div"
         ? (
             <div className={[css.CNPlayer, className].join(" ")}>

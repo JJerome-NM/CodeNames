@@ -4,8 +4,6 @@ import {useNavigate, useParams} from "react-router-dom";
 
 import CodeNamesWebSocketService from "../../services/CodeNamesWebSocketService";
 import {IGameRoom} from "../../models/CodeNames/IGameRoom";
-import useFetching from "../../hooks/useFetching";
-import {CodeNamesRestService} from "../../services/CodeNamesRestService";
 import {Status} from "../../models/CodeNames/Status";
 
 import CNRunGameFrame from "../../components/game/running/CNRunGameFrame/CNRunGameFrame";
@@ -14,6 +12,9 @@ import GRAdminControlBlock from "../../components/game/running/settings/GRAdminC
 import GrayWhiteBG from "../../components/ui/GrayWhiteBG/GrayWhiteBG";
 
 import css from './styles/main.module.css'
+import {useCodeNamesRestService} from "../../hooks/useCodeNamesRestService";
+import {useCodeNamesWsRoomConnect} from "../../hooks/useCodeNamesWsRoomConnect";
+import {Flip, ToastContainer} from "react-toastify";
 
 interface GameRoomParamProps {
     [key: string]: string;
@@ -23,39 +24,19 @@ interface GameRoomParamProps {
 
 const GameRoom = () => {
 
-    const params = useParams<GameRoomParamProps>()
-    const navigate = useNavigate();
-    const socketService = useRef<CodeNamesWebSocketService>()
-
-    const [isConnected, setIsConnected] = useState<boolean>(false);
-    const [room, setRoom] = useState<IGameRoom>();
-
-    const [fetchConnectToRoom, isLoadingConnectToRoom, errorConnectToRoom] = useFetching(async () => {
-        const response = await CodeNamesRestService.tryConnectToRoom(Number(params.id));
-
-        if (response.data === -1) {
-            navigate("/room/connect");
-        } else {
-            socketService.current = new CodeNamesWebSocketService(Number(params.id), newRoomInfo, onConnect, onClose)
-            setIsConnected(true);
-        }
-    })
-
     const newRoomInfo = (room: IGameRoom) => {
         console.log(room)
 
         setRoom(room);
     }
 
-    const onConnect = () => {
-    }
+    const params = useParams<GameRoomParamProps>()
+    const navigate = useNavigate();
 
-    const onClose = () => {
-        navigate("/room/connect");
-    }
+    const [roomSocket, requests, isConnected] = useCodeNamesWsRoomConnect(Number(params.id), newRoomInfo);
+    const [room, setRoom] = useState<IGameRoom>();
 
     useEffect(() => {
-        fetchConnectToRoom();
         document.title = "Room " + params.id + " - CodeNamesConfig";
     }, [])
 
@@ -69,16 +50,30 @@ const GameRoom = () => {
 
             <CNStopGameMenu
                 room={room}
-                service={socketService.current}
+                requests={requests}
             />
 
             <GRAdminControlBlock
                 onClickToGamePause={() => {
                     console.log("pause")
                 }}
-                onClickToGameRestart={() => socketService.current?.restartGame()}
-                onClickToGameStop={() => socketService.current?.stopGame()}
+                onClickToGameRestart={() => requests?.restartGame()}
+                onClickToGameStop={() => requests?.stopGame()}
                 hidden={room?.status !== Status.RUN}
+            />
+
+            <ToastContainer
+                position="bottom-right"
+                transition={Flip}
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
             />
 
             <GrayWhiteBG/>

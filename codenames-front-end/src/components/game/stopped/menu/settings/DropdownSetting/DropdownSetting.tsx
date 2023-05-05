@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import css from "./SettingButton.module.css"
 import {useOnClickOutside} from "../../../../../../hooks/useOnClickOutside";
@@ -8,10 +8,10 @@ interface DropdownSettingProps {
     children?: React.ReactNode;
 }
 
-const DropdownSetting: FC<DropdownSettingProps> = ({
-                                                   children,
-                                                   className
-                                               }) => {
+const DropdownSetting = ({
+                             children,
+                             className
+                         }: DropdownSettingProps) => {
     const openMenu = () => {
         if (!menuIsOpen) {
             setMenuIsOpen(true)

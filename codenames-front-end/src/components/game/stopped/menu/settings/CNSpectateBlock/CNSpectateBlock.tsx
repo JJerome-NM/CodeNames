@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import css from "./CNSpectateBlock.module.css";
 
 interface CNSpectateButtonProps {
@@ -6,10 +6,10 @@ interface CNSpectateButtonProps {
     onClick?: () => void;
 }
 
-const CNSpectateBlock: FC<CNSpectateButtonProps> = ({
-                                                        onClick,
-                                                        className
-                                                    }) => {
+const CNSpectateBlock = ({
+                             onClick,
+                             className
+                         }: CNSpectateButtonProps) => {
     return (
         <div className={[css.SpectateBlock, className].join(" ")}>
             <h2 onClick={onClick}>

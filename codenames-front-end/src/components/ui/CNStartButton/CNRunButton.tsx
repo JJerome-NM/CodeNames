@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 
 import css from "./CNRunButton.module.css";
 import SVGRunImage from "../svg/SVGRunImage";
@@ -10,15 +10,15 @@ interface CNStartButtonProps {
     className?: string;
 }
 
-const CNRunButton: FC<CNStartButtonProps> = ({
-                                                 size = 20,
-                                                 color = "white",
-                                                 className,
-                                                 onClick
-                                             }) => {
+const CNRunButton = ({
+                         size = 20,
+                         color = "white",
+                         className,
+                         onClick
+                     }: CNStartButtonProps) => {
     return (
         <div
-            className={[css.RunButton, className].join(" ")}
+            className={[className, css.RunButton].join(" ")}
             style={{'--btn-size': `${size}px`} as React.CSSProperties}
             onClick={onClick}
         >

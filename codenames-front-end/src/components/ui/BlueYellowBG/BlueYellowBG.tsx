@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import css from "./bg.module.css"
 
 import firstBgImage from "./images/first_bg_image.svg"
@@ -7,7 +7,7 @@ import thirdBgImage from "./images/third_bg_image.svg"
 
 
 
-const BlueYellowBg: FC = ({...props}) => {
+const BlueYellowBg = ({...props}) => {
     return (
         <div {...props} className={css.bg}>
             <img className={css.bg__image} src={firstBgImage} alt=""/>

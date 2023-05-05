@@ -1,4 +1,4 @@
-import React, {ComponentType} from "react";
+import {ComponentType} from "react";
 import {Connect} from "../../pages/connect/Connect";
 import GameRoom from "../../pages/GameRoom/GameRoom";
 import SingUp from "../../pages/SignUp/SingUp";

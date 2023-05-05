@@ -1,24 +1,25 @@
-import React, {FC, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {IGameRoom} from "../../../../../models/CodeNames/IGameRoom";
 import css from "./CnStopGameMenu.module.css";
 import {Color} from "../../../../../models/CodeNames/Color";
-import CodeNamesWebSocketService from "../../../../../services/CodeNamesWebSocketService";
 import {Status} from "../../../../../models/CodeNames/Status";
 import CNSpectateBlock from "../settings/CNSpectateBlock/CNSpectateBlock";
 import CNTeam from "../CNTeam/CNTeam";
 import AdminControl from "../settings/AdminControl/AdminControl";
+import {CodeNameWsRoomRequests} from "../../../../../hooks/useCodeNamesWsRoomConnect";
+
 
 interface CNStopGameMenuProps {
     room?: IGameRoom;
-    service?: CodeNamesWebSocketService;
+    requests?: CodeNameWsRoomRequests;
     className?: string;
 }
 
-const CNStopGameMenu: FC<CNStopGameMenuProps> = ({
-                                                     room,
-                                                     className,
-                                                     service
-                                                 }) => {
+const CNStopGameMenu = ({
+                            room,
+                            className,
+                            requests
+                        }: CNStopGameMenuProps) => {
     const [menuDisplay, setMenuDisplay] = React.useState<string>("flex");
     const [timeoutId, setTimeoutId] = React.useState<number>(0);
 
@@ -35,7 +36,10 @@ const CNStopGameMenu: FC<CNStopGameMenuProps> = ({
     }, [room?.status])
 
     return (
-        <div className={css.StopGameMenuBlock} style={{display: menuDisplay}}>
+        <div
+            className={css.StopGameMenuBlock}
+            style={{display: menuDisplay}}
+        >
             <div
                 className={[
                     className,
@@ -46,25 +50,25 @@ const CNStopGameMenu: FC<CNStopGameMenuProps> = ({
                 <div className={css.TeamsBlock}>
                     <CNTeam
                         team={room?.blueTeam}
-                        onMasterSelect={() => service?.selectMaster(Color.BLUE)}
-                        onTeamSelect={() => service?.joinToTeam(Color.BLUE)}
+                        onMasterSelect={() => requests?.selectMaster(Color.BLUE)}
+                        onTeamSelect={() => requests?.joinToTeam(Color.BLUE)}
                     />
 
                     <hr className={css.BoundaryLine}/>
 
                     <CNTeam
                         team={room?.yellowTeam}
-                        onMasterSelect={() => service?.selectMaster(Color.YELLOW)}
-                        onTeamSelect={() => service?.joinToTeam(Color.YELLOW)}
+                        onMasterSelect={() => requests?.selectMaster(Color.YELLOW)}
+                        onTeamSelect={() => requests?.joinToTeam(Color.YELLOW)}
                     />
                 </div>
                 <div className={css.SettingBlock}>
                     <CNSpectateBlock
-                        onClick={() => service?.joinToSpectator()}
+                        onClick={() => requests?.joinToSpectator()}
                     />
 
                     <AdminControl
-                        onClickToRun={() => service?.startGame()}
+                        onClickToRun={() => requests?.startGame()}
                         runButtonSize={35}
                     >
                         <div>Start time</div>

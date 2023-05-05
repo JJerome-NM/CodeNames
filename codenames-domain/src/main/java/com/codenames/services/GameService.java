@@ -54,15 +54,6 @@ public class GameService {
         this.minRoomID = codeNamesProperties.getGameRooms().getMinRoomId();
         this.maxRoomID = codeNamesProperties.getGameRooms().getMaxRoomId();
         this.roomLimit = maxRoomID - minRoomID;
-//        System.out.println(codeNamesProperties);
-//        System.out.println(codeNamesProperties.getWords());
-//        System.out.println(codeNamesProperties.getWords().getFileName());
-//        System.out.println(codeNamesProperties.getWords().getResourcesPath());
-//        System.out.println(codeNamesProperties.getGameRooms());
-//        System.out.println(codeNamesProperties.getGameRooms().getMaxRoomId());
-//        System.out.println(codeNamesProperties.getGameRooms().getMinRoomId());
-//        System.out.println(codeNamesProperties.getWsResponsePaths());
-//        System.out.println(codeNamesProperties.getWsResponsePaths().getNewRoomInfoPath());
     }
 
     public boolean checkAvailabilityRoom(CodeNamesGame codeNamesGame, int roomID){
@@ -83,7 +74,7 @@ public class GameService {
 
     public void sendRoomInfoToAllRoomPlayer(Room room){
         sendRoomInfoToPlayer(room.getBlueTeam().getMaster(), room, false);
-        sendRoomInfoToPlayer(room.getBlueTeam().getMaster(), room, false);
+        sendRoomInfoToPlayer(room.getYellowTeam().getMaster(), room, false);
 
         room.getSpectators().forEach(player -> sendRoomInfoToPlayer(player, room, true));
         room.getBlueTeam().getPlayersList().forEach(player -> sendRoomInfoToPlayer(player, room, true));

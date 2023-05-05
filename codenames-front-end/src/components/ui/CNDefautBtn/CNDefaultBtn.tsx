@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React from "react";
 
 import css from "./CNDefaultBtn.module.css"
 
@@ -8,15 +8,13 @@ interface CBDefaultBtnProps {
     children?: React.ReactNode;
 }
 
-const CNDefaultBtn: FC<CBDefaultBtnProps> = ({
-                                                 bgColor,
-                                                 className,
-                                                 children,
-                                                 ...props
-                                             }) => {
+const CNDefaultBtn = ({
+                          bgColor,
+                          className,
+                          children,
+                      }: CBDefaultBtnProps) => {
     return (
         <button
-            {...props}
             className={[className, css.CNDefaultBtn].join(" ")}
             style={bgColor ? {backgroundColor: bgColor} : {}}
         >

@@ -1,4 +1,4 @@
-import React, {CSSProperties, FC} from 'react';
+import React, {CSSProperties} from 'react';
 
 import css from "./StopGameButton.module.css"
 
@@ -10,12 +10,12 @@ interface StopGameProps {
     className?: string;
 }
 
-const StopGameButton: FC<StopGameProps> = ({
-                                               bgColor,
-                                               size = 30,
-                                               onClick,
-                                               className
-                                           }) => {
+const StopGameButton = ({
+                            bgColor,
+                            size = 30,
+                            onClick,
+                            className
+                        }: StopGameProps) => {
     return (
         <div
             className={[className, css.StopGame].join(" ")}

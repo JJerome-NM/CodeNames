@@ -32,7 +32,7 @@ class CodeNamesWebSocketService {
         onClose: () => void,
     ) {
         this.socket = new WebSocket(WebSocketConfig.connectPath);
-        roomID ? this.roomId = roomID: this.roomId = -1;
+        this.roomId = roomID ? roomID: -1;
 
         this.onNewRoomInfo = onNewRoomInfo.bind(this);
         this.onConnect = onConnect.bind(this);

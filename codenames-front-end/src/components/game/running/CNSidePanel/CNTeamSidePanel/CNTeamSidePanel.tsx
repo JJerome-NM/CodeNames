@@ -1,4 +1,4 @@
-import React, {CSSProperties, FC} from 'react';
+import React, {CSSProperties} from 'react';
 
 import css from './CNTeamSidePanel.module.css'
 import {ITeam} from "../../../../../models/CodeNames/ITeam";
@@ -14,14 +14,14 @@ interface CNTeamSidePanelProps {
     className?: string;
 }
 
-const CNTeamSidePanel: FC<CNTeamSidePanelProps> = ({
-                                                       hidden = false,
-                                                       team,
-                                                       teamName,
-                                                       teamColor,
-                                                       position,
-                                                       className
-                                                   }) => {
+const CNTeamSidePanel = ({
+                             hidden,
+                             team,
+                             teamName,
+                             teamColor,
+                             className,
+                             position
+                         }: CNTeamSidePanelProps) => {
     return (
         <div
             className={[
@@ -29,7 +29,7 @@ const CNTeamSidePanel: FC<CNTeamSidePanelProps> = ({
                 position === "left" ? css.LeftSidePanel : css.RightSidePanel,
                 css.TeamPanel
             ].join(" ")}
-            style={{'--panel-team-color': teamColor === "blue" ? "var(--cn-blue)" : "var(--cn-yellow)"} as CSSProperties}
+            style={{'--panel-team-color': `var(--cn-${teamColor})`} as CSSProperties}
         >
             <div className={[css.PanelBlock, css.TeamNameBlock].join(" ")}>
                 <div className={css.TeamPanelName}>{teamName}</div>

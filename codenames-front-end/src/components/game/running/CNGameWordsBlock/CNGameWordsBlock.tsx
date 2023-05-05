@@ -1,8 +1,9 @@
-import React, {CSSProperties, FC, useRef} from 'react';
+import React, {CSSProperties} from 'react';
 
-import css from "./CNGameWordsBlock.module.css"
 import CNGameWord from "../CNGameWord/CNGameWord";
 import {IWord} from "../../../../models/CodeNames/IWord";
+
+import css from "./CNGameWordsBlock.module.css"
 
 interface CNGameWordsBlockProps {
     words?: IWord[];
@@ -11,34 +12,23 @@ interface CNGameWordsBlockProps {
     className?: string;
 }
 
-const CNGameWordsBlock: FC<CNGameWordsBlockProps> = ({
-                                                         words = [],
-                                                         wordsCount = 25,
-                                                         hidden = true,
-                                                         className
-                                                     }) => {
+const wordsInLineCount = new Map<number, number>([
+    [30, 5],
+    [25, 5],
+    [20, 5],
+    [16, 4],
+])
 
-    const block = useRef<HTMLDivElement>(null);
-
-    const calcWordsCountOnLine = (wordCount: number = 20): number => {
-        switch (wordCount) {
-            case 30:
-                return 5;
-            case 25:
-                return 5;
-            case 20:
-                return 5;
-            case 16:
-                return 4;
-        }
-        return 5;
-    }
-
+const CNGameWordsBlock = ({
+                              words = [],
+                              wordsCount = 25,
+                              hidden,
+                              className
+                          }: CNGameWordsBlockProps) => {
     return (
         <div
-            style={{"--words-line-count": `${calcWordsCountOnLine(wordsCount)}`} as CSSProperties}
+            style={{"--words-line-count": `${wordsInLineCount.get(wordsCount)}`} as CSSProperties}
             className={[className, css.WordsBlock].join(" ")}
-            ref={block}
         >
             {words.map(word =>
                 <CNGameWord color={word.color} key={word.id}>{word.text}</CNGameWord>

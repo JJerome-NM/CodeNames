@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 
 import css from "./CNPlayerBlock.module.css"
 import CNPlayer from "../CNPlayer/CNPlayer";
@@ -13,16 +13,22 @@ interface CnPlayerBlockProps {
     className?: string;
 }
 
-const CnPlayerBlock: FC<CnPlayerBlockProps> = ({
-                                                   players = [],
-                                                   color,
-                                                   onTeamSelect,
-                                                   maxPlayers = 5,
-                                                   className
-                                               }) => {
+const CnPlayerBlock = ({
+                           players = [],
+                           color,
+                           onTeamSelect,
+                           maxPlayers = 5,
+                           className
+                       }: CnPlayerBlockProps) => {
     return (
-        <div className={[css.TeamPlayersBlock, className].join(" ")}>
-            <div className={[css.TeamPlayerLabel, color === Color.BLUE ? css.Blue : css.Yellow].join(" ")}>
+        <div className={[
+            className,
+            css.TeamPlayersBlock
+        ].join(" ")}>
+            <div className={[
+                css.TeamPlayerLabel,
+                color === Color.BLUE ? css.Blue : css.Yellow
+            ].join(" ")}>
                 <div>Players</div>
                 {players.length >= maxPlayers ? ""
                     :

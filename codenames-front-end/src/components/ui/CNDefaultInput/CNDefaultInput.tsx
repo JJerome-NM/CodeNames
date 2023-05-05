@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 
 import css from "./CNDefaultInput.module.css"
 import {v4} from "uuid";
@@ -15,16 +15,16 @@ interface CNDefaultInputProps {
     placeholder?: string;
 }
 
-const CNDefaultInput: FC<CNDefaultInputProps> = (({
-                                                      value,
-                                                      inputLabel,
-                                                      inputLabelText,
-                                                      inputLabelID = v4(),
-                                                      className,
-                                                      onChange,
-                                                      type,
-                                                      placeholder,
-                                                  }) => {
+const CNDefaultInput = (({
+                             value,
+                             inputLabel,
+                             inputLabelText,
+                             inputLabelID = v4(),
+                             className,
+                             onChange,
+                             type,
+                             placeholder,
+                         }: CNDefaultInputProps) => {
     return (
         <div className={[className, css.InputBlock].join(" ")}>
             {inputLabel ? inputLabel :

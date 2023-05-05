@@ -4,7 +4,6 @@ import com.codenames.enums.GameStatus;
 import com.codenames.filters.method.GameStoppedFilter;
 import com.codenames.filters.method.UserAuthorizedFilter;
 import com.codenames.models.game.CodeNamesGame;
-import com.codenames.models.game.Player;
 import com.codenames.models.room.Room;
 import com.codenames.models.room.Settings;
 import com.codenames.services.GameService;
@@ -35,6 +34,7 @@ public class AdminWebSocketController {
     @SocketMappingFilters(filters = {
             UserAuthorizedFilter.class,
             GameStoppedFilter.class,
+            // TODO: 05.05.2023 Temporarily to simplify tests 
 //            UserIsRoomAdminFilter.class
     })
     public void startGameInRoom(Request<Settings> request){
@@ -48,6 +48,8 @@ public class AdminWebSocketController {
     @SocketMapping(reqPath = "/room/admin/stop")
     @SocketMappingFilters(filters = {
             UserAuthorizedFilter.class
+            // TODO: 05.05.2023 Temporarily to simplify tests
+//            UserIsRoomAdminFilter.class
     })
     public void stopGameInRoom(Request<String> request){
         Room room = codeNamesGame.getGameRoom(playerService.getPlayerRoomID(request));
@@ -60,6 +62,8 @@ public class AdminWebSocketController {
     @SocketMapping(reqPath = "/room/admin/restart")
     @SocketMappingFilters(filters = {
             UserAuthorizedFilter.class
+            // TODO: 05.05.2023 Temporarily to simplify tests
+//            UserIsRoomAdminFilter.class
     })
     public void restartGameInRoom(Request<String> request){
         Room room = codeNamesGame.getGameRoom(playerService.getPlayerRoomID(request));

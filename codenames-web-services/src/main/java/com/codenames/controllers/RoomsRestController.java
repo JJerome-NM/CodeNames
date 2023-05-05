@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/room")
-@CrossOrigin(origins = "http://26.193.49.236:3000")
 @RequiredArgsConstructor
 public class RoomsRestController {
 
@@ -36,6 +34,7 @@ public class RoomsRestController {
     @GetMapping(path = "/create")
     @ResponseStatus(code = HttpStatus.CREATED)
     public Integer createNewRoom(){
+        // TODO: 03.05.2023 This is a temporary code, it will be recycled after adding authorization 
         int newRoomID = gameService.createNewRoom(codeNamesGame,
                 new Player(null ,null, new User(23243, "234", "JJerome")));
 

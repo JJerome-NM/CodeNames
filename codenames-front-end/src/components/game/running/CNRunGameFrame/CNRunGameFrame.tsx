@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {useEffect} from 'react';
 
 import css from './CNRunGameFrame.module.css'
 import {Status} from "../../../../models/CodeNames/Status";
@@ -11,17 +11,17 @@ interface CNRunGameFrameProps {
     className?: string;
 }
 
-const CNRunGameFrame: FC<CNRunGameFrameProps> = ({
-                                                     room,
-                                                     className
-                                                 }) => {
+const CNRunGameFrame = ({
+                            room,
+                            className
+                        }: CNRunGameFrameProps) => {
     const [menuDisplay, setMenuDisplay] = React.useState<string>("none");
     const [timeoutId, setTimeoutId] = React.useState<number>(0);
 
     useEffect(() => {
         clearTimeout(timeoutId);
 
-        if (room){
+        if (room) {
             if (room?.status !== Status.RUN) {
                 setTimeoutId(setTimeout(() => {
                     setMenuDisplay("none");

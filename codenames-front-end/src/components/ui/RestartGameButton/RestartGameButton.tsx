@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 
 import css from "./RestartGameButton.module.css"
 import SVGRestartGame from "../svg/SVGRestartGame";
@@ -10,12 +10,12 @@ interface RestartGameButtonProps {
     className?: string;
 }
 
-const RestartGameButton: FC<RestartGameButtonProps> = ({
-                                                           size = 30,
-                                                           fill = "#fff",
-                                                           onClick,
-                                                           className
-                                                       }) => {
+const RestartGameButton = ({
+                               size = 30,
+                               fill = "#fff",
+                               onClick,
+                               className
+                           }: RestartGameButtonProps) => {
     return (
         <div
             className={[className, css.RestartButton].join(" ")}

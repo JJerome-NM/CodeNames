@@ -1,4 +1,4 @@
-import React, {CSSProperties, FC} from 'react';
+import React, {CSSProperties} from 'react';
 
 import css from "./PauseButton.module.css"
 
@@ -9,12 +9,12 @@ interface PauseButtonProps {
     className?: string;
 }
 
-const PauseButton: FC<PauseButtonProps> = ({
-                                               size = 30,
-                                               bgColor = "#ffffff",
-                                               className,
-                                               onClick
-                                           }) => {
+const PauseButton = ({
+                         size = 30,
+                         bgColor = "#ffffff",
+                         className,
+                         onClick
+                     }: PauseButtonProps) => {
     return (
         <div
             className={[className, css.PauseButton].join(" ")}

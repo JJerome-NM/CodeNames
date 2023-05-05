@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {v4} from "uuid";
 
 
@@ -12,12 +12,12 @@ interface CNTeamPlayerBlockProps {
     className?: string;
 }
 
-const CNTeamPlayerBlock: FC<CNTeamPlayerBlockProps> = ({
-                                                           master,
-                                                           players,
-                                                           message,
-                                                           className
-                                                       }) => {
+const CNTeamPlayerBlock = ({
+                               master,
+                               players,
+                               message,
+                               className
+                           }: CNTeamPlayerBlockProps) => {
     return (
         <div className={[className, css.PanelBlock, css.TeamPlayersBlock].join(" ")}>
             <div className={css.TeamPanelMaster}>

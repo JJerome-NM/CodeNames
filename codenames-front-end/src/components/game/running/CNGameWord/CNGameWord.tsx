@@ -1,31 +1,32 @@
-import React, {FC} from 'react';
+import React from 'react';
 
 import css from "./CNGameWord.module.css"
 import {Color} from "../../../../models/CodeNames/Color";
 
 interface CNGameWordProps {
-    color?: Color;
+    color: Color;
     className?: string;
     children?: React.ReactNode;
 }
 
-const CNGameWord: FC<CNGameWordProps> = ({
-                                             color,
-                                             className,
-                                             children
-                                         }) => {
+const colorStylesMap = new Map<Color, string>([
+    [Color.YELLOW, css.YELLOW],
+    [Color.BLUE, css.BLUE],
+    [Color.BLACK, css.BLACK],
+    [Color.WHITE, css.WHITE]
+])
 
-    let cssClassColor;
-
-    switch (color) {
-        case Color.YELLOW: cssClassColor = css.YELLOW; break;
-        case Color.BLUE: cssClassColor = css.BLUE; break;
-        case Color.BLACK: cssClassColor = css.BLACK; break;
-        case Color.WHITE: cssClassColor = css.WHITE; break;
-    }
-
+const CNGameWord = ({
+                        color,
+                        className,
+                        children
+                    }: CNGameWordProps) => {
     return (
-        <div className={[cssClassColor, css.Word, className].join(" ")}>
+        <div className={[
+            className,
+            colorStylesMap.get(color),
+            css.Word
+        ].join(" ")}>
             {children}
         </div>
     );

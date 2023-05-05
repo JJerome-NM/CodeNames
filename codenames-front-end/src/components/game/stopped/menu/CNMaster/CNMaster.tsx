@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import css from "./CNMaster.module.css";
 import {Color} from "../../../../../models/CodeNames/Color";
 
@@ -9,12 +9,12 @@ interface CNMasterProps {
     children: React.ReactNode;
 }
 
-const CNMaster: FC<CNMasterProps> = ({
-                                         color,
-                                         className,
-                                         children,
-                                         onSelect
-                                     }) => {
+const CNMaster = ({
+                      color,
+                      className,
+                      children,
+                      onSelect
+                  }: CNMasterProps) => {
     return (
         <div className={[css.TeamMaster, className].join(" ")}>
             <div className={color === Color.BLUE ? css.Blue : css.Yellow}>

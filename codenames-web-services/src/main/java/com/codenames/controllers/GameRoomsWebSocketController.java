@@ -77,26 +77,6 @@ public class GameRoomsWebSocketController {
     }
 
 
-//    @SocketMapping(reqPath = "/room/create")
-//    @SocketMappingFilters(filters = {
-//            UserAuthorizedFilter.class
-//    })
-//    public void createNewRoom(Request<String> request){
-//        // TODO: 18.04.2023  Add a check to see if the user has a room
-//
-//
-//        int newRoomID = gameService.createNewRoom(codeNamesGame, playerService.getPlayerByRequest(request));
-//        playerService.setPlayerRoomID(request, newRoomID);
-//
-//        Room room = gameService.getRoomByID(codeNamesGame, newRoomID);
-//        Player player = playerService.getPlayerByRequest(request);
-//
-//        LOGGER.info("Created new room, id - " + newRoomID);
-//
-//        gameService.sendNewRoomInfoToPlayer(request, room, player);
-//    }
-
-
     @SocketMapping(reqPath = "/room/select/role")
     @SocketMappingFilters(filters = {
             UserAuthorizedFilter.class,

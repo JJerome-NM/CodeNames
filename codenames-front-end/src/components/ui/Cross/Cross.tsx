@@ -1,4 +1,4 @@
-import React, {CSSProperties, FC} from 'react';
+import React, {CSSProperties} from 'react';
 
 import css from "./Cross.module.css"
 
@@ -9,12 +9,12 @@ interface CrossProps {
     className?: string;
 }
 
-const Cross: FC<CrossProps> = ({
-                                   className,
-                                   lineWidth = 3,
-                                   size = 20,
-                                   color = "#fff"
-                               }) => {
+const Cross = ({
+                   className,
+                   lineWidth = 3,
+                   size = 20,
+                   color = "#fff"
+               }: CrossProps) => {
     return (
         <div
             style={{
