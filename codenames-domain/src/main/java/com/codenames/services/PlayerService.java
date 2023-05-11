@@ -34,7 +34,7 @@ public class PlayerService {
         return this.getUserRoomSession(request).getPlayer();
     }
 
-    public Player getPlayerBuSessionID(String sessionID){
+    public Player getPlayerBySessionID(String sessionID){
         return this.authorizedUsers.getUserRoomSession(sessionID).getPlayer();
     }
 }

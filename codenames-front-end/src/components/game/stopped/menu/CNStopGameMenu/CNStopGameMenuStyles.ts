@@ -10,6 +10,7 @@ export const StyledStopGameMenuBlock = styled.div<WithStatusProps>`
 
   position: relative;
   display: flex;
+  box-sizing: border-box;
 
   flex-direction: column;
   justify-content: space-between;
@@ -35,6 +36,14 @@ export const StyledStopGameMenuBlock = styled.div<WithStatusProps>`
     pointer-events: none;
     opacity: 0;
   `}
+  
+  ${css`
+    @media screen and (max-width: 900px){
+      width: 100vw;
+    }
+  `}
+  
+}
 `;
 
 export const StyledTeamsBlock = styled.div`

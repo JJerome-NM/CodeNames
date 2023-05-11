@@ -12,4 +12,5 @@ export const StyledCNTeamPlayerBlock = styled(CNTeamPlayerBlock)`
   padding: 10px;
 
   height: 75%;
+  width: 100%;
 `

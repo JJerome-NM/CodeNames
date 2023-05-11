@@ -56,7 +56,7 @@ public class GameRoomsWebSocketController {
 
     @SocketDisconnectMapping
     public void disconnect(WebSocketSession session, CloseStatus status){
-        authorizedUsers.removeUserRoomSession(playerService.getPlayerBuSessionID(session.getId()));
+        authorizedUsers.removeUserRoomSession(playerService.getPlayerBySessionID(session.getId()));
     }
 
 

@@ -10,7 +10,7 @@ export const StyledCNRunGameFrame = styled(CNRunGameFrame)<StyledProps>`
   display: flex;
   position: absolute;
 
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   width: 100vw;

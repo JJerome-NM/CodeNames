@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SVGRunImage from "../svg/SVGRunImage";
+import SVGRunImage from "../../assets/SVGRunImage";
 
 interface CNStartButtonProps {
     size?: number;

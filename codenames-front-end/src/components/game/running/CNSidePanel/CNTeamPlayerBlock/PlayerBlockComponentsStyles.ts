@@ -47,6 +47,7 @@ export const StyledTeamPanelPlayersBlock = styled.div`
 
 export const StyledTeamPanelMessagesBlock = styled.div`
   ${GeneralStyleFroSomeComponents};
+  width: 100%;
   height: 40%;
 `;
 
@@ -57,7 +58,8 @@ export const StyledTextTeamColor = styled.div`
 export const StyledTeamPanelMessages = styled.ul`
   overflow: auto;
 
-  height: 300px;
+  width: 100%;
+  height: 100%;
   ${GeneralScrollbarStyle};
 `;
 

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 
 import {Status} from "../../../../models/CodeNames/Status";
-import CNTeamSidePanel from "../CNSidePanel/CNTeamSidePanel/CNTeamSidePanel";
 import {IGameRoom} from "../../../../models/CodeNames/IGameRoom";
 import {StyledCNGameWordBlock} from "../CNGameWordsBlock/StyledCNGameWordBlock";
 import {StyledCNTeamSidePanel} from "../CNSidePanel/CNTeamSidePanel/StyledCNTeamSidePanel";
@@ -31,7 +30,7 @@ const CNRunGameFrame = ({
         } else {
             setMenuDisplay("none");
         }
-    }, [room?.status])
+    }, [room])
 
     return (
         <div
@@ -45,6 +44,7 @@ const CNRunGameFrame = ({
                     teamColor={"blue"}
                     position={"left"}
                 />}
+
 
             <StyledCNGameWordBlock
                 words={room?.words}

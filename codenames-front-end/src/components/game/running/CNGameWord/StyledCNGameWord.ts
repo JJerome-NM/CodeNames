@@ -1,6 +1,6 @@
 import {Color} from "../../../../models/CodeNames/Color";
 import {CNGameWord} from "./CNGameWord";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 const colorStylesMap = new Map<Color, string>([
     [Color.YELLOW, "var(--words-yellow-color)"],
@@ -24,15 +24,15 @@ export const StyledCNGameWord = styled(CNGameWord)<StyleProps>`
   margin: 10px;
 
   width: var(--words-width);
-  height: 90px;
+  height: var(--words-heigth);
 
   color: ${props => props.wordColor === Color.BLACK ? "#ffffff" : "#1E1E1E"};
   background-color: ${props => props.wordColor ? colorStylesMap.get(props.wordColor) : "var(--words-default-color)"};
   
   font-style: normal;
   font-weight: 600;
-  font-size: 25px;
-  line-height: 29px;
+  font-size: 1.5rem;
+  line-height: 1.55rem;
 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 20px;
@@ -44,4 +44,12 @@ export const StyledCNGameWord = styled(CNGameWord)<StyleProps>`
   &:active{
     transform: scale(0.95);
   }
+  
+  ${css`
+    @media screen and (max-width: 1340px){
+      width: calc(var(--words-width) * 0.8);
+      height: calc(var(--words-heigth) * 0.8);
+      font-size: calc(1.5rem * 0.8);
+    }
+  `}
 `

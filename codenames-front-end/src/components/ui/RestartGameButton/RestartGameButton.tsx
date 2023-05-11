@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SVGRestartGame from "../svg/SVGRestartGame";
+import SVGRestartGame from "../../assets/SVGRestartGame";
 
 interface RestartGameButtonProps {
     size?: number;

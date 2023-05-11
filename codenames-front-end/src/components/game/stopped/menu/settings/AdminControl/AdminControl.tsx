@@ -1,5 +1,4 @@
 import React from 'react';
-import CNRunButton from "../../../../../ui/CNStartButton/CNRunButton";
 import {StyledDropdownSetting} from "../DropdownSetting/StyledDropdownSetting";
 import {StyledCNRunButton} from "../../../../../ui/CNStartButton/StyledCNRunButton";
 

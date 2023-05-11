@@ -37,7 +37,7 @@ const CNStopGameMenu = ({
 
     return (
         <div style={{display: menuDisplay}}>
-            <StyledStopGameMenuBlock status={room?.status} className={className}>
+            <StyledStopGameMenuBlock status={room?.status} className={[className, "NEGR"].join(" ")}>
                 <StyledTeamsBlock>
                     <StyledCNTeam
                         team={room?.blueTeam}

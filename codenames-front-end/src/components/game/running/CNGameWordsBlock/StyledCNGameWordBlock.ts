@@ -9,12 +9,14 @@ const wordsInLineCount = new Map<number, number>([
 ])
 
 type StyledProps = {
-    wordsCount: number | undefined;
+    wordsCount?: number;
 }
 
 export const StyledCNGameWordBlock = styled(CNGameWordsBlock)<StyledProps>`
-  --words-line-count: ${props => props.wordsCount ? wordsInLineCount.get(props.wordsCount) : 4};
-
+  --words-line-count: ${props => props.wordsCount ? wordsInLineCount.get(props.wordsCount) : 5};
+  --words-width: 170px;
+  --words-heigth: 90px;
+  
   display: flex;
 
   flex-direction: row;
@@ -22,7 +24,8 @@ export const StyledCNGameWordBlock = styled(CNGameWordsBlock)<StyledProps>`
   align-items: center;
   justify-content: center;
 
-  width: calc(var(--words-width) * var(--words-line-count) + (20px * var(--words-line-count)));
+  max-width: calc(var(--words-width) * var(--words-line-count) + (20px * var(--words-line-count)));
 
   transition: ease .2s;
+
 `

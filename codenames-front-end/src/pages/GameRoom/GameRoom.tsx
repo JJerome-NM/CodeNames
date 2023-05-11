@@ -7,13 +7,13 @@ import {Status} from "../../models/CodeNames/Status";
 
 import {useCodeNamesWsRoomConnect} from "../../hooks/useCodeNamesWsRoomConnect";
 import {Flip, ToastContainer} from "react-toastify";
+import {StyledCodeNamesGameFrame} from "./GameRoomStyles";
 import {StyledCNRunGameFrame} from "../../components/game/running/CNRunGameFrame/StyledCNRunGameFrame";
+import {StyledCNStopGameMenu} from "../../components/game/stopped/menu/CNStopGameMenu/StyledCNStopGameMenu";
 import {
     StyledGRAdminControlBlock
 } from "../../components/game/running/settings/GRAdminControlBlock/StyledGRAdminControlBlock";
 import {StyledGrayWhiteBG} from "../../components/ui/GrayWhiteBG/StyledGrayWhiteBG";
-import {StyledCNStopGameMenu} from "../../components/game/stopped/menu/CNStopGameMenu/StyledCNStopGameMenu";
-import {StyledCodeNamesGameFrame} from "./GameRoomStyles";
 
 
 interface GameRoomParamProps {

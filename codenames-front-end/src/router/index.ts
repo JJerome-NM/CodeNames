@@ -1,9 +1,8 @@
 import {ComponentType} from "react";
-import {Connect} from "../../pages/connect/Connect";
-import GameRoom from "../../pages/GameRoom/GameRoom";
-import SingUp from "../../pages/SignUp/SingUp";
-import SingIn from "../../pages/SingIn/SingIn";
-
+import {Connect} from "../pages/connect/Connect";
+import GameRoom from "../pages/GameRoom/GameRoom";
+import SingUp from "../pages/SignUp/SingUp";
+import SingIn from "../pages/SingIn/SingIn";
 
 export const publicRouters: {path: string, component: ComponentType}[] = [
     { path: '/room/connect', component: Connect },

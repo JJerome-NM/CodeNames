@@ -10,18 +10,20 @@ type StyledProps = {
 export const StyledCNTeamSidePanel = styled(CNTeamSidePanel)<StyledProps>`
   --panel-team-color: ${props => `var(--cn-${props.teamColor})`};
 
-  position: absolute;
   display: flex;
 
   overflow: hidden;
 
   flex-wrap: wrap;
+  justify-content: space-between;
 
-  min-width: 100px;
+  min-width: 180px;
   min-height: 200px;
 
-  width: 200px;
-  height: 800px;
+  max-width: 250px;
+  
+  width: 25vw;
+  height: 90vh;
 
   color: #ffffff;
 
@@ -33,10 +35,8 @@ export const StyledCNTeamSidePanel = styled(CNTeamSidePanel)<StyledProps>`
 
   ${props => props.position === "left" ?
           css`
-            left: 0;
             border-radius: 0 30px 30px 0;
           ` : css`
-            right: 0;
             border-radius: 30px 0 0 30px;
           `}
 `;
