@@ -1,6 +1,38 @@
 import React from 'react';
-import css from "./CNMaster.module.css";
 import {Color} from "../../../../../models/CodeNames/Color";
+import styled from "styled-components";
+
+
+type WithColorProps = {
+    color: Color.BLUE | Color.YELLOW
+}
+
+const StyledMasterLabel = styled.div<WithColorProps>`
+  color: ${props => `var(--cn-${props.color?.toLowerCase()})`}
+`;
+
+const StyledSelectButton = styled.button<WithColorProps>`
+  color: #ffffff;
+  font-size: 25px;
+
+  user-select: none;
+
+  border: none;
+  border-bottom: 2px solid #ffffff;
+
+  transition: ease .2s;
+
+  background: none;
+  
+  &:hover{
+    cursor: pointer;
+    color: ${props => `var(--cn-${props.color?.toLowerCase()})`};
+    border-bottom: 2px solid ${props => `var(--cn-${props.color?.toLowerCase()})`};
+  }
+  &:active{
+    transform: scale(0.9);
+  }
+`;
 
 interface CNMasterProps {
     color: Color.BLUE | Color.YELLOW
@@ -16,19 +48,16 @@ const CNMaster = ({
                       onSelect
                   }: CNMasterProps) => {
     return (
-        <div className={[css.TeamMaster, className].join(" ")}>
-            <div className={color === Color.BLUE ? css.Blue : css.Yellow}>
-                Master -&nbsp;
-            </div>
+        <div className={className}>
+            <StyledMasterLabel color={color}>Master -&nbsp;</StyledMasterLabel>
             {children ? children
                 :
-                <button
+                <StyledSelectButton
+                    color={color}
                     onClick={onSelect}
-                    className={[css.SelectButton, color === Color.BLUE ? css.SelectButtonBlue
-                        : css.SelectButtonYellow].join(" ")}
                 >
                     Select
-                </button>
+                </StyledSelectButton>
             }
         </div>
     );

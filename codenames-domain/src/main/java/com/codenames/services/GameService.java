@@ -64,10 +64,6 @@ public class GameService {
         return codeNamesGame.getGameRoom(playerService.getPlayerRoomID(request));
     }
 
-    public int checkRoomAvailable(CodeNamesGame codeNamesGame, int roomID){
-        return codeNamesGame.getGameRooms().containsKey(roomID) ? roomID : -1;
-    }
-
     public Room getRoomByID(CodeNamesGame codeNamesGame, int roomID){
         return codeNamesGame.getGameRoom(roomID);
     }

@@ -1,5 +1,4 @@
 import React from 'react';
-import css from "./CNSpectateBlock.module.css";
 
 interface CNSpectateButtonProps {
     className?: string;
@@ -11,7 +10,7 @@ const CNSpectateBlock = ({
                              className
                          }: CNSpectateButtonProps) => {
     return (
-        <div className={[css.SpectateBlock, className].join(" ")}>
+        <div className={className}>
             <h2 onClick={onClick}>
                 Spectate
             </h2>

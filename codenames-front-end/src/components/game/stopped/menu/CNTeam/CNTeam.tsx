@@ -1,11 +1,10 @@
 import React from 'react';
 
-import css from "./CNTeam.module.css"
 import {Color} from "../../../../../models/CodeNames/Color";
-import CNTeamName from "../CNTeamName/CNTeamName";
-import CNMaster from "../CNMaster/CNMaster";
 import CNPlayerBlock from "../CNPlayerBlock/CNPlayerBlock";
 import {ITeam} from "../../../../../models/CodeNames/ITeam";
+import {StyledCNMaster} from "../CNMaster/StyledCNMaster";
+import {StyledCNTeamName} from "../CNTeamName/StyledCNTeamName";
 
 interface CNTeamProps {
     team?: ITeam;
@@ -14,24 +13,23 @@ interface CNTeamProps {
     className?: string;
 }
 
-const CnTeam = ({
+const CNTeam = ({
                     team,
                     className,
                     onMasterSelect,
                     onTeamSelect
                 }: CNTeamProps) => {
 
-    const teamColor: Color.BLUE | Color.YELLOW = team?.color === "BLUE" || team?.color === "YELLOW"
-        ? team.color : Color.BLUE;
+    const teamColor: Color.BLUE | Color.YELLOW = team?.color ? team?.color : Color.BLUE;
 
     return (
-        <div className={[className, css.Team].join(" ")}>
-            <CNTeamName color={teamColor}>
+        <div className={className}>
+            <StyledCNTeamName color={teamColor}>
                 {team?.color === Color.BLUE ? "Blue" : "Yellow"}
-            </CNTeamName>
-            <CNMaster color={teamColor} onSelect={onMasterSelect}>
+            </StyledCNTeamName>
+            <StyledCNMaster color={teamColor} onSelect={onMasterSelect}>
                 {team?.master?.nickname}
-            </CNMaster>
+            </StyledCNMaster>
             <CNPlayerBlock
                 color={teamColor}
                 players={team?.players}
@@ -41,4 +39,4 @@ const CnTeam = ({
     );
 };
 
-export default CnTeam;
+export default CNTeam;

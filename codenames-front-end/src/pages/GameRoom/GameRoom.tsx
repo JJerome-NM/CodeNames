@@ -1,20 +1,20 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
-import CodeNamesWebSocketService from "../../services/CodeNamesWebSocketService";
 import {IGameRoom} from "../../models/CodeNames/IGameRoom";
 import {Status} from "../../models/CodeNames/Status";
 
-import CNRunGameFrame from "../../components/game/running/CNRunGameFrame/CNRunGameFrame";
-import CNStopGameMenu from "../../components/game/stopped/menu/CNStopGameMenu/CNStopGameMenu";
-import GRAdminControlBlock from "../../components/game/running/settings/GRAdminControlBlock/GRAdminControlBlock";
-import GrayWhiteBG from "../../components/ui/GrayWhiteBG/GrayWhiteBG";
-
-import css from './styles/main.module.css'
-import {useCodeNamesRestService} from "../../hooks/useCodeNamesRestService";
 import {useCodeNamesWsRoomConnect} from "../../hooks/useCodeNamesWsRoomConnect";
 import {Flip, ToastContainer} from "react-toastify";
+import {StyledCNRunGameFrame} from "../../components/game/running/CNRunGameFrame/StyledCNRunGameFrame";
+import {
+    StyledGRAdminControlBlock
+} from "../../components/game/running/settings/GRAdminControlBlock/StyledGRAdminControlBlock";
+import {StyledGrayWhiteBG} from "../../components/ui/GrayWhiteBG/StyledGrayWhiteBG";
+import {StyledCNStopGameMenu} from "../../components/game/stopped/menu/CNStopGameMenu/StyledCNStopGameMenu";
+import {StyledCodeNamesGameFrame} from "./GameRoomStyles";
+
 
 interface GameRoomParamProps {
     [key: string]: string;
@@ -31,7 +31,6 @@ const GameRoom = () => {
     }
 
     const params = useParams<GameRoomParamProps>()
-    const navigate = useNavigate();
 
     const [roomSocket, requests, isConnected] = useCodeNamesWsRoomConnect(Number(params.id), newRoomInfo);
     const [room, setRoom] = useState<IGameRoom>();
@@ -41,19 +40,19 @@ const GameRoom = () => {
     }, [])
 
     return (
-        <div className={css.CodeNamesGameFrame}>
+        <StyledCodeNamesGameFrame>
 
-            <CNRunGameFrame
+            <StyledCNRunGameFrame
                 room={room}
+                hidden={room?.status !== Status.RUN}
             />
 
-
-            <CNStopGameMenu
+            <StyledCNStopGameMenu
                 room={room}
                 requests={requests}
             />
 
-            <GRAdminControlBlock
+            <StyledGRAdminControlBlock
                 onClickToGamePause={() => {
                     console.log("pause")
                 }}
@@ -76,8 +75,8 @@ const GameRoom = () => {
                 theme="dark"
             />
 
-            <GrayWhiteBG/>
-        </div>
+            <StyledGrayWhiteBG/>
+        </StyledCodeNamesGameFrame>
     );
 };
 

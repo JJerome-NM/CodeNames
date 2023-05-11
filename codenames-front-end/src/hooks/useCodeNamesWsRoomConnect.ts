@@ -5,7 +5,7 @@ import WebSocketRequest from "../models/CodeNames/WebSocketRequest";
 import {IGameRoom} from "../models/CodeNames/IGameRoom";
 import WebSocketResponse from "../models/CodeNames/WebSocketResponse";
 import useFetching from "./useFetching";
-import {useCodeNamesRestService} from "./useCodeNamesRestService";
+import {useCodeNamesRestRequests} from "./useCodeNamesRestRequests";
 import {useNavigate} from "react-router-dom";
 import {notify} from "../models/notifications/Notifications";
 
@@ -69,10 +69,11 @@ export const useCodeNamesWsRoomConnect = (
     boolean
 ] => {
     const navigate = useNavigate();
-    const [createRoom, tryConnectToRoom] = useCodeNamesRestService();
+    const [createRoom, tryConnectToRoom] = useCodeNamesRestRequests();
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const webSocket = useRef<WebSocket>();
     const webSocketRequests = useRef<CodeNameWsRoomRequests>();
+    const reconnectCount = useRef<number>(0);
 
     const [fetchConnectToRoom] = useFetching(async () => {
         try {
@@ -81,10 +82,15 @@ export const useCodeNamesWsRoomConnect = (
                 navigate("/room/connect");
             }
         } catch (e) {
+            if (reconnectCount.current === 10) {
+                navigate("/room/connect");
+            }
+
             notify.error("Something went wrong while connecting to the server, perhaps the server is down.")
             notify.default("Reconnecting to the server")
 
             await new Promise(resolve => setTimeout(resolve, 5000))
+            reconnectCount.current++;
             return fetchConnectToRoom();
         }
 

@@ -2,8 +2,12 @@ import React from 'react';
 import {v4} from "uuid";
 
 
-import css from "./CnTeamPlayerBlock.module.css";
 import {IUser} from "../../../../../models/CodeNames/IUser";
+import {
+    StyledTeamPanelMaster, StyledTeamPanelMessages,
+    StyledTeamPanelMessagesBlock, StyledTeamPanelPlayers,
+    StyledTeamPanelPlayersBlock, StyledTextTeamColor
+} from "./PlayerBlockComponentsStyles";
 
 interface CNTeamPlayerBlockProps {
     master?: IUser;
@@ -19,30 +23,36 @@ const CNTeamPlayerBlock = ({
                                className
                            }: CNTeamPlayerBlockProps) => {
     return (
-        <div className={[className, css.PanelBlock, css.TeamPlayersBlock].join(" ")}>
-            <div className={css.TeamPanelMaster}>
-                <div className={css.TextTeamColor}>Master</div>
+        <div className={className}>
+            <StyledTeamPanelMaster>
+                <StyledTextTeamColor>
+                    Master
+                </StyledTextTeamColor>
 
                 <div>{master && master.nickname}</div>
-            </div>
-            <div className={css.TeamPanelPlayersBlock}>
-                <div className={css.TextTeamColor}>Players</div>
+            </StyledTeamPanelMaster>
+            <StyledTeamPanelPlayersBlock>
+                <StyledTextTeamColor>
+                    Players
+                </StyledTextTeamColor>
 
-                <ul className={css.TeamPanelPlayers}>
+                <StyledTeamPanelPlayers>
                     {players && players.map(player =>
                         <li key={player.id}>{player.nickname}</li>
                     )}
-                </ul>
-            </div>
-            <div className={css.TeamPanelMessagesBlock}>
-                <div className={css.TextTeamColor}>Messages</div>
+                </StyledTeamPanelPlayers>
+            </StyledTeamPanelPlayersBlock>
+            <StyledTeamPanelMessagesBlock>
+                <StyledTextTeamColor>
+                    Messages
+                </StyledTextTeamColor>
 
-                <ul className={css.TeamPanelMessages}>
+                <StyledTeamPanelMessages>
                     {message && message.map(message =>
                         <li key={v4()}>{message}</li>
                     )}
-                </ul>
-            </div>
+                </StyledTeamPanelMessages>
+            </StyledTeamPanelMessagesBlock>
         </div>
     );
 };

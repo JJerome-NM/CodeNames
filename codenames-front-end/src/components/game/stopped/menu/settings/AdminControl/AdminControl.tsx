@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
-import css from "./AdminControl.module.css";
+import React from 'react';
 import CNRunButton from "../../../../../ui/CNStartButton/CNRunButton";
-import DropdownSetting from "../DropdownSetting/DropdownSetting";
+import {StyledDropdownSetting} from "../DropdownSetting/StyledDropdownSetting";
+import {StyledCNRunButton} from "../../../../../ui/CNStartButton/StyledCNRunButton";
 
 
 interface AdminControlProps {
@@ -19,19 +19,17 @@ const AdminControl = ({
                           children,
                           runButtonColor = "#fff",
                           runButtonSize = 35
-                      }: AdminControlProps) => {
-    return (
-        <div className={[css.SettingAdminBlock, className].join(" ")}>
-            <CNRunButton
-                size={runButtonSize}
-                color={runButtonColor}
-                onClick={onClickToRun}
-            />
-            <DropdownSetting>
-                {children}
-            </DropdownSetting>
-        </div>
-    );
-};
+                      }: AdminControlProps) => (
+    <div className={className}>
+        <StyledCNRunButton
+            size={runButtonSize}
+            color={runButtonColor}
+            onClick={onClickToRun}
+        />
+        <StyledDropdownSetting>
+            {children}
+        </StyledDropdownSetting>
+    </div>
+);
 
 export default AdminControl;

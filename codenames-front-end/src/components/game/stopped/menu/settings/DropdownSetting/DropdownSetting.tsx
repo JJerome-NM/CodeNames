@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import css from "./SettingButton.module.css"
 import {useOnClickOutside} from "../../../../../../hooks/useOnClickOutside";
+import {StyledSettingButton, StyledSettingButtonLine, StyledSettingMenu} from "./DropdownSettingStyles";
 
 interface DropdownSettingProps {
     className?: string;
@@ -39,16 +39,16 @@ const DropdownSetting = ({
     }, [menuIsOpen])
 
     return (
-        <div ref={settingMenuRef} className={[css.SettingBlock, className].join(" ")}>
-            <div className={[css.SettingButton, menuIsOpen ? css.Opened : ""].join(" ")} onClick={openMenu}>
-                <span className={css.SettingButtonLine}></span>
-                <span className={css.SettingButtonLine}></span>
-                <span className={css.SettingButtonLine}></span>
-            </div>
+        <div ref={settingMenuRef} className={className}>
+            <StyledSettingButton onClick={openMenu}>
+                <StyledSettingButtonLine isOpen={menuIsOpen}/>
+                <StyledSettingButtonLine isOpen={menuIsOpen}/>
+                <StyledSettingButtonLine isOpen={menuIsOpen}/>
+            </StyledSettingButton>
 
-            <div className={[!menuIsOpen ? css.Hidden : "", css.SettingMenu].join(" ")} ref={childrenRef}>
+            <StyledSettingMenu isOpen={menuIsOpen} ref={childrenRef}>
                 {children}
-            </div>
+            </StyledSettingMenu>
         </div>
     );
 };

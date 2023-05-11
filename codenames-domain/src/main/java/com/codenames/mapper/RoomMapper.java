@@ -11,11 +11,11 @@ import com.codenames.models.room.Room;
         uses = {TeamMapper.class, PlayerMapper.class, WordsMapper.class},
         componentModel = "spring"
 )
-public abstract class RoomMapper {
+public interface RoomMapper {
 
     @Mapping(target = "id", source = "room.id")
     @Mapping(target = "wordCount", expression = "java(room.getWords().size())")
     @Mapping(target = "timer", expression = "java(room.getTimer().getTime())")
-    public abstract RoomDto roomToRoomDto(Room room, boolean wordsColorHidden);
+    RoomDto roomToRoomDto(Room room, boolean wordsColorHidden);
 
 }

@@ -123,6 +123,11 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+                <compilerArgs>
+                    <compilerArg>
+                        -Amapstruct.defaultComponentModel=spring
+                    </compilerArg>
+                </compilerArgs>
             </plugin>
         </plugins>
     </build>

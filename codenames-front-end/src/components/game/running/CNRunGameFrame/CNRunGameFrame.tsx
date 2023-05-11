@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 
-import css from './CNRunGameFrame.module.css'
 import {Status} from "../../../../models/CodeNames/Status";
 import CNTeamSidePanel from "../CNSidePanel/CNTeamSidePanel/CNTeamSidePanel";
-import CNGameWordsBlock from "../CNGameWordsBlock/CNGameWordsBlock";
 import {IGameRoom} from "../../../../models/CodeNames/IGameRoom";
+import {StyledCNGameWordBlock} from "../CNGameWordsBlock/StyledCNGameWordBlock";
+import {StyledCNTeamSidePanel} from "../CNSidePanel/CNTeamSidePanel/StyledCNTeamSidePanel";
 
 interface CNRunGameFrameProps {
     room?: IGameRoom;
@@ -20,7 +20,6 @@ const CNRunGameFrame = ({
 
     useEffect(() => {
         clearTimeout(timeoutId);
-
         if (room) {
             if (room?.status !== Status.RUN) {
                 setTimeoutId(setTimeout(() => {
@@ -36,28 +35,24 @@ const CNRunGameFrame = ({
 
     return (
         <div
-            className={[
-                className,
-                room?.status !== Status.RUN ? css.Hidden : "",
-                css.RunGameFrame
-            ].join(" ")}
+            className={className}
             style={{display: menuDisplay}}
         >
             {room?.blueTeam &&
-                <CNTeamSidePanel
+                <StyledCNTeamSidePanel
                     team={room?.blueTeam}
                     teamName={"Blue"}
                     teamColor={"blue"}
                     position={"left"}
                 />}
 
-            <CNGameWordsBlock
+            <StyledCNGameWordBlock
                 words={room?.words}
                 wordsCount={room?.wordsCount}
             />
 
             {room?.yellowTeam &&
-                <CNTeamSidePanel
+                <StyledCNTeamSidePanel
                     team={room?.yellowTeam}
                     teamName={"Yellow"}
                     teamColor={"yellow"}

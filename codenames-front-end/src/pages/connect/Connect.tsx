@@ -5,13 +5,20 @@ import {Flip, ToastContainer} from "react-toastify";
 import {notify} from "../../models/notifications/Notifications";
 import useFetching from "../../hooks/useFetching";
 
-import CNDefaultInput from "../../components/ui/CNDefaultInput/CNDefaultInput";
-import CNDefaultBtn from "../../components/ui/CNDefautBtn/CNDefaultBtn";
-import BlueYellowBg from "../../components/ui/BlueYellowBG/BlueYellowBG";
-
 import 'react-toastify/dist/ReactToastify.css';
 import css from "./styles/main.module.css"
-import {useCodeNamesRestService} from "../../hooks/useCodeNamesRestService";
+import {useCodeNamesRestRequests} from "../../hooks/useCodeNamesRestRequests";
+import {StyledBlueYellowBG} from "../../components/ui/BlueYellowBG/StyledBlueYellowBG";
+import {StyledCNDefaultImport} from "../../components/ui/CNDefaultInput/StyledCNDefaultImport";
+import {StyledCNDefaultButton} from "../../components/ui/CNDefautBtn/StyledCNDefaultButton";
+import {
+    StyledConnectButton,
+    StyledConnectForm,
+    StyledConnectFormBlock,
+    StyledConnectFormHeader,
+    StyledConnectHeaderPage, StyledConnectInput,
+    StyledConnectPage, StyledCreateButton, StyledCreateForm, StyledTitle
+} from "./ConnectStyles";
 
 export const Connect = () => {
     const minRoomID = 100000;
@@ -21,7 +28,7 @@ export const Connect = () => {
     const [selectedForm, setSelectedForm] = useState<"connect" | "create">("connect");
     const [roomID, setRoomID] = useState<string>(String(minRoomID));
 
-    const [createRoom, connectToRoom] = useCodeNamesRestService();
+    const [createRoom, connectToRoom] = useCodeNamesRestRequests();
 
     const [fetchConnectToRoom, isLoadingConnectToRoom, errorConnectToRoom] = useFetching(async () => {
         const response = await connectToRoom(Number(roomID));
@@ -58,55 +65,52 @@ export const Connect = () => {
     }
 
     return (
-        <div className={css.ConnectPage}>
-            <div className={css.ConnectFormBlock}>
-                <div className={css.ConnectFormHeader}>
-                    <div
-                        className={css.ConnectHeaderPage}
-                        style={selectedForm === "connect" ? {borderBottom: "none"} : {}}
+        <StyledConnectPage>
+            <StyledConnectFormBlock>
+                <StyledConnectFormHeader>
+                    <StyledConnectHeaderPage
+                        selected={selectedForm === "connect"}
                         onClick={() => setSelectedForm("connect")}
                     >
                         Connect
-                    </div>
-                    <div
-                        className={css.ConnectHeaderPage}
-                        style={selectedForm === "create" ? {borderBottom: "none"} : {}}
+                    </StyledConnectHeaderPage>
+                    <StyledConnectHeaderPage
+                        selected={selectedForm === "create"}
                         onClick={() => setSelectedForm("create")}
                     >
                         Create
-                    </div>
-                </div>
-                <div className={css.ConnectFormBody}>
+                    </StyledConnectHeaderPage>
+                </StyledConnectFormHeader>
+                <div>
                     {selectedForm === "connect" ?
-                        <form
-                            className={css.ConnectForm}
+                        <StyledConnectForm
                             onSubmit={tryConnectToRoom}
                         >
-                            <h1 className={css.Title}>Connect to room</h1>
-                            <CNDefaultInput
-                                className={css.ConnectInput}
+                            <StyledTitle>Connect to room</StyledTitle>
+                            <StyledConnectInput
                                 inputLabelText={"Room ID"}
                                 value={roomID}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRoomID(e.target.value)}
                                 type="number"
                                 placeholder="Write room id"
                             />
-                            <CNDefaultBtn className={css.Button}>Connect</CNDefaultBtn>
-                        </form>
+                            <StyledConnectButton>Connect</StyledConnectButton>
+                        </StyledConnectForm>
                         :
-                        <form
-                            className={css.CreateForm}
+                        <StyledCreateForm
                             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
                                 e.preventDefault();
                                 fetchCreateRoom();
                             }}
                         >
-                            <h1 className={css.Title}>Create new game room</h1>
-                            <CNDefaultBtn className={[css.CreateButton, css.Button].join(" ")}>Create</CNDefaultBtn>
-                        </form>
+                            <StyledTitle>Create new game room</StyledTitle>
+                            <StyledCreateButton>
+                                Create
+                            </StyledCreateButton>
+                        </StyledCreateForm>
                     }
                 </div>
-            </div>
+            </StyledConnectFormBlock>
 
             <ToastContainer
                 position="bottom-right"
@@ -121,6 +125,6 @@ export const Connect = () => {
                 pauseOnHover
                 theme="dark"
             />
-            <BlueYellowBg/>
-        </div>)
+            <StyledBlueYellowBG/>
+        </StyledConnectPage>)
 }

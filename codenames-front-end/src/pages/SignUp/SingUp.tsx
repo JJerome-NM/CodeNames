@@ -1,11 +1,11 @@
-import React, {FC} from 'react';
-import BlueYellowBg from "../../components/ui/BlueYellowBG/BlueYellowBG";
+import React from 'react';
+import {StyledBlueYellowBG} from "../../components/ui/BlueYellowBG/StyledBlueYellowBG";
 
-const SingUp: FC = () => {
+const SingUp = () => {
     return (
         <div>
 
-            <BlueYellowBg/>
+            <StyledBlueYellowBG/>
         </div>
     );
 };

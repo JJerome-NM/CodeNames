@@ -1,41 +1,56 @@
-import React, {CSSProperties} from 'react';
+import React from 'react';
 
-import css from './CNTeamSidePanel.module.css'
 import {ITeam} from "../../../../../models/CodeNames/ITeam";
-import CNTeamPlayerBlock from "../CNTeamPlayerBlock/CNTeamPlayerBlock";
+import {StyledCNTeamPlayerBlock} from "../CNTeamPlayerBlock/StyledCNTeamPlayerBlock";
+import styled, {css} from "styled-components";
 
+
+const FontStyle = css`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 47px;
+`
+
+const StyledPanelBlock = styled.div`
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 25%;
+  width: 100%;
+`;
+
+const StyledTeamPanelName = styled.div`
+  ${FontStyle};
+  color: var(--panel-team-color)
+`
+
+const StyledTeamPanelScore = styled.div`
+  ${FontStyle};
+  color: #FFFFFF;
+`
 
 interface CNTeamSidePanelProps {
-    hidden?: boolean;
     team: ITeam;
     teamName: string;
-    teamColor: "blue" | "yellow";
-    position: "left" | "right";
     className?: string;
 }
 
 const CNTeamSidePanel = ({
-                             hidden,
                              team,
                              teamName,
-                             teamColor,
                              className,
-                             position
                          }: CNTeamSidePanelProps) => {
     return (
-        <div
-            className={[
-                className,
-                position === "left" ? css.LeftSidePanel : css.RightSidePanel,
-                css.TeamPanel
-            ].join(" ")}
-            style={{'--panel-team-color': `var(--cn-${teamColor})`} as CSSProperties}
-        >
-            <div className={[css.PanelBlock, css.TeamNameBlock].join(" ")}>
-                <div className={css.TeamPanelName}>{teamName}</div>
-                <div className={css.TeamPanelScore}>{team.score}</div>
-            </div>
-            <CNTeamPlayerBlock
+        <div className={className}>
+            <StyledPanelBlock>
+                <StyledTeamPanelName>{teamName}</StyledTeamPanelName>
+                <StyledTeamPanelScore>{team.score}</StyledTeamPanelScore>
+            </StyledPanelBlock>
+            <StyledCNTeamPlayerBlock
                 master={team.master}
                 players={team.players}
                 message={team.message}

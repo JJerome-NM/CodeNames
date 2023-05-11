@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from "axios";
 import {RestConfig} from "../config/RestConfig";
 
-export const useCodeNamesRestService = (): [
+export const useCodeNamesRestRequests = (): [
     () => Promise<AxiosResponse<number>>,
     (roomID: number) => Promise<AxiosResponse<number>>
 ] => {
@@ -18,17 +18,3 @@ export const useCodeNamesRestService = (): [
 
     return [createRoom, tryConnectToRoom]
 }
-
-
-// roomID: number,
-//     onSocketConnect?: (event: Event) => void,
-//     onSocketMessage?: (message: MessageEvent) => void,
-//     onSocketClose?: (event: Event) => void,
-//     onSocketError?: (event: Event) => void,
-// ) => {
-//
-//     const socketService = useRef<CodeNamesWebSocketService>(new CodeNamesWebSocketService(roomID))
-//
-//
-//     return []
-// }

@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import {IGameRoom} from "../../../../../models/CodeNames/IGameRoom";
-import css from "./CnStopGameMenu.module.css";
 import {Color} from "../../../../../models/CodeNames/Color";
 import {Status} from "../../../../../models/CodeNames/Status";
-import CNSpectateBlock from "../settings/CNSpectateBlock/CNSpectateBlock";
-import CNTeam from "../CNTeam/CNTeam";
-import AdminControl from "../settings/AdminControl/AdminControl";
 import {CodeNameWsRoomRequests} from "../../../../../hooks/useCodeNamesWsRoomConnect";
+import {StyledCNTeam} from "../CNTeam/StyledCNTeam";
+import {StyledBoundaryLine, StyledSettingBlock, StyledStopGameMenuBlock, StyledTeamsBlock} from "./CNStopGameMenuStyles";
+import {StyledAdminControl} from "../settings/AdminControl/StyledAdminControl";
+import {StyledCNSpectateBlock} from "../settings/CNSpectateBlock/StyledCNSpectateBlock";
 
 
 interface CNStopGameMenuProps {
@@ -36,38 +36,29 @@ const CNStopGameMenu = ({
     }, [room?.status])
 
     return (
-        <div
-            className={css.StopGameMenuBlock}
-            style={{display: menuDisplay}}
-        >
-            <div
-                className={[
-                    className,
-                    room?.status !== Status.STOPPED ? css.Hidden : "",
-                    css.StopGameMenu
-                ].join(" ")}
-            >
-                <div className={css.TeamsBlock}>
-                    <CNTeam
+        <div style={{display: menuDisplay}}>
+            <StyledStopGameMenuBlock status={room?.status} className={className}>
+                <StyledTeamsBlock>
+                    <StyledCNTeam
                         team={room?.blueTeam}
                         onMasterSelect={() => requests?.selectMaster(Color.BLUE)}
                         onTeamSelect={() => requests?.joinToTeam(Color.BLUE)}
                     />
 
-                    <hr className={css.BoundaryLine}/>
+                    <StyledBoundaryLine/>
 
-                    <CNTeam
+                    <StyledCNTeam
                         team={room?.yellowTeam}
                         onMasterSelect={() => requests?.selectMaster(Color.YELLOW)}
                         onTeamSelect={() => requests?.joinToTeam(Color.YELLOW)}
                     />
-                </div>
-                <div className={css.SettingBlock}>
-                    <CNSpectateBlock
+                </StyledTeamsBlock>
+                <StyledSettingBlock>
+                    <StyledCNSpectateBlock
                         onClick={() => requests?.joinToSpectator()}
                     />
 
-                    <AdminControl
+                    <StyledAdminControl
                         onClickToRun={() => requests?.startGame()}
                         runButtonSize={35}
                     >
@@ -75,9 +66,9 @@ const CNStopGameMenu = ({
                         <div>Turn time</div>
                         <div>Words count</div>
                         <div>Language</div>
-                    </AdminControl>
-                </div>
-            </div>
+                    </StyledAdminControl>
+                </StyledSettingBlock>
+            </StyledStopGameMenuBlock>
         </div>
     );
 };

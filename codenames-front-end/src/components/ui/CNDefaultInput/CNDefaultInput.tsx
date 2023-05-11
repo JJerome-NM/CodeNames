@@ -1,10 +1,50 @@
 import React from 'react';
 
-import css from "./CNDefaultInput.module.css"
 import {v4} from "uuid";
+import styled from "styled-components";
 
 
-interface CNDefaultInputProps {
+const StyledInputLabel = styled.label`
+  margin-right: 10px;
+
+  font-size: 22px;
+  font-weight: 400;
+`;
+
+const StyledCNDefaultInput = styled.input`
+  padding: 0 5px;
+
+  border: 0;
+  border-bottom: 2px solid white;
+
+  color: #c0c0c0;
+  background: none;
+
+  font-family: 'Roboto Light', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 26px;
+
+  text-align: center;
+
+  transition: ease .25s;
+
+  &:focus{
+    outline: none;
+    background-color: rgba(0, 0, 0, .4);
+    color: #ffffff;
+  }
+
+
+  &[type=number]::-webkit-inner-spin-button,
+  &[type=number]::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+  }
+`;
+
+
+type CNDefaultInputProps = {
     value?: string | number;
     inputLabel?: React.ReactNode;
     inputLabelText?: string
@@ -24,27 +64,22 @@ const CNDefaultInput = (({
                              onChange,
                              type,
                              placeholder,
-                         }: CNDefaultInputProps) => {
-    return (
-        <div className={[className, css.InputBlock].join(" ")}>
+                         }: CNDefaultInputProps) => (
+        <div className={className}>
             {inputLabel ? inputLabel :
-                <label
-                    htmlFor={inputLabelID}
-                    className={css.InputLabel}
-                >
+                <StyledInputLabel htmlFor={inputLabelID}>
                     {inputLabelText}
-                </label>
+                </StyledInputLabel>
             }
-            <input
+            <StyledCNDefaultInput
                 id={inputLabelID}
                 value={value}
-                className={css.CNDefaultInput}
                 onChange={onChange}
                 type={type}
                 placeholder={placeholder}
             />
         </div>
     )
-})
+)
 
 export default CNDefaultInput;

@@ -12,18 +12,18 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring")
-public abstract class WordsMapper {
+public interface WordsMapper {
 
     @Named("wordToWordDto")
     @Mapping(target = "color", expression = "java(this.getWordColor(word, wordsColorHidden))")
-    public abstract WordDto wordToWordDto(Word word, boolean wordsColorHidden);
+    WordDto wordToWordDto(Word word, boolean wordsColorHidden);
 
-    Color getWordColor(Word word, boolean wordsColorHidden){
+    default Color getWordColor(Word word, boolean wordsColorHidden){
         return !wordsColorHidden || !word.isHidden() ? word.getColor() : Color.DEFAULT;
     }
 
     @IterableMapping(elementTargetType = WordDto.class)
-    List<WordDto> wordsListToWordsDtoList(List<Word> words, boolean wordsColorHidden){
+    default List<WordDto> wordsListToWordsDtoList(List<Word> words, boolean wordsColorHidden){
         return words.stream()
                 .map(word -> this.wordToWordDto(word, wordsColorHidden))
                 .toList();

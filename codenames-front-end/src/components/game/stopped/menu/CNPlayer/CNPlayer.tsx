@@ -1,6 +1,5 @@
 import React from 'react';
 
-import css from "./CNPlayer.module.css"
 import {IUser} from "../../../../../models/CodeNames/IUser";
 
 interface CNPlayerProps {
@@ -13,17 +12,15 @@ const CNPlayer = ({
                       user,
                       type,
                       className
-                  }: CNPlayerProps) => {
-    return type === "div"
-        ? (
-            <div className={[css.CNPlayer, className].join(" ")}>
-                {user.nickname}
-            </div>
-        ) : (
-            <li className={[css.CNPlayer, className].join(" ")}>
-                {user.nickname}
-            </li>
-        )
-};
+                  }: CNPlayerProps) =>
+    type === "div" ? (
+        <div className={className}>
+            {user.nickname}
+        </div>
+    ) : (
+        <li className={className}>
+            {user.nickname}
+        </li>
+    )
 
 export default CNPlayer;

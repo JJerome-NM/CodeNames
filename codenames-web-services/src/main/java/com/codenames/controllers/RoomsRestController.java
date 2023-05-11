@@ -28,7 +28,7 @@ public class RoomsRestController {
 
     @GetMapping(path = "/connect/{id}")
     public int connectToRoomById(@PathVariable("id") int roomID){
-        return gameService.checkRoomAvailable(codeNamesGame, roomID);
+        return gameService.checkAvailabilityRoom(codeNamesGame, roomID) ? roomID : -1;
     }
 
     @GetMapping(path = "/create")

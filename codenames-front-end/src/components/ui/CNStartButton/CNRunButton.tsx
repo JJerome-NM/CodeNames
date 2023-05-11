@@ -1,6 +1,5 @@
 import React from 'react';
 
-import css from "./CNRunButton.module.css";
 import SVGRunImage from "../svg/SVGRunImage";
 
 interface CNStartButtonProps {
@@ -15,16 +14,10 @@ const CNRunButton = ({
                          color = "white",
                          className,
                          onClick
-                     }: CNStartButtonProps) => {
-    return (
-        <div
-            className={[className, css.RunButton].join(" ")}
-            style={{'--btn-size': `${size}px`} as React.CSSProperties}
-            onClick={onClick}
-        >
-            <SVGRunImage fill={color} size={size}/>
-        </div>
-    );
-};
+                     }: CNStartButtonProps) => (
+    <div className={className} onClick={onClick}>
+        <SVGRunImage fill={color} size={size}/>
+    </div>
+);
 
 export default CNRunButton;
