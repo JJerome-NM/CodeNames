@@ -1,10 +1,9 @@
 import React from 'react';
 
-import {Color} from "../../../../../models/CodeNames/Color";
+import {Color, ITeam} from "../../../../../models";
 import CNPlayerBlock from "../CNPlayerBlock/CNPlayerBlock";
-import {ITeam} from "../../../../../models/CodeNames/ITeam";
-import {StyledCNMaster} from "../CNMaster/StyledCNMaster";
-import {StyledCNTeamName} from "../CNTeamName/StyledCNTeamName";
+import {StyledCNMaster} from "../CNMaster";
+import {StyledCNTeamName} from "../CNTeamName";
 
 interface CNTeamProps {
     team?: ITeam;

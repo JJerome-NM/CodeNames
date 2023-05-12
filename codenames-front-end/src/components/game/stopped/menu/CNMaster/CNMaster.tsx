@@ -1,5 +1,5 @@
 import React from 'react';
-import {Color} from "../../../../../models/CodeNames/Color";
+import {Color} from "../../../../../models";
 import styled from "styled-components";
 
 

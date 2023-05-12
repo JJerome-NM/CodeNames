@@ -1,4 +1,4 @@
-import {Status} from "../../../../../models/CodeNames/Status";
+import {Status} from "../../../../../models";
 import styled, {css} from "styled-components";
 
 type WithStatusProps = {

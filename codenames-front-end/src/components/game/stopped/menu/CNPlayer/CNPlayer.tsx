@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {IUser} from "../../../../../models/CodeNames/IUser";
+import {IUser} from "../../../../../models";
 
 interface CNPlayerProps {
     user: IUser;

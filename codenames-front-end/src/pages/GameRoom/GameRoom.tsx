@@ -2,18 +2,17 @@ import React, {useEffect, useState} from 'react';
 
 import {useParams} from "react-router-dom";
 
-import {IGameRoom} from "../../models/CodeNames/IGameRoom";
-import {Status} from "../../models/CodeNames/Status";
+import {IGameRoom, Status} from "../../models";
 
-import {useCodeNamesWsRoomConnect} from "../../hooks/useCodeNamesWsRoomConnect";
+import {useCodeNamesWsRoomConnect} from "../../hooks";
 import {Flip, ToastContainer} from "react-toastify";
 import {StyledCodeNamesGameFrame} from "./GameRoomStyles";
-import {StyledCNRunGameFrame} from "../../components/game/running/CNRunGameFrame/StyledCNRunGameFrame";
-import {StyledCNStopGameMenu} from "../../components/game/stopped/menu/CNStopGameMenu/StyledCNStopGameMenu";
 import {
-    StyledGRAdminControlBlock
-} from "../../components/game/running/settings/GRAdminControlBlock/StyledGRAdminControlBlock";
-import {StyledGrayWhiteBG} from "../../components/ui/GrayWhiteBG/StyledGrayWhiteBG";
+    StyledCNRunGameFrame, StyledCNStopGameMenu,
+    StyledGRAdminControlBlock,
+    StyledGrayWhiteBG
+} from "../../components";
+
 
 
 interface GameRoomParamProps {

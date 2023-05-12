@@ -1,8 +1,7 @@
 import React from 'react';
 
-import {Color} from "../../../../../models/CodeNames/Color";
-import {IUser} from "../../../../../models/CodeNames/IUser";
-import {StyledCNPlayer} from "../CNPlayer/StyledCNPlayer";
+import {Color, IUser} from "../../../../../models";
+import {StyledCNPlayer} from "../CNPlayer";
 import {StyledJoinButton, StyledTeamPlayerLabel, StyledTeamPlayers} from "./CNPlayerBlockStyles";
 
 interface CnPlayerBlockProps {

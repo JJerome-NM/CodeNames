@@ -23,6 +23,9 @@ export interface CodeNameWsRoomRequests {
 const buildRequestMethods = (webSocket: WebSocket | undefined): CodeNameWsRoomRequests => {
     return {
         sendSocketRequest(requestPath: string, requestBody: any = {}): void {
+            console.log("Path - " + requestPath);
+            console.log("Body - " + requestBody);
+
             if (webSocket?.readyState === 1) {
                 webSocket.send(new WebSocketRequest(requestPath, requestBody).toJson())
             } else {
@@ -79,11 +82,11 @@ export const useCodeNamesWsRoomConnect = (
         try {
             const response = await tryConnectToRoom(roomID);
             if (response.data === -1) {
-                navigate("/room/connect");
+                navigate("/room/Connect");
             }
         } catch (e) {
             if (reconnectCount.current === 10) {
-                navigate("/room/connect");
+                navigate("/room/Connect");
             }
 
             notify.error("Something went wrong while connecting to the server, perhaps the server is down.")
@@ -106,6 +109,8 @@ export const useCodeNamesWsRoomConnect = (
 
         webSocket.current.onmessage = (message: MessageEvent) => {
             const messageData: WebSocketResponse<IGameRoom> = JSON.parse(message.data)
+
+            console.log(messageData)
 
             if (messageData.responsePath === WebSocketConfig.paths.response.newRoomInfo) {
                 onNewRoomInfo(messageData.responseBody)

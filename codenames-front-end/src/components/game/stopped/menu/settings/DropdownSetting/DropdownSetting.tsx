@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {useOnClickOutside} from "../../../../../../hooks/useOnClickOutside";
+import {useOnClickOutside} from "../../../../../../hooks";
 import {StyledSettingButton, StyledSettingButtonLine, StyledSettingMenu} from "./DropdownSettingStyles";
 
 interface DropdownSettingProps {

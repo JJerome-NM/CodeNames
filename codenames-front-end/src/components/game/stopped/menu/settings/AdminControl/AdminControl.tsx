@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyledDropdownSetting} from "../DropdownSetting/StyledDropdownSetting";
-import {StyledCNRunButton} from "../../../../../ui/CNStartButton/StyledCNRunButton";
+import {StyledDropdownSetting} from "../DropdownSetting";
+import {StyledCNRunButton} from "../../../../../ui";
 
 
 interface AdminControlProps {

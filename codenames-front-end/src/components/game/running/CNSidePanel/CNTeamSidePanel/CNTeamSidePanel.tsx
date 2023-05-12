@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {ITeam} from "../../../../../models/CodeNames/ITeam";
-import {StyledCNTeamPlayerBlock} from "../CNTeamPlayerBlock/StyledCNTeamPlayerBlock";
+import {ITeam} from "../../../../../models";
+import {StyledCNTeamPlayerBlock} from "../CNTeamPlayerBlock";
 import styled, {css} from "styled-components";
 
 

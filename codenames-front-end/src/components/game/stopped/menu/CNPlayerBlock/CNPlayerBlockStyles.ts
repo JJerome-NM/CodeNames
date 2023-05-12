@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Color} from "../../../../../models/CodeNames/Color";
+import {Color} from "../../../../../models";
 
 
 type WithColorProps = {

@@ -1,4 +1,4 @@
-import {Color} from "../../../../models/CodeNames/Color";
+import {Color} from "../../../../models";
 import {CNGameWord} from "./CNGameWord";
 import styled, {css} from "styled-components";
 

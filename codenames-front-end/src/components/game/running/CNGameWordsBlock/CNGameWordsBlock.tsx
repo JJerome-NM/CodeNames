@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {IWord} from "../../../../models/CodeNames/IWord";
+import {IWord} from "../../../../models";
 
-import {StyledCNGameWord} from "../CNGameWord/StyledCNGameWord";
+import {StyledCNGameWord} from "../CNGameWord";
 
 interface CNGameWordsBlockProps {
     words?: IWord[];

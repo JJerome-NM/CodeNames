@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import CNTeamName from "./CNTeamName";
-import {Color} from "../../../../../models/CodeNames/Color";
+import {Color} from "../../../../../models";
 
 
 type StyledProps = {

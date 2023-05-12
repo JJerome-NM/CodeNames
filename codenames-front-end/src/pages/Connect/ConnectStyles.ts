@@ -1,6 +1,5 @@
 import styled, {css} from "styled-components";
-import {StyledCNDefaultImport} from "../../components/ui/CNDefaultInput/StyledCNDefaultImport";
-import {StyledCNDefaultButton} from "../../components/ui/CNDefautBtn/StyledCNDefaultButton";
+import {StyledCNDefaultImport, StyledCNDefaultButton} from "../../components";
 
 
 export const StyledConnectPage = styled.div`

@@ -1,9 +1,10 @@
 import React from 'react';
 
-import StopGameButton from "../../../../ui/StopGameButton/StopGameButton";
-import {StyledPauseButton} from "../../../../ui/PauseButton/StyledPauseButton";
-import {StyledRestartGameButton} from "../../../../ui/RestartGameButton/StyledRestartGameButton";
-import {StyledStopGameButton} from "../../../../ui/StopGameButton/StyledStopGameButton";
+import {
+    StyledPauseButton,
+    StyledStopGameButton,
+    StyledRestartGameButton
+} from "../../../../ui";
 
 interface GRAdminControlBlockProps {
     onClickToGamePause?: () => void;

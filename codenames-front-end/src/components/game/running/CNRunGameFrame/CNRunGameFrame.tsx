@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 
-import {Status} from "../../../../models/CodeNames/Status";
-import {IGameRoom} from "../../../../models/CodeNames/IGameRoom";
-import {StyledCNGameWordBlock} from "../CNGameWordsBlock/StyledCNGameWordBlock";
-import {StyledCNTeamSidePanel} from "../CNSidePanel/CNTeamSidePanel/StyledCNTeamSidePanel";
+import {Status, IGameRoom} from "../../../../models";
+import {StyledCNGameWordBlock} from "../CNGameWordsBlock";
+import {StyledCNTeamSidePanel} from "../CNSidePanel";
 
 interface CNRunGameFrameProps {
     room?: IGameRoom;

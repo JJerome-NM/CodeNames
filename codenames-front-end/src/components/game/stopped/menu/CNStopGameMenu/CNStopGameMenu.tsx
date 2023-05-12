@@ -1,12 +1,9 @@
 import React, {useEffect} from 'react';
-import {IGameRoom} from "../../../../../models/CodeNames/IGameRoom";
-import {Color} from "../../../../../models/CodeNames/Color";
-import {Status} from "../../../../../models/CodeNames/Status";
-import {CodeNameWsRoomRequests} from "../../../../../hooks/useCodeNamesWsRoomConnect";
-import {StyledCNTeam} from "../CNTeam/StyledCNTeam";
+import {IGameRoom, Status, Color} from "../../../../../models";
+import {CodeNameWsRoomRequests} from "../../../../../hooks";
+import {StyledCNTeam} from "../CNTeam";
 import {StyledBoundaryLine, StyledSettingBlock, StyledStopGameMenuBlock, StyledTeamsBlock} from "./CNStopGameMenuStyles";
-import {StyledAdminControl} from "../settings/AdminControl/StyledAdminControl";
-import {StyledCNSpectateBlock} from "../settings/CNSpectateBlock/StyledCNSpectateBlock";
+import {StyledAdminControl, StyledCNSpectateBlock} from "../settings";
 
 
 interface CNStopGameMenuProps {

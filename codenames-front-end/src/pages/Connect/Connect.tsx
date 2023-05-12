@@ -2,23 +2,24 @@ import React, {useState} from 'react';
 
 import {useNavigate} from "react-router-dom";
 import {Flip, ToastContainer} from "react-toastify";
-import {notify} from "../../models/notifications/Notifications";
+import {notify} from "../../models";
 import useFetching from "../../hooks/useFetching";
 
 import 'react-toastify/dist/ReactToastify.css';
-import css from "./styles/main.module.css"
-import {useCodeNamesRestRequests} from "../../hooks/useCodeNamesRestRequests";
-import {StyledBlueYellowBG} from "../../components/ui/BlueYellowBG/StyledBlueYellowBG";
-import {StyledCNDefaultImport} from "../../components/ui/CNDefaultInput/StyledCNDefaultImport";
-import {StyledCNDefaultButton} from "../../components/ui/CNDefautBtn/StyledCNDefaultButton";
+import {useCodeNamesRestRequests} from "../../hooks";
 import {
     StyledConnectButton,
     StyledConnectForm,
     StyledConnectFormBlock,
     StyledConnectFormHeader,
-    StyledConnectHeaderPage, StyledConnectInput,
-    StyledConnectPage, StyledCreateButton, StyledCreateForm, StyledTitle
-} from "./ConnectStyles";
+    StyledConnectHeaderPage,
+    StyledConnectInput,
+    StyledConnectPage,
+    StyledCreateButton,
+    StyledCreateForm,
+    StyledTitle
+} from "../Connect";
+import {StyledBlueYellowBG} from "../../components";
 
 export const Connect = () => {
     const minRoomID = 100000;

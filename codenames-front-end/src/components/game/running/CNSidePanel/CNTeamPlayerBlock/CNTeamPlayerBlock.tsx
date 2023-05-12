@@ -2,7 +2,7 @@ import React from 'react';
 import {v4} from "uuid";
 
 
-import {IUser} from "../../../../../models/CodeNames/IUser";
+import {IUser} from "../../../../../models";
 import {
     StyledTeamPanelMaster, StyledTeamPanelMessages,
     StyledTeamPanelMessagesBlock, StyledTeamPanelPlayers,
