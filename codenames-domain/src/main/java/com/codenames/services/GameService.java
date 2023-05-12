@@ -1,17 +1,14 @@
 package com.codenames.services;
 
-import com.codenames.dto.RoomDto;
 import com.codenames.exceptions.RoomLimitIsOver;
 import com.codenames.models.game.CodeNamesGame;
 import com.codenames.models.game.User;
 import com.codenames.models.room.Room;
 import com.codenames.models.game.Player;
-import com.codenames.properties.CodeNamesGameProperties;
-import com.codenames.properties.DefaultMessagePathProperties;
+import com.codenames.properties.CodeNamesProperties;
+import com.codenames.properties.WSResponsePathProperties;
 import com.jjerome.dto.Request;
 import com.jjerome.models.MessageSender;
-import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,14 +16,11 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 
 @Service
-//@RequiredArgsConstructor
 public class GameService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
 
     private final Random random = new Random();
-
-    private final CodeNamesGameProperties gameProperties;
 
     private final MessageSender messageSender;
 
@@ -34,7 +28,11 @@ public class GameService {
 
     private final RoomService roomService;
 
-    private final DefaultMessagePathProperties defaultMessagePathProperties;
+    private final WordsService wordsService;
+
+    private final CodeNamesProperties codeNamesProperties;
+
+    private final WSResponsePathProperties wsResponsePathProperties;
 
     private final int minRoomID;
 
@@ -42,18 +40,19 @@ public class GameService {
 
     private final int roomLimit;
 
-    public GameService(CodeNamesGameProperties gameProperties,
-                       MessageSender messageSender,
+    public GameService(MessageSender messageSender,
                        PlayerService playerService,
                        RoomService roomService,
-                       DefaultMessagePathProperties defaultMessagePathProperties) {
-        this.gameProperties = gameProperties;
+                       WordsService wordsService,
+                       CodeNamesProperties codeNamesProperties) {
         this.messageSender = messageSender;
         this.playerService = playerService;
         this.roomService = roomService;
-        this.defaultMessagePathProperties = defaultMessagePathProperties;
-        this.minRoomID = gameProperties.getMinRoomId();
-        this.maxRoomID = gameProperties.getMaxRoomId();
+        this.wordsService = wordsService;
+        this.codeNamesProperties = codeNamesProperties;
+        this.wsResponsePathProperties = codeNamesProperties.getWsResponsePaths();
+        this.minRoomID = codeNamesProperties.getGameRooms().getMinRoomId();
+        this.maxRoomID = codeNamesProperties.getGameRooms().getMaxRoomId();
         this.roomLimit = maxRoomID - minRoomID;
     }
 
@@ -69,9 +68,20 @@ public class GameService {
         return codeNamesGame.getGameRoom(roomID);
     }
 
-    public void sendNewRoomInfoToPlayer(Request<?> request, Room room, Player player){
-        RoomDto roomDto = roomService.getRoomInfo(room, player);
-        messageSender.send(request.getSessionID(), defaultMessagePathProperties.getNewRoomInfoPath(), roomDto);
+    public void sendRoomInfoToAllRoomPlayer(Room room){
+        sendRoomInfoToPlayer(room.getBlueTeam().getMaster(), room, false);
+        sendRoomInfoToPlayer(room.getYellowTeam().getMaster(), room, false);
+
+        room.getSpectators().forEach(player -> sendRoomInfoToPlayer(player, room, true));
+        room.getBlueTeam().getPlayersList().forEach(player -> sendRoomInfoToPlayer(player, room, true));
+        room.getYellowTeam().getPlayersList().forEach(player -> sendRoomInfoToPlayer(player, room, true));
+    }
+
+    private void sendRoomInfoToPlayer(Player player, Room room, boolean hidden){
+        if (player != null && player.getWsSessionId() != null){
+            messageSender.send(player.getWsSessionId(),
+                    wsResponsePathProperties.getNewRoomInfoPath(), roomService.getRoomInfo(room, hidden));
+        }
     }
 
     public void addUserToBanList(CodeNamesGame codeNamesGame, User user){

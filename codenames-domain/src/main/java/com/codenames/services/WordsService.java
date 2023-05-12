@@ -3,8 +3,10 @@ package com.codenames.services;
 
 import com.codenames.enums.Color;
 import com.codenames.enums.Language;
+import com.codenames.models.game.Player;
 import com.codenames.models.room.Settings;
 import com.codenames.models.room.Word;
+import com.codenames.properties.CodeNamesProperties;
 import com.codenames.properties.WordsProperties;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 
 @Service
@@ -28,13 +31,12 @@ public class WordsService {
 
     private final Random random = new Random();
 
-    private final WordsProperties wordsProperties;
-
+    private final CodeNamesProperties codeNamesProperties;
 
     private List<String> readWordsFile(Language language){
         List<String> words = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(wordsProperties.getResourcesPath()
-                + wordsProperties.getFileName() + language.getLanguageCode() + ".txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(codeNamesProperties.getWords().getResourcesPath()
+                + codeNamesProperties.getWords().getFileName() + language.getLanguageCode() + ".txt"))) {
 
             String line;
             while((line = reader.readLine()) != null){
@@ -52,14 +54,16 @@ public class WordsService {
         List<String> tempWords = readWordsFile(settings.getLanguage());
         List<Word> resultWords = new ArrayList<>();
 
+        AtomicInteger globalWordNumber = new AtomicInteger(1);
+
         BiConsumer<Integer, Color> wordsRandomizer = (wordsCount, color) -> {
-            int randWordIndex;
+            int tempWordIndex;
             for (int createdWordsCount = 0; createdWordsCount < wordsCount; createdWordsCount++){
-                randWordIndex = random.nextInt(tempWords.size() - 1);
+                tempWordIndex = random.nextInt(tempWords.size() - 1);
 
-                resultWords.add(new Word(randWordIndex, tempWords.get(randWordIndex), color));
+                resultWords.add(new Word(globalWordNumber.getAndIncrement(), tempWords.get(tempWordIndex), color));
 
-                tempWords.remove(randWordIndex);
+                tempWords.remove(tempWordIndex);
             }
         };
 

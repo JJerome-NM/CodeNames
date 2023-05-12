@@ -11,6 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @Getter @Setter
 public class RoomDto {
+
+    private int id;
+
     private GameStatus status;
 
     private GameTurn gameTurn;

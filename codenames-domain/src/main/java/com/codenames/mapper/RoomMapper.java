@@ -1,6 +1,5 @@
 package com.codenames.mapper;
 
-import com.codenames.models.game.Player;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -12,10 +11,11 @@ import com.codenames.models.room.Room;
         uses = {TeamMapper.class, PlayerMapper.class, WordsMapper.class},
         componentModel = "spring"
 )
-public abstract class RoomMapper {
+public interface RoomMapper {
 
+    @Mapping(target = "id", source = "room.id")
     @Mapping(target = "wordCount", expression = "java(room.getWords().size())")
     @Mapping(target = "timer", expression = "java(room.getTimer().getTime())")
-    public abstract RoomDto roomToRoomDto(Room room, Player player);
+    RoomDto roomToRoomDto(Room room, boolean wordsColorHidden);
 
 }
