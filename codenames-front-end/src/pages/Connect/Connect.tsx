@@ -31,7 +31,7 @@ export const Connect = () => {
 
     const [createRoom, connectToRoom] = useCodeNamesRestRequests();
 
-    const [fetchConnectToRoom, isLoadingConnectToRoom, errorConnectToRoom] = useFetching(async () => {
+    const [fetchConnectToRoom] = useFetching(async () => {
         const response = await connectToRoom(Number(roomID));
 
         if (response.data === -1) {
@@ -41,7 +41,7 @@ export const Connect = () => {
         }
     });
 
-    const [fetchCreateRoom, isLoadingCreateRoom, errorCreateRoom] = useFetching(async () => {
+    const [fetchCreateRoom] = useFetching(async () => {
         const response = await createRoom();
 
         if (response.data === -1) {

@@ -11,4 +11,13 @@ public class Player {
     private String wsSessionId;
     private PlayerRole playerRole;
     private final User user;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Player sPlayer)) {
+            return false;
+        } else {
+            return sPlayer.getUser().id() == this.getUser().id();
+        }
+    }
 }

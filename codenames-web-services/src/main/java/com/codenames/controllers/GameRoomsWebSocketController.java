@@ -1,6 +1,7 @@
 package com.codenames.controllers;
 
 
+import com.codenames.dao.RedisPlayerDao;
 import com.codenames.enums.PlayerRole;
 import com.codenames.filters.method.AvailableRoomFilter;
 import com.codenames.filters.method.GameRunningFilter;
@@ -13,7 +14,6 @@ import com.codenames.models.game.AuthorizedUsers;
 import com.codenames.models.game.CodeNamesGame;
 import com.codenames.models.game.Player;
 import com.codenames.models.room.Room;
-import com.codenames.models.game.User;
 import com.codenames.services.PlayerService;
 import com.codenames.services.RoomService;
 import com.codenames.services.GameService;
@@ -45,13 +45,12 @@ public class GameRoomsWebSocketController {
 
     private final AuthorizedUsers authorizedUsers;
 
+    private final RedisPlayerDao redisPlayerDao;
+
 
     @SocketConnectMapping
     public void userConnect(WebSocketSession session) {
-        // TODO: 18.04.2023 authorizedUsers - used temporarily, after adding the database will be recycled
-        authorizedUsers.addUserRoomSession(session.getId(), -1, new User(100, "100", "random"));
-
-        LOGGER.info(session.getId() + " - connected");
+        LOGGER.info(authorizedUsers.getUserRoomSession(session.getId()).getPlayer().getUser().nickname() + " - connected");
     }
 
     @SocketDisconnectMapping

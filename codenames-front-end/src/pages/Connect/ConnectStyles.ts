@@ -1,5 +1,5 @@
 import styled, {css} from "styled-components";
-import {StyledCNDefaultImport, StyledCNDefaultButton} from "../../components";
+import {StyledCNDefaultInput, StyledCNDefaultButton} from "../../components";
 
 
 export const StyledConnectPage = styled.div`
@@ -95,7 +95,7 @@ export const StyledTitle = styled.h1`
   margin-bottom: 30px;
 `;
 
-export const StyledConnectInput = styled(StyledCNDefaultImport)`
+export const StyledConnectInput = styled(StyledCNDefaultInput)`
   & input{
     width: 220px;
   }

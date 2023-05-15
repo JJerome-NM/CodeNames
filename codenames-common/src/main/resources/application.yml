@@ -16,3 +16,19 @@ codenames:
     cross-origin:
       - http://localhost:3000
 
+
+security:
+  jwt: I don't understand this stupid thing.
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/codenames
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true

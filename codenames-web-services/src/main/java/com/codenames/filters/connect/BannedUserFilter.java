@@ -5,6 +5,7 @@ import com.codenames.models.game.CodeNamesGame;
 import com.codenames.services.GameService;
 import com.jjerome.filters.SocketConnectionFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 

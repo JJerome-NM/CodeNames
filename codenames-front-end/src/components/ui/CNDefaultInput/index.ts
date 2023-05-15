@@ -1,4 +1,4 @@
 
 
-export * from "./StyledCNDefaultImport"
+export * from "./StyledCNDefaultInput"
 export * from "./CNDefaultInput"
