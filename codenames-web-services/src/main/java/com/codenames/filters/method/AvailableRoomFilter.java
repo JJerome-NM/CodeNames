@@ -1,7 +1,7 @@
 package com.codenames.filters.method;
 
 
-import com.codenames.models.game.CodeNamesGame;
+import com.codenames.domain.game.CodeNamesGame;
 import com.codenames.services.GameService;
 import com.jjerome.annotations.FilteringOrder;
 import com.jjerome.dto.Request;

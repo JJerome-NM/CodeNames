@@ -2,7 +2,7 @@ package com.codenames.mapper;
 
 import com.codenames.dto.WordDto;
 import com.codenames.enums.Color;
-import com.codenames.models.room.Word;
+import com.codenames.domain.room.Word;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

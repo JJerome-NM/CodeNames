@@ -1,7 +1,6 @@
 package com.codenames.controllers;
 
 
-import com.codenames.dao.RedisPlayerDao;
 import com.codenames.enums.PlayerRole;
 import com.codenames.filters.method.AvailableRoomFilter;
 import com.codenames.filters.method.GameRunningFilter;
@@ -9,11 +8,10 @@ import com.codenames.filters.method.GameStoppedFilter;
 import com.codenames.filters.method.SelectWordAvailableFilter;
 import com.codenames.filters.method.SendMessageFilter;
 import com.codenames.filters.method.SkipGameTurnFilter;
-import com.codenames.filters.method.UserAuthorizedFilter;
-import com.codenames.models.game.AuthorizedUsers;
-import com.codenames.models.game.CodeNamesGame;
-import com.codenames.models.game.Player;
-import com.codenames.models.room.Room;
+import com.codenames.services.AuthorizedUsersService;
+import com.codenames.domain.game.CodeNamesGame;
+import com.codenames.domain.game.Player;
+import com.codenames.domain.room.Room;
 import com.codenames.services.PlayerService;
 import com.codenames.services.RoomService;
 import com.codenames.services.GameService;
@@ -43,15 +41,14 @@ public class GameRoomsWebSocketController {
 
     private final CodeNamesGame codeNamesGame;
 
-    private final AuthorizedUsers authorizedUsers;
-
-    private final RedisPlayerDao redisPlayerDao;
+    private final AuthorizedUsersService authorizedUsers;
 
 
     @SocketConnectMapping
     public void userConnect(WebSocketSession session) {
         LOGGER.info(authorizedUsers.getUserRoomSession(session.getId()).getPlayer().getUser().nickname() + " - connected");
     }
+
 
     @SocketDisconnectMapping
     public void disconnect(WebSocketSession session, CloseStatus status){
@@ -62,7 +59,6 @@ public class GameRoomsWebSocketController {
 
     @SocketMapping(reqPath = "/room/connect")
     @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class,
             AvailableRoomFilter.class
     })
     public void connectToRoom(Request<Integer> request){
@@ -78,7 +74,6 @@ public class GameRoomsWebSocketController {
 
     @SocketMapping(reqPath = "/room/select/role")
     @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class,
             GameStoppedFilter.class
     })
     public void selectRoomRole(Request<String> request){
@@ -93,7 +88,6 @@ public class GameRoomsWebSocketController {
 
     @SocketMapping(reqPath = "/room/select/word")
     @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class,
             GameRunningFilter.class,
             SelectWordAvailableFilter.class
     })
@@ -108,7 +102,6 @@ public class GameRoomsWebSocketController {
 
     @SocketMapping(reqPath = "/room/endTurn")
     @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class,
             GameRunningFilter.class,
             SkipGameTurnFilter.class
     })
@@ -119,9 +112,9 @@ public class GameRoomsWebSocketController {
         gameService.sendRoomInfoToAllRoomPlayer(room);
     }
 
+
     @SocketMapping(reqPath = "/room/sendMassage")
     @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class,
             GameRunningFilter.class,
             SendMessageFilter.class
     })

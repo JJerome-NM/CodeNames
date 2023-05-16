@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.codenames.dto.RoomDto;
-import com.codenames.models.room.Room;
+import com.codenames.domain.room.Room;
 
 
 @Mapper(

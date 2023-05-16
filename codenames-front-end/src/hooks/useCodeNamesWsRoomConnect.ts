@@ -113,8 +113,6 @@ export const useCodeNamesWsRoomConnect = (
             if (typeof message.data === "string") {
                 const messageData: WebSocketResponse<IGameRoom> = JSON.parse(message.data)
 
-                console.log(messageData)
-
                 if (messageData.responsePath === WebSocketConfig.paths.response.newRoomInfo) {
                     onNewRoomInfo(messageData.responseBody)
                 }

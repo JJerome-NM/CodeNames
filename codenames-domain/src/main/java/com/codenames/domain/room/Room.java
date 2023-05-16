@@ -1,7 +1,7 @@
-package com.codenames.models.room;
+package com.codenames.domain.room;
 
-import com.codenames.models.game.Player;
-import com.codenames.models.game.User;
+import com.codenames.domain.game.Player;
+import com.codenames.domain.game.User;
 import com.codenames.enums.Color;
 import com.codenames.enums.GameTurn;
 import com.codenames.enums.GameStatus;

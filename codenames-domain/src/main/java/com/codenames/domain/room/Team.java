@@ -1,7 +1,7 @@
-package com.codenames.models.room;
+package com.codenames.domain.room;
 
 import com.codenames.enums.Color;
-import com.codenames.models.game.Player;
+import com.codenames.domain.game.Player;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

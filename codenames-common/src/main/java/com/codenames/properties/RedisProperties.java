@@ -7,8 +7,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConfigurationProperties(prefix = "codenames-redis")
 @Getter @Setter
-@ConfigurationProperties(prefix = "security")
-public class SecurityProperties {
-    String jwt;
+public class RedisProperties {
+
+    private String userRoomSessionsHashKey;
 }

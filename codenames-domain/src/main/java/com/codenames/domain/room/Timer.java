@@ -1,4 +1,4 @@
-package com.codenames.models.room;
+package com.codenames.domain.room;
 
 import lombok.Getter;
 

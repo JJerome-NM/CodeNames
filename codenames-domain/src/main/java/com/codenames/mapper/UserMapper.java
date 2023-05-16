@@ -4,7 +4,7 @@ import com.codenames.dto.SignUpDto;
 import com.codenames.dto.UserAuthDto;
 import com.codenames.dto.UserDto;
 import com.codenames.entity.UserEntity;
-import com.codenames.models.game.User;
+import com.codenames.domain.game.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

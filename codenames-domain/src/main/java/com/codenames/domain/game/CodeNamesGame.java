@@ -1,6 +1,6 @@
-package com.codenames.models.game;
+package com.codenames.domain.game;
 
-import com.codenames.models.room.Room;
+import com.codenames.domain.room.Room;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

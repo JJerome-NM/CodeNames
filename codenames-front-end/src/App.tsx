@@ -5,6 +5,7 @@ import useFetching from "./hooks/useFetching";
 import {authRequest, getAuthToken} from "./helper";
 import {RestConfig} from "./config";
 import {AxiosResponse} from "axios";
+import {Flip, ToastContainer} from "react-toastify";
 
 function App() {
     const isAuthorized = useRef<boolean>(!!getAuthToken())
@@ -59,6 +60,19 @@ function App() {
                     element={<Navigate to={redirectPath} replace/>}
                 />
             </Routes>
+            <ToastContainer
+                position="bottom-right"
+                transition={Flip}
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </BrowserRouter>
     );
 }

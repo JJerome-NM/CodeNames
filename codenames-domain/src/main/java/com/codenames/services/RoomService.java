@@ -5,9 +5,9 @@ import com.codenames.enums.GameStatus;
 import com.codenames.enums.GameTurn;
 import com.codenames.enums.PlayerRole;
 import com.codenames.mapper.RoomMapper;
-import com.codenames.models.game.Player;
-import com.codenames.models.room.Room;
-import com.codenames.models.room.Team;
+import com.codenames.domain.game.Player;
+import com.codenames.domain.room.Room;
+import com.codenames.domain.room.Team;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -41,8 +41,8 @@ const SingIn = () => {
             } else {
                 navigate('/room', { replace: true });
             }
-        } catch (e){
-            notify.error("Check the data you entered")
+        } catch (e: any){
+            notify.error(e.response.data.message)
         }
     })
 
@@ -71,23 +71,7 @@ const SingIn = () => {
                 </StyledAuthenticationInputBlock>
                 <StyledAuthenticationButton>Sign In</StyledAuthenticationButton>
             </StyledAuthenticationFrom>
-
-
             <StyledBlueYellowBG/>
-
-            <ToastContainer
-                position="bottom-right"
-                transition={Flip}
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </StyledSignIn>
     );
 };

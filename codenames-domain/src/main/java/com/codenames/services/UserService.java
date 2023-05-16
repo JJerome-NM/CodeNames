@@ -10,6 +10,7 @@ import com.codenames.mapper.UserMapper;
 import com.codenames.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
@@ -63,5 +64,16 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(signUpDto.getPassword())));
 
         return userRepository.save(user);
+    }
+
+    public Optional<UserEntity> getUserEntityFromAuthentication(Authentication authentication){
+        Object principal = authentication.getPrincipal();
+
+        if (!(principal instanceof UserEntity)){
+            return Optional.empty();
+        }
+
+        return Optional.of((UserEntity) principal);
+
     }
 }

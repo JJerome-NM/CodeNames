@@ -19,7 +19,7 @@ import java.util.Optional;
 @Component
 public class UserAuthProvider {
 
-    private static final int TOKEN_LIFETIME = 60 * 60 * 60 * 24 * 30;
+    private static final long TOKEN_LIFETIME = 1000 * 60 * 60 * 24 * 14;
 
     private SecurityProperties securityProperties;
 

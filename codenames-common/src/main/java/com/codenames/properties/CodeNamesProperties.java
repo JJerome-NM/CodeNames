@@ -9,8 +9,14 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "codenames")
 @Getter @Setter
 public class CodeNamesProperties {
-    WordsProperties words;
-    GameProperties gameRooms;
-    WSResponsePathProperties wsResponsePaths;
-    RestControllerProperties restController;
+
+    private WordsProperties words;
+
+    private GameProperties gameRooms;
+
+    private WSResponsePathProperties wsResponsePaths;
+
+    private RestControllerProperties restController;
+
+    private RedisProperties redis;
 }

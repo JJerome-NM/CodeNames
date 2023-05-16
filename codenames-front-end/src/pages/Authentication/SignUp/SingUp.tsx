@@ -54,7 +54,6 @@ const SingUp = () => {
         } else {
             tryRegister()
         }
-        tryRegister()
     }
 
 
@@ -97,20 +96,6 @@ const SingUp = () => {
             </StyledAuthenticationFrom>
 
             <StyledBlueYellowBG/>
-
-            <ToastContainer
-                position="bottom-right"
-                transition={Flip}
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
         </StyledSingUp>
     );
 };

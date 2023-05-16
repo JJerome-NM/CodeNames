@@ -1,8 +1,8 @@
 package com.codenames.filters.method;
 
-import com.codenames.models.game.CodeNamesGame;
-import com.codenames.models.game.Player;
-import com.codenames.models.room.Room;
+import com.codenames.domain.game.CodeNamesGame;
+import com.codenames.domain.game.Player;
+import com.codenames.domain.room.Room;
 import com.codenames.services.PlayerService;
 import com.jjerome.annotations.FilteringOrder;
 import com.jjerome.dto.Request;

@@ -16,6 +16,9 @@ codenames:
     cross-origin:
       - http://localhost:3000
 
+  redis:
+    user-room-sessions-hash-key: user_room_sessions
+
 
 security:
   jwt: I don't understand this stupid thing.
