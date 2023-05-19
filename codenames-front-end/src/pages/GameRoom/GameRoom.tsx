@@ -39,7 +39,7 @@ const GameRoom = () => {
 
     return (
         <StyledCodeNamesGameFrame>
-
+ 
             <StyledCNRunGameFrame
                 room={room}
                 hidden={room?.status !== Status.RUN}
@@ -51,9 +51,6 @@ const GameRoom = () => {
             />
 
             <StyledGRAdminControlBlock
-                onClickToGamePause={() => {
-                    console.log("pause")
-                }}
                 onClickToGameRestart={() => requests?.restartGame()}
                 onClickToGameStop={() => requests?.stopGame()}
                 hidden={room?.status !== Status.RUN}

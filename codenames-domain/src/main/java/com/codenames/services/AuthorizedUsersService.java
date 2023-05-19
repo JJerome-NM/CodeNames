@@ -1,6 +1,6 @@
 package com.codenames.services;
 
-import com.codenames.dao.RedisUserRoomSessionDao;
+import com.codenames.repository.RedisUserRoomSessionRepository;
 import com.codenames.exception.UserRoomSessionNotFoundExeption;
 import com.codenames.mapper.UserRoomSessionMapper;
 import com.codenames.domain.game.Player;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AuthorizedUsersService {
 
-    private final RedisUserRoomSessionDao redisPlayerDao;
+    private final RedisUserRoomSessionRepository redisPlayerDao;
 
     private final UserRoomSessionMapper userRoomSessionMapper;
 

@@ -3,13 +3,15 @@ package com.codenames.properties;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "codenames-redis")
+@ConfigurationProperties(prefix = "codenames.redis")
 @Getter @Setter
 public class RedisProperties {
 
+    @Value("${codenames.redis.user-room-sessions-hash-key:HashKeyNotFound}")
     private String userRoomSessionsHashKey;
 }

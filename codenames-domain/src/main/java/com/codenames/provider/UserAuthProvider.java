@@ -5,7 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.codenames.entity.UserEntity;
-import com.codenames.properties.SecurityProperties;
+import com.codenames.properties.CodeNamesProperties;
 import com.codenames.services.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,39 +19,37 @@ import java.util.Optional;
 @Component
 public class UserAuthProvider {
 
-    private static final long TOKEN_LIFETIME = 1000 * 60 * 60 * 24 * 14;
-
-    private SecurityProperties securityProperties;
+    private static final long TOKEN_LIFETIME = 1000 * 60 * 60 * 24L * 14;
 
     private String secretKey;
+
+    private final Algorithm algorithm;
 
     private final UserService userService;
 
     UserAuthProvider(UserService userService,
-                     SecurityProperties securityProperties) {
-        this.secretKey = securityProperties.getJwt();
-
-        if (this.secretKey == null){
-            this.secretKey = "secret-key";
-        }
+                     CodeNamesProperties codeNamesProperties) {
+        this.secretKey = codeNamesProperties.getSecurity().getJwt();
 
         this.secretKey = Base64.getEncoder().encodeToString(this.secretKey.getBytes());
+        this.algorithm = Algorithm.HMAC256(this.secretKey);
+
         this.userService = userService;
     }
 
     public String createToken(String login) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + TOKEN_LIFETIME);
+        Date expiration = new Date(now.getTime() + TOKEN_LIFETIME);
 
         return JWT.create()
                 .withIssuer(login)
                 .withIssuedAt(now)
-                .withExpiresAt(validity)
-                .sign(Algorithm.HMAC256(secretKey));
+                .withExpiresAt(expiration)
+                .sign(this.algorithm);
     }
 
     public Authentication validateToken(String token) {
-        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
+        JWTVerifier verifier = JWT.require(this.algorithm).build();
 
         DecodedJWT decodedJWT = verifier.verify(token);
 
@@ -61,7 +59,7 @@ public class UserAuthProvider {
     }
 
     public Optional<UserEntity> verifyToken(String token){
-        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secretKey)).build();
+        JWTVerifier verifier = JWT.require(this.algorithm).build();
 
         DecodedJWT decodedJWT = verifier.verify(token);
 

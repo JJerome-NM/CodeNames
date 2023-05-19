@@ -1,9 +1,25 @@
 
 
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/codenames
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+
+
+
+
 codenames:
   words:
     resources-path: codenames-domain/src/main/resources/
-    file-name: game-words-
+    file-prefix: game-words-
 
   game-rooms:
     min-room-id: 100000
@@ -19,19 +35,5 @@ codenames:
   redis:
     user-room-sessions-hash-key: user_room_sessions
 
-
-security:
-  jwt: I don't understand this stupid thing.
-
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/codenames
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    generate-ddl: true
-    show-sql: true
+  security:
+    jwt: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9

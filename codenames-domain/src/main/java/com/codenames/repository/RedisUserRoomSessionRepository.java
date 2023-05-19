@@ -1,4 +1,4 @@
-package com.codenames.dao;
+package com.codenames.repository;
 
 import com.codenames.properties.CodeNamesProperties;
 import com.codenames.redis_entity.HashedUserRoomSession;
@@ -8,14 +8,14 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class RedisUserRoomSessionDao {
+public class RedisUserRoomSessionRepository {
 
     private final String hashKey;
 
     private final RedisTemplate<String, Object> template;
 
-    RedisUserRoomSessionDao(CodeNamesProperties codeNamesProperties,
-                            RedisTemplate<String, Object> template){
+    RedisUserRoomSessionRepository(CodeNamesProperties codeNamesProperties,
+                                   RedisTemplate<String, Object> template){
         this.template = template;
         this.hashKey = codeNamesProperties.getRedis().getUserRoomSessionsHashKey();
     }

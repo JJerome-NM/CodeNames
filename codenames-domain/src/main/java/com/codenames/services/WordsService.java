@@ -33,8 +33,9 @@ public class WordsService {
 
     private List<String> readWordsFile(Language language){
         List<String> words = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(codeNamesProperties.getWords().getResourcesPath()
-                + codeNamesProperties.getWords().getFileName() + language.getLanguageCode() + ".txt"))) {
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader(codeNamesProperties.getWords().getResourcesPath()
+                + codeNamesProperties.getWords().getFilePrefix() + language.getLanguageCode() + ".txt"))) {
 
             String line;
             while((line = reader.readLine()) != null){
