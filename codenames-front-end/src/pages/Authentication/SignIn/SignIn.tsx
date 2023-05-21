@@ -20,7 +20,7 @@ type SignInResponse = {
     login: string;
 }
 
-const SingIn = () => {
+const SignIn = () => {
     const navigate = useNavigate();
     const [login, setLogin] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -72,4 +72,4 @@ const SingIn = () => {
     );
 };
 
-export default SingIn;
+export default SignIn;

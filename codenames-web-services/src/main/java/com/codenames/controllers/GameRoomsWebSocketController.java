@@ -21,6 +21,7 @@ import com.jjerome.annotations.SocketDisconnectMapping;
 import com.jjerome.annotations.SocketMapping;
 import com.jjerome.annotations.SocketMappingFilters;
 import com.jjerome.dto.Request;
+import com.jjerome.models.MessageSender;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,10 +44,14 @@ public class GameRoomsWebSocketController {
 
     private final AuthorizedUsersService authorizedUsers;
 
+    private final MessageSender messageSender;
+
 
     @SocketConnectMapping
     public void userConnect(WebSocketSession session) {
         LOGGER.info(authorizedUsers.getUserRoomSession(session.getId()).getPlayer().getUser().nickname() + " - connected");
+
+        messageSender.send(session.getId(), "/session/connected", "CONNECTED");
     }
 
 
@@ -113,7 +118,7 @@ public class GameRoomsWebSocketController {
     }
 
 
-    @SocketMapping(reqPath = "/room/sendMassage")
+    @SocketMapping(reqPath = "/room/sendMessage")
     @SocketMappingFilters(filters = {
             GameRunningFilter.class,
             SendMessageFilter.class

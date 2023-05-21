@@ -24,8 +24,6 @@ function App() {
 
     useEffect(() => {
         checkUserIsAuth();
-
-        console.log(isAuthorized.current)
     }, [])
 
     return (

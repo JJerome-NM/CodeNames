@@ -21,8 +21,6 @@ const CNStopGameMenu = ({
     const [timeoutId, setTimeoutId] = React.useState<number>(0);
 
     useEffect(() => {
-        console.log(timeoutId)
-
         clearTimeout(timeoutId);
 
         if (room?.status && room?.status !== Status.STOPPED) {

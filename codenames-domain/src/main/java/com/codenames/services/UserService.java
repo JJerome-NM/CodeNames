@@ -5,7 +5,6 @@ import com.codenames.dto.SignUpDto;
 import com.codenames.entity.UserEntity;
 import com.codenames.exception.UserAlreadyExistsException;
 import com.codenames.exception.UserNotFoundException;
-import com.codenames.exception.UserParametersNoValidException;
 import com.codenames.mapper.UserMapper;
 import com.codenames.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    public <R> R findByNickname(Class<R> rClass, String login){
+    public <T> T findByNickname(Class<T> rClass, String login){
         return userRepository.findByLogin(rClass, login)
                 .orElseThrow(() -> new UserNotFoundException("User not found", HttpStatus.NOT_FOUND));
     }
@@ -46,12 +45,6 @@ public class UserService {
     }
 
     public UserEntity register(SignUpDto signUpDto){
-        if (signUpDto.getPassword().length() < 8
-                || signUpDto.getEmail().length() < 4
-                || signUpDto.getNickname().length() < 4){
-            throw new UserParametersNoValidException("User parameters not valid", HttpStatus.BAD_REQUEST);
-        }
-
         Optional<UserEntity> optionalUser = userRepository.findByLogin(UserEntity.class, signUpDto.getEmail());
 
         if (optionalUser.isPresent()){

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const StyledSingUp = styled.div`
+export const StyledSignUp = styled.div`
   display: flex;
 
   align-items: center;

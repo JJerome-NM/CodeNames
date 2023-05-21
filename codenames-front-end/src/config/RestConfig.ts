@@ -27,6 +27,7 @@ export const WebSocketConfig = {
     connectPath: `ws://${wsIP}:${wsPort}/socket?auth_token=${getAuthToken()}`,
     paths: {
         response: {
+            connected: "/session/connected",
             newRoomInfo: "/room/new/info"
         },
         request: {

@@ -1,12 +1,12 @@
 import {ComponentType} from "react";
 import {Connect} from "../pages";
 import GameRoom from "../pages/GameRoom/GameRoom";
-import SingUp from "../pages/Authentication/SignUp/SingUp";
-import SingIn from "../pages/Authentication/SignIn/SingIn";
+import SignUp from "../pages/Authentication/SignUp/SignUp";
+import SignIn from "../pages/Authentication/SignIn/SignIn";
 
 export const publicRouters: {path: string, component: ComponentType}[] = [
-    { path: '/sign_up', component: SingUp},
-    { path: '/sign_in', component: SingIn}
+    { path: '/sign_up', component: SignUp},
+    { path: '/sign_in', component: SignIn}
 ]
 
 export const privateRouters: {path: string, component: ComponentType}[] = [

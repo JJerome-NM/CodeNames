@@ -1,6 +1,6 @@
 import React, {FormEvent, useState} from 'react';
 import {StyledBlueYellowBG} from "../../../components";
-import {StyledSingUp} from "./SignUpStyles";
+import {StyledSignUp} from "./SignUpStyles";
 import {
     StyledAuthenticationButton,
     StyledAuthenticationFormTitle,
@@ -20,7 +20,7 @@ type SignUpResponse = {
     login: string;
 }
 
-const SingUp = () => {
+const SignUp = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState<string>("")
     const [nickname, setNickname] = useState<string>("")
@@ -28,22 +28,24 @@ const SingUp = () => {
     const [repeatedPassword, setRepeatedPassword] = useState<string>("")
 
     const [tryRegister] = useFetching(async () => {
-        removeAuthToken()
-        const response: AxiosResponse<SignUpResponse> = await authRequest(
-            "POST",
-            RestConfig.paths.request.signUp,
-            {
-                email: email,
-                nickname: nickname,
-                password: password
-            })
+        try {
+            removeAuthToken()
+            const response: AxiosResponse<SignUpResponse> = await authRequest(
+                "POST",
+                RestConfig.paths.request.signUp,
+                {
+                    email: email,
+                    nickname: nickname,
+                    password: password
+                })
 
+            setAuthToken(response.data.jwtToken)
 
-        setAuthToken(response.data.jwtToken)
-        console.log(response.data)
-
-        navigate('/room', { replace: true });
-        window.location.reload()
+            navigate('/room', { replace: true });
+            window.location.reload()
+        } catch (e: any){
+            notify.error("Something went wrong when we created an account for you")
+        }
     })
 
     const validateFormAndTryRegister = (e: FormEvent<HTMLFormElement>) => {
@@ -62,7 +64,7 @@ const SingUp = () => {
 
 
     return (
-        <StyledSingUp>
+        <StyledSignUp>
             <StyledAuthenticationFrom
                 onSubmit={validateFormAndTryRegister}
             >
@@ -100,8 +102,8 @@ const SingUp = () => {
             </StyledAuthenticationFrom>
 
             <StyledBlueYellowBG/>
-        </StyledSingUp>
+        </StyledSignUp>
     );
 };
 
-export default SingUp;
+export default SignUp;

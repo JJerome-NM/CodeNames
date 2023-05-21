@@ -3,12 +3,11 @@ package com.codenames.controllers;
 import com.codenames.dto.CredentialDto;
 import com.codenames.dto.SignUpDto;
 import com.codenames.dto.UserAuthDto;
-import com.codenames.dto.UserDto;
 import com.codenames.mapper.UserMapper;
 import com.codenames.provider.UserAuthProvider;
 import com.codenames.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +26,7 @@ public class UsersController {
     private final UserMapper userMapper;
 
     @PostMapping("/login")
-    public ResponseEntity<UserAuthDto> loginUser(@RequestBody CredentialDto credentialDto){
+    public ResponseEntity<UserAuthDto> loginUser(@Valid @RequestBody CredentialDto credentialDto){
         UserAuthDto user = userMapper.userEntityToUserAuthDto(userService.login(credentialDto));
 
         user.setJwtToken(userAuthProvider.createToken(user.getLogin()));
@@ -36,7 +35,7 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserAuthDto> registerUser(@RequestBody SignUpDto signUpDto){
+    public ResponseEntity<UserAuthDto> registerUser(@Valid @RequestBody SignUpDto signUpDto){
         UserAuthDto user = userMapper.userEntityToUserAuthDto(userService.register(signUpDto));
 
         user.setJwtToken(userAuthProvider.createToken(user.getLogin()));

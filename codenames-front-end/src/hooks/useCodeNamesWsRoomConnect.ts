@@ -21,9 +21,6 @@ export interface CodeNameWsRoomRequests {
 const buildRequestMethods = (webSocket: WebSocket | undefined): CodeNameWsRoomRequests => {
     return {
         sendSocketRequest(requestPath: string, requestBody: any = {}): void {
-            // console.log("Path - " + requestPath);
-            // console.log("Body - " + requestBody);
-
             if (webSocket?.readyState === WebSocket.OPEN) {
                 webSocket.send(new WebSocketRequest(requestPath, requestBody).toJson())
             } else {
@@ -56,7 +53,9 @@ export const useCodeNamesWsRoomConnect = (
     roomID: number,
     onNewRoomInfo: (room: IGameRoom) => void = () => {
     },
-    onSocketConnect: (event: Event) => void = () => {
+    onSocketOpen: (event: Event) => void = () => {
+    },
+    onSocketConnect: (event: MessageEvent) => void = () => {
     },
     onSocketMessage: (message: MessageEvent) => void = () => {
     },
@@ -100,21 +99,23 @@ export const useCodeNamesWsRoomConnect = (
 
 
         webSocket.current.onopen = (event: Event) => {
-            setIsConnected(true);
-            setTimeout(() => {
-                webSocketRequests.current?.sendSocketRequest(WebSocketConfig.paths.request.connect, roomID);
-            }, 10)
-
-            onSocketConnect(event)
+            onSocketOpen(event)
         }
 
 
         webSocket.current.onmessage = (message: MessageEvent) => {
             if (typeof message.data === "string") {
-                const messageData: WebSocketResponse<IGameRoom> = JSON.parse(message.data)
+                const messageData: WebSocketResponse<any> = JSON.parse(message.data)
 
-                if (messageData.responsePath === WebSocketConfig.paths.response.newRoomInfo) {
+                if (messageData.responsePath === WebSocketConfig.paths.response.newRoomInfo){
                     onNewRoomInfo(messageData.responseBody)
+                } else if (messageData.responsePath === WebSocketConfig.paths.response.connected
+                    && messageData.responseBody === "CONNECTED"){
+                    setIsConnected(true);
+
+                    webSocketRequests.current?.sendSocketRequest(WebSocketConfig.paths.request.connect, roomID);
+
+                    onSocketConnect(message)
                 }
                 onSocketMessage(message)
             }
