@@ -10,9 +10,9 @@ import {
 import useFetching from "../../../hooks/useFetching";
 import {AxiosResponse} from "axios";
 import {notify} from "../../../models";
-import {Flip, ToastContainer} from "react-toastify";
 import {authRequest, removeAuthToken, setAuthToken} from "../../../helper";
 import {RestConfig} from "../../../config";
+import {useNavigate} from "react-router-dom";
 
 type SignUpResponse = {
     nickname: string;
@@ -21,6 +21,7 @@ type SignUpResponse = {
 }
 
 const SingUp = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState<string>("")
     const [nickname, setNickname] = useState<string>("")
     const [password, setPassword] = useState<string>("")
@@ -40,6 +41,9 @@ const SingUp = () => {
 
         setAuthToken(response.data.jwtToken)
         console.log(response.data)
+
+        navigate('/room', { replace: true });
+        window.location.reload()
     })
 
     const validateFormAndTryRegister = (e: FormEvent<HTMLFormElement>) => {

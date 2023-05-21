@@ -15,25 +15,29 @@ spring:
 
 
 
-
 codenames:
   words:
-    resources-path: codenames-domain/src/main/resources/
-    file-prefix: game-words-
+    resources-path: "${RESOURCES_PATH:codenames-domain/src/main/resources/}"
+    file-prefix: "${FILE_PREFIX:game-words-}"
+
 
   game-rooms:
-    min-room-id: 100000
-    max-room-id: 1000000
+    min-room-id: "${MIN_ROOM_ID:100000}"
+    max-room-id: "${MAX_ROOM_ID:1000000}"
+
 
   ws-response-paths:
-    new-room-info-path: /room/new/info
+    new-room-info-path: "${NEW_ROOM_INFO_PATH:/room/new/info}"
+
 
   rest-controller:
     cross-origin:
       - http://localhost:3000
 
+
   redis:
-    user-room-sessions-hash-key: user_room_sessions
+    user-room-sessions-hash-key: "${USER_ROOM_SESSIONS_HASH_KEY:user_room_sessions}"
+
 
   security:
-    jwt: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+    jwt: "${JWT:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9}"

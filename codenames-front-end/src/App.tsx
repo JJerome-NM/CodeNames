@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {privateRouters, publicRouters} from "./router";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import useFetching from "./hooks/useFetching";
@@ -9,8 +9,8 @@ import {Flip, ToastContainer} from "react-toastify";
 
 function App() {
     const isAuthorized = useRef<boolean>(!!getAuthToken())
-    const [redirectPath, setRedirectPath] = useState<string>("/sign_in")
-    const [checkUserIsAuth] = useFetching(async () => {
+
+    const [checkUserIsAuth, isLoading, error] = useFetching(async () => {
         try {
             const response: AxiosResponse<boolean> = await authRequest("GET", RestConfig.paths.request.userIsAuth, {})
 
@@ -22,18 +22,11 @@ function App() {
         }
     })
 
-
     useEffect(() => {
-        checkUserIsAuth()
+        checkUserIsAuth();
+
+        console.log(isAuthorized.current)
     }, [])
-
-    useEffect(() => {
-
-        if (isAuthorized.current){
-            setRedirectPath("/room")
-        }
-    }, [isAuthorized])
-
 
     return (
         <BrowserRouter>
@@ -45,19 +38,16 @@ function App() {
                         element={<route.component/>}
                     />
                 )}
-                {isAuthorized.current && privateRouters.map(route => {
-                        return (<Route
-                                key={route.path}
-                                path={route.path}
-                                element={<route.component/>}
-                            />
-                        )
-                    }
+                {isAuthorized.current && privateRouters.map(route =>
+                    <Route
+                        key={route.path}
+                        path={route.path}
+                        element={<route.component/>}
+                    />
                 )}
-
                 <Route
                     path="*"
-                    element={<Navigate to={redirectPath} replace/>}
+                    element={<Navigate to={isAuthorized.current ? "/room" : "/sign_in"} replace/>}
                 />
             </Routes>
             <ToastContainer

@@ -8,7 +8,6 @@ import {
     StyledAuthenticationInputBlock
 } from "../AuthenticationStyles";
 import useFetching from "../../../hooks/useFetching";
-import {Flip, ToastContainer} from "react-toastify";
 import {authRequest, removeAuthToken, setAuthToken} from "../../../helper";
 import {RestConfig} from "../../../config";
 import {notify} from "../../../models";
@@ -36,11 +35,8 @@ const SingIn = () => {
 
             setAuthToken(response.data.jwtToken);
 
-            if (window.history.state && window.history.state.idx > 0) {
-                navigate(-1);
-            } else {
-                navigate('/room', { replace: true });
-            }
+            navigate('/room', { replace: true });
+            window.location.reload()
         } catch (e: any){
             notify.error(e.response.data.message)
         }

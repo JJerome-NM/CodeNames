@@ -21,10 +21,10 @@ export interface CodeNameWsRoomRequests {
 const buildRequestMethods = (webSocket: WebSocket | undefined): CodeNameWsRoomRequests => {
     return {
         sendSocketRequest(requestPath: string, requestBody: any = {}): void {
-            console.log("Path - " + requestPath);
-            console.log("Body - " + requestBody);
+            // console.log("Path - " + requestPath);
+            // console.log("Body - " + requestBody);
 
-            if (webSocket?.readyState === 1) {
+            if (webSocket?.readyState === WebSocket.OPEN) {
                 webSocket.send(new WebSocketRequest(requestPath, requestBody).toJson())
             } else {
                 console.error("WebSocket session is not connected")
