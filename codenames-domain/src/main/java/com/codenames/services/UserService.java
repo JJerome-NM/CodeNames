@@ -78,7 +78,6 @@ public class UserService {
         return Optional.of((UserEntity) principal);
 
     }
-
     public Optional<UserAuthRoleEntity> getUserAuthRole(Authentication authentication){
 
         // TODO: 22.05.2023 Perhaps this method will need to be corrected, but this is after adding a full-fledged user role assignment system

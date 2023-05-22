@@ -43,10 +43,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST , "/login", "/register").permitAll()
-<<<<<<< HEAD
                         .requestMatchers("/whoami").permitAll()
-=======
->>>>>>> c272801cf53c51aafc9e629308295f7a0a6d9bd7
                         .requestMatchers("/socket/**").permitAll()
                         .anyRequest().authenticated()
                 );
