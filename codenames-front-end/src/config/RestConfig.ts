@@ -14,7 +14,7 @@ export const RestConfig = {
         request: {
             createRoom: `http://${restIP}:${restPort}/room/create`,
             connectToRoom: `http://${restIP}:${restPort}/room/connect`,
-            userIsAuth: `http://${restIP}:${restPort}/check_user_is_auth`,
+            whoami: `http://${restIP}:${restPort}/whoami`,
             signIn: `http://${restIP}:${restPort}/login`,
             signUp: `http://${restIP}:${restPort}/register`
         }

@@ -2,23 +2,27 @@ import React, {useEffect, useRef} from 'react';
 import {privateRouters, publicRouters} from "./router";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import useFetching from "./hooks/useFetching";
-import {authRequest, getAuthToken} from "./helper";
+import {authRequest, getAuthToken, removeAuthToken} from "./helper";
 import {RestConfig} from "./config";
 import {AxiosResponse} from "axios";
 import {Flip, ToastContainer} from "react-toastify";
+import {UserAuthRole} from "./models/CodeNames/UserAuthRole";
+import {notify} from "./models";
 
 function App() {
     const isAuthorized = useRef<boolean>(!!getAuthToken())
 
     const [checkUserIsAuth, isLoading, error] = useFetching(async () => {
         try {
-            const response: AxiosResponse<boolean> = await authRequest("GET", RestConfig.paths.request.userIsAuth, {})
+            const response: AxiosResponse<UserAuthRole> = await authRequest("GET", RestConfig.paths.request.whoami, {})
 
-            if (response.data) {
+            if (response.data === UserAuthRole.USER || response.data === UserAuthRole.ADMIN) {
                 isAuthorized.current = true
+            } else if (response.data === UserAuthRole.GUEST) {
+                notify.info("You are logged in as a GUEST, which may limit your possibilities")
             }
         } catch (e) {
-            console.log(e)
+            removeAuthToken();
         }
     })
 
