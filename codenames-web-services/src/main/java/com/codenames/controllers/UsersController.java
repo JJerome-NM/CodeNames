@@ -7,6 +7,7 @@ import com.codenames.dto.UserAuthRoleDto;
 import com.codenames.entity.UserAuthRoleEntity;
 import com.codenames.enums.DefaultUserAuthRole;
 import com.codenames.mapper.UserAuthRoleMapper;
+import com.codenames.enums.UserAuthRole;
 import com.codenames.mapper.UserMapper;
 import com.codenames.provider.UserAuthProvider;
 import com.codenames.services.UserService;
@@ -14,11 +15,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,13 +55,20 @@ public class UsersController {
     }
 
     @GetMapping("/whoami")
-    public ResponseEntity<UserAuthRoleDto> whoami(Authentication authentication){
+    public ResponseEntity<UserAuthRole> whoami(Authentication authentication){
 
-        // TODO: 22.05.2023 Perhaps this method will need to be corrected, but this is after adding a full-fledged user role assignment system
+        // TODO: 22.05.2023 Perhaps this method will need to be corrected, but this is after adding a full-fledged user role assignment system 
+        
+        if (authentication.getAuthorities() != null){
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-        UserAuthRoleEntity userAuthRole = userService.getUserAuthRole(authentication)
-                .orElse(new UserAuthRoleEntity(-1L, null, DefaultUserAuthRole.GUEST.getRole()));
+            for (UserAuthRole role : UserAuthRole.values()){
+                if (authorities.contains(new SimpleGrantedAuthority(role.getRole()))) {
+                    return ResponseEntity.ok(role);
+                }
+            }
+        }
 
-        return ResponseEntity.ok(userAuthRoleMapper.userAuthRoleEntityToUserAuthRoleDto(userAuthRole));
+        return ResponseEntity.ok(UserAuthRole.GUEST);
     }
 }
