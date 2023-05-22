@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum UserAuthRole {
+public enum DefaultUserAuthRole {
     GUEST("ROLE_GUEST"),
     USER("ROLE_USER"),
     ADMIN("ROLE_ADMIN");

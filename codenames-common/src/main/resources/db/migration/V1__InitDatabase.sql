@@ -1,0 +1,17 @@
+
+
+CREATE TABLE IF NOT EXISTS users(
+    id INT NOT NULL AUTO_INCREMENT,
+    login VARCHAR(100) NOT NULL UNIQUE,
+    nickname VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS users_roles(
+    id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    role VARCHAR(50) NOT NULL DEFAULT "GUEST",
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
