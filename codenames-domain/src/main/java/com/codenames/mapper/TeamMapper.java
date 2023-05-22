@@ -1,7 +1,7 @@
 package com.codenames.mapper;
 
 import com.codenames.dto.TeamDto;
-import com.codenames.models.room.Team;
+import com.codenames.domain.room.Team;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

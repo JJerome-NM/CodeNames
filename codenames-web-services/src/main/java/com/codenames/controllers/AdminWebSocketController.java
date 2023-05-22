@@ -2,10 +2,10 @@ package com.codenames.controllers;
 
 import com.codenames.enums.GameStatus;
 import com.codenames.filters.method.GameStoppedFilter;
-import com.codenames.filters.method.UserAuthorizedFilter;
-import com.codenames.models.game.CodeNamesGame;
-import com.codenames.models.room.Room;
-import com.codenames.models.room.Settings;
+import com.codenames.domain.game.CodeNamesGame;
+import com.codenames.domain.room.Room;
+import com.codenames.domain.room.Settings;
+import com.codenames.filters.method.UserIsRoomAdminFilter;
 import com.codenames.services.GameService;
 import com.codenames.services.PlayerService;
 import com.codenames.services.RoomService;
@@ -32,10 +32,8 @@ public class AdminWebSocketController {
 
     @SocketMapping(reqPath = "/room/admin/start")
     @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class,
             GameStoppedFilter.class,
-            // TODO: 05.05.2023 Temporarily to simplify tests 
-//            UserIsRoomAdminFilter.class
+            UserIsRoomAdminFilter.class
     })
     public void startGameInRoom(Request<Settings> request){
         Room room = codeNamesGame.getGameRoom(playerService.getPlayerRoomID(request));
@@ -47,9 +45,7 @@ public class AdminWebSocketController {
 
     @SocketMapping(reqPath = "/room/admin/stop")
     @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class
-            // TODO: 05.05.2023 Temporarily to simplify tests
-//            UserIsRoomAdminFilter.class
+            UserIsRoomAdminFilter.class
     })
     public void stopGameInRoom(Request<String> request){
         Room room = codeNamesGame.getGameRoom(playerService.getPlayerRoomID(request));
@@ -61,9 +57,7 @@ public class AdminWebSocketController {
 
     @SocketMapping(reqPath = "/room/admin/restart")
     @SocketMappingFilters(filters = {
-            UserAuthorizedFilter.class
-            // TODO: 05.05.2023 Temporarily to simplify tests
-//            UserIsRoomAdminFilter.class
+            UserIsRoomAdminFilter.class
     })
     public void restartGameInRoom(Request<String> request){
         Room room = codeNamesGame.getGameRoom(playerService.getPlayerRoomID(request));

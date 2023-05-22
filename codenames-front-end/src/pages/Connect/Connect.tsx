@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 
 import {useNavigate} from "react-router-dom";
-import {Flip, ToastContainer} from "react-toastify";
 import {notify} from "../../models";
 import useFetching from "../../hooks/useFetching";
 
@@ -20,6 +19,7 @@ import {
     StyledTitle
 } from "../Connect";
 import {StyledBlueYellowBG} from "../../components";
+import {HttpStatusCode} from "axios";
 
 export const Connect = () => {
     const minRoomID = 100000;
@@ -31,17 +31,25 @@ export const Connect = () => {
 
     const [createRoom, connectToRoom] = useCodeNamesRestRequests();
 
-    const [fetchConnectToRoom, isLoadingConnectToRoom, errorConnectToRoom] = useFetching(async () => {
-        const response = await connectToRoom(Number(roomID));
+    const [fetchConnectToRoom] = useFetching(async () => {
+        try {
+            const response = await connectToRoom(Number(roomID));
 
-        if (response.data === -1) {
-            notify.error(`Room with number "${roomID}" was not found`)
-        } else {
-            navigate(`/room/${roomID}`)
+            if (response.data === -1) {
+                notify.error(`Room with number "${roomID}" was not found`)
+            } else {
+                navigate(`/room/${roomID}`)
+            }
+        } catch (e: any){
+            notify.error(e.response.data.message)
+
+            if (e.response.status === HttpStatusCode.Unauthorized){
+                navigate("/sign_in")
+            }
         }
     });
 
-    const [fetchCreateRoom, isLoadingCreateRoom, errorCreateRoom] = useFetching(async () => {
+    const [fetchCreateRoom] = useFetching(async () => {
         const response = await createRoom();
 
         if (response.data === -1) {
@@ -112,20 +120,6 @@ export const Connect = () => {
                     }
                 </div>
             </StyledConnectFormBlock>
-
-            <ToastContainer
-                position="bottom-right"
-                transition={Flip}
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
             <StyledBlueYellowBG/>
         </StyledConnectPage>)
 }

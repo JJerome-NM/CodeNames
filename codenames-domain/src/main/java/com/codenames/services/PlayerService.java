@@ -1,9 +1,8 @@
 package com.codenames.services;
 
-import com.codenames.models.game.AuthorizedUsers;
-import com.codenames.models.game.Player;
-import com.codenames.models.game.User;
-import com.codenames.models.game.UserRoomSession;
+import com.codenames.domain.game.Player;
+import com.codenames.domain.game.User;
+import com.codenames.domain.game.UserRoomSession;
 import com.jjerome.dto.Request;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PlayerService {
 
-    private final AuthorizedUsers authorizedUsers;
+    private final AuthorizedUsersService authorizedUsers;
 
     private User getUser(Request<?> request){
         return this.authorizedUsers.getUserRoomSession(request.getSessionID()).getPlayer().getUser();

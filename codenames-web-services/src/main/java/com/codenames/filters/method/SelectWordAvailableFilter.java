@@ -1,10 +1,10 @@
 package com.codenames.filters.method;
 
 import com.codenames.enums.GameTurn;
-import com.codenames.models.game.AuthorizedUsers;
-import com.codenames.models.game.CodeNamesGame;
-import com.codenames.models.game.Player;
-import com.codenames.models.room.Room;
+import com.codenames.services.AuthorizedUsersService;
+import com.codenames.domain.game.CodeNamesGame;
+import com.codenames.domain.game.Player;
+import com.codenames.domain.room.Room;
 import com.codenames.services.TeamService;
 import com.jjerome.annotations.FilteringOrder;
 import com.jjerome.dto.Request;
@@ -24,7 +24,7 @@ public class SelectWordAvailableFilter implements SocketMethodFilter {
 
     private final CodeNamesGame codeNamesGame;
 
-    private final AuthorizedUsers authorizedUsers;
+    private final AuthorizedUsersService authorizedUsers;
 
     private final TeamService teamService;
 

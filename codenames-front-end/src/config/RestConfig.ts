@@ -1,3 +1,4 @@
+import {getAuthToken} from "../helper";
 
 const restIP = "localhost";
 const restPort = 8080;
@@ -12,7 +13,10 @@ export const RestConfig = {
         response: {},
         request: {
             createRoom: `http://${restIP}:${restPort}/room/create`,
-            connectToRoom: `http://${restIP}:${restPort}/room/connect`
+            connectToRoom: `http://${restIP}:${restPort}/room/connect`,
+            whoami: `http://${restIP}:${restPort}/whoami`,
+            signIn: `http://${restIP}:${restPort}/login`,
+            signUp: `http://${restIP}:${restPort}/register`
         }
     }
 }
@@ -20,9 +24,10 @@ export const RestConfig = {
 export const WebSocketConfig = {
     ip: wsIP,
     port: wsPort,
-    connectPath: `ws://${wsIP}:${wsPort}/socket`,
+    connectPath: `ws://${wsIP}:${wsPort}/socket?auth_token=${getAuthToken()}`,
     paths: {
         response: {
+            connected: "/session/connected",
             newRoomInfo: "/room/new/info"
         },
         request: {

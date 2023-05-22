@@ -1,9 +1,9 @@
 package com.codenames.filters.method;
 
 import com.codenames.enums.GameStatus;
-import com.codenames.models.game.AuthorizedUsers;
-import com.codenames.models.game.CodeNamesGame;
-import com.codenames.models.room.Room;
+import com.codenames.services.AuthorizedUsersService;
+import com.codenames.domain.game.CodeNamesGame;
+import com.codenames.domain.room.Room;
 import com.codenames.services.RoomService;
 import com.jjerome.annotations.FilteringOrder;
 import com.jjerome.dto.Request;
@@ -22,7 +22,7 @@ public class GameRunningFilter implements SocketMethodFilter {
 
     private final RoomService roomService;
 
-    private final AuthorizedUsers authorizedUsers;
+    private final AuthorizedUsersService authorizedUsers;
 
 
     @Override

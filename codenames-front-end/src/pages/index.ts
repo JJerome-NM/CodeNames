@@ -1,6 +1,5 @@
 
 
 export * from "./Connect"
-export * from "./SignUp"
-export * from "./SingIn"
+export * from "./Authentication"
 export * from "./GameRoom"

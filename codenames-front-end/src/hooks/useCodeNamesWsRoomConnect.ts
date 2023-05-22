@@ -1,13 +1,11 @@
 import {MutableRefObject, useEffect, useRef, useState} from "react";
-import {WebSocketConfig} from "../config/RestConfig";
-import {Color} from "../models/CodeNames/Color";
+import {WebSocketConfig} from "../config";
+import {Color, notify, IGameRoom} from "../models";
 import WebSocketRequest from "../models/CodeNames/WebSocketRequest";
-import {IGameRoom} from "../models/CodeNames/IGameRoom";
 import WebSocketResponse from "../models/CodeNames/WebSocketResponse";
 import useFetching from "./useFetching";
 import {useCodeNamesRestRequests} from "./useCodeNamesRestRequests";
 import {useNavigate} from "react-router-dom";
-import {notify} from "../models/notifications/Notifications";
 
 
 export interface CodeNameWsRoomRequests {
@@ -23,10 +21,7 @@ export interface CodeNameWsRoomRequests {
 const buildRequestMethods = (webSocket: WebSocket | undefined): CodeNameWsRoomRequests => {
     return {
         sendSocketRequest(requestPath: string, requestBody: any = {}): void {
-            console.log("Path - " + requestPath);
-            console.log("Body - " + requestBody);
-
-            if (webSocket?.readyState === 1) {
+            if (webSocket?.readyState === WebSocket.OPEN) {
                 webSocket.send(new WebSocketRequest(requestPath, requestBody).toJson())
             } else {
                 console.error("WebSocket session is not connected")
@@ -58,11 +53,13 @@ export const useCodeNamesWsRoomConnect = (
     roomID: number,
     onNewRoomInfo: (room: IGameRoom) => void = () => {
     },
-    onSocketConnect: (event: Event) => void = () => {
+    onSocketOpen: (event: Event) => void = () => {
+    },
+    onSocketConnect: (event: MessageEvent) => void = () => {
     },
     onSocketMessage: (message: MessageEvent) => void = () => {
     },
-    onSocketClose: (event: Event) => void = () => {
+    onSocketClose: (event: CloseEvent) => void = () => {
     },
     onSocketError: (event: Event) => void = () => {
     }
@@ -82,11 +79,11 @@ export const useCodeNamesWsRoomConnect = (
         try {
             const response = await tryConnectToRoom(roomID);
             if (response.data === -1) {
-                navigate("/room/Connect");
+                navigate("/room");
             }
         } catch (e) {
             if (reconnectCount.current === 10) {
-                navigate("/room/Connect");
+                navigate("/room");
             }
 
             notify.error("Something went wrong while connecting to the server, perhaps the server is down.")
@@ -97,28 +94,37 @@ export const useCodeNamesWsRoomConnect = (
             return fetchConnectToRoom();
         }
 
-        webSocket.current = new WebSocket(WebSocketConfig.connectPath)
+        webSocket.current = new WebSocket(WebSocketConfig.connectPath);
         webSocketRequests.current = buildRequestMethods(webSocket.current)
 
-        webSocket.current.onopen = (event: Event) => {
-            setIsConnected(true);
-            webSocketRequests.current?.sendSocketRequest(WebSocketConfig.paths.request.connect, roomID);
 
-            onSocketConnect(event)
+        webSocket.current.onopen = (event: Event) => {
+            onSocketOpen(event)
         }
+
 
         webSocket.current.onmessage = (message: MessageEvent) => {
-            const messageData: WebSocketResponse<IGameRoom> = JSON.parse(message.data)
+            if (typeof message.data === "string") {
+                const messageData: WebSocketResponse<any> = JSON.parse(message.data)
 
-            console.log(messageData)
+                if (messageData.responsePath === WebSocketConfig.paths.response.newRoomInfo){
+                    onNewRoomInfo(messageData.responseBody)
+                } else if (messageData.responsePath === WebSocketConfig.paths.response.connected
+                    && messageData.responseBody === "CONNECTED"){
+                    setIsConnected(true);
 
-            if (messageData.responsePath === WebSocketConfig.paths.response.newRoomInfo) {
-                onNewRoomInfo(messageData.responseBody)
+                    webSocketRequests.current?.sendSocketRequest(WebSocketConfig.paths.request.connect, roomID);
+
+                    onSocketConnect(message)
+                }
+                onSocketMessage(message)
             }
-            onSocketMessage(message)
         }
 
+
         webSocket.current.onclose = onSocketClose.bind(this);
+
+
         webSocket.current.onerror = async (event: Event) => {
             onSocketError(event)
 
@@ -129,6 +135,11 @@ export const useCodeNamesWsRoomConnect = (
 
     useEffect(() => {
         fetchConnectToRoom()
+
+        return () => {
+            webSocket.current = undefined;
+            setIsConnected(false);
+        }
     }, [])
 
     return [webSocket, webSocketRequests.current, isConnected]

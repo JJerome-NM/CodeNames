@@ -1,9 +1,9 @@
 package com.codenames.filters.method;
 
 import com.codenames.enums.PlayerRole;
-import com.codenames.models.game.AuthorizedUsers;
-import com.codenames.models.game.CodeNamesGame;
-import com.codenames.models.room.Room;
+import com.codenames.services.AuthorizedUsersService;
+import com.codenames.domain.game.CodeNamesGame;
+import com.codenames.domain.room.Room;
 import com.codenames.services.RoomService;
 import com.jjerome.dto.Request;
 import com.jjerome.filters.SocketMethodFilter;
@@ -20,7 +20,7 @@ public class AllowedToChangeRoleFilter implements SocketMethodFilter {
 
     private final RoomService roomService;
 
-    private final AuthorizedUsers authorizedUsers;
+    private final AuthorizedUsersService authorizedUsers;
 
 
     @Override

@@ -1,12 +1,11 @@
 package com.codenames.services;
 
 import com.codenames.exceptions.RoomLimitIsOver;
-import com.codenames.models.game.CodeNamesGame;
-import com.codenames.models.game.User;
-import com.codenames.models.room.Room;
-import com.codenames.models.game.Player;
+import com.codenames.domain.game.CodeNamesGame;
+import com.codenames.domain.game.User;
+import com.codenames.domain.room.Room;
+import com.codenames.domain.game.Player;
 import com.codenames.properties.CodeNamesProperties;
-import com.codenames.properties.WSResponsePathProperties;
 import com.jjerome.dto.Request;
 import com.jjerome.models.MessageSender;
 import org.slf4j.Logger;
@@ -32,7 +31,7 @@ public class GameService {
 
     private final CodeNamesProperties codeNamesProperties;
 
-    private final WSResponsePathProperties wsResponsePathProperties;
+    private final CodeNamesProperties.WSResponsePathProperties wsResponsePathProperties;
 
     private final int minRoomID;
 

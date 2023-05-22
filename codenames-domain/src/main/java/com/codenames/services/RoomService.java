@@ -5,11 +5,10 @@ import com.codenames.enums.GameStatus;
 import com.codenames.enums.GameTurn;
 import com.codenames.enums.PlayerRole;
 import com.codenames.mapper.RoomMapper;
-import com.codenames.models.game.Player;
-import com.codenames.models.room.Room;
-import com.codenames.models.room.Team;
+import com.codenames.domain.game.Player;
+import com.codenames.domain.room.Room;
+import com.codenames.domain.room.Team;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 
@@ -100,21 +99,11 @@ public class RoomService {
         final Team blueTeam = room.getBlueTeam();
         final Team yellowTeam = room.getYellowTeam();
 
-        if (teamService.checkUserInTeam(blueTeam, player)){
-            teamService.removeUserFormTeam(blueTeam, player);
-
-        } else if (teamService.checkUserInMaster(blueTeam, player)){
-            teamService.removeUserFromMaster(blueTeam, player);
-
-        } else if (teamService.checkUserInTeam(yellowTeam, player)){
-            teamService.removeUserFormTeam(yellowTeam, player);
-
-        } else if (teamService.checkUserInMaster(yellowTeam, player)){
-            teamService.removeUserFromMaster(yellowTeam, player);
-
-        } else {
-            room.getSpectators().remove(player);
-        }
+        teamService.removeUserFromTeam(blueTeam, player);
+        teamService.removeUserFromMaster(blueTeam, player);
+        teamService.removeUserFromTeam(yellowTeam, player);
+        teamService.removeUserFromMaster(yellowTeam, player);
+        room.getSpectators().removeIf(player1 -> player1.equals(player));
     }
 
     public void selectRole(Room room, Player player, PlayerRole selectedRole){

@@ -1,7 +1,7 @@
 package com.codenames.mapper;
 
 import com.codenames.dto.UserDto;
-import com.codenames.models.game.Player;
+import com.codenames.domain.game.Player;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

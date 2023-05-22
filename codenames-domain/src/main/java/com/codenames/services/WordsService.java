@@ -3,11 +3,9 @@ package com.codenames.services;
 
 import com.codenames.enums.Color;
 import com.codenames.enums.Language;
-import com.codenames.models.game.Player;
-import com.codenames.models.room.Settings;
-import com.codenames.models.room.Word;
+import com.codenames.domain.room.Settings;
+import com.codenames.domain.room.Word;
 import com.codenames.properties.CodeNamesProperties;
-import com.codenames.properties.WordsProperties;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +33,9 @@ public class WordsService {
 
     private List<String> readWordsFile(Language language){
         List<String> words = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(codeNamesProperties.getWords().getResourcesPath()
-                + codeNamesProperties.getWords().getFileName() + language.getLanguageCode() + ".txt"))) {
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader(codeNamesProperties.getWords().getResourcesPath()
+                + codeNamesProperties.getWords().getFilePrefix() + language.getLanguageCode() + ".txt"))) {
 
             String line;
             while((line = reader.readLine()) != null){
