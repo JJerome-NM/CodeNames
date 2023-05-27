@@ -3,6 +3,10 @@ package com.codenames.controllers;
 import com.codenames.dto.CredentialDto;
 import com.codenames.dto.SignUpDto;
 import com.codenames.dto.UserAuthDto;
+import com.codenames.dto.UserAuthRoleDto;
+import com.codenames.entity.UserAuthRoleEntity;
+import com.codenames.enums.DefaultUserAuthRole;
+import com.codenames.mapper.UserAuthRoleMapper;
 import com.codenames.enums.UserAuthRole;
 import com.codenames.mapper.UserMapper;
 import com.codenames.provider.UserAuthProvider;
@@ -20,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
-
 @RestController
 @RequiredArgsConstructor
 public class UsersController {
@@ -30,6 +33,8 @@ public class UsersController {
     private final UserAuthProvider userAuthProvider;
 
     private final UserMapper userMapper;
+
+    private final UserAuthRoleMapper userAuthRoleMapper;
 
     @PostMapping("/login")
     public ResponseEntity<UserAuthDto> loginUser(@Valid @RequestBody CredentialDto credentialDto){

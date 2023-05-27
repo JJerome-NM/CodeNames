@@ -3,6 +3,11 @@ package com.codenames.services;
 import com.codenames.dto.CredentialDto;
 import com.codenames.dto.SignUpDto;
 import com.codenames.entity.UserEntity;
+import com.codenames.entity.UserAuthRoleEntity;
+import com.codenames.exception.UserAlreadyExistsException;
+import com.codenames.exception.UserNotFoundException;
+import com.codenames.mapper.UserMapper;
+import com.codenames.repository.UserAuthRoleRepository;
 import com.codenames.exception.UserAlreadyExistsException;
 import com.codenames.exception.UserNotFoundException;
 import com.codenames.mapper.UserMapper;
@@ -10,10 +15,15 @@ import com.codenames.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 import java.nio.CharBuffer;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,6 +35,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final UserMapper userMapper;
+
+    private final UserAuthRoleRepository userAuthRoleRepository;
 
     public <T> T findByNickname(Class<T> rClass, String login){
         return userRepository.findByLogin(rClass, login)
@@ -68,5 +80,29 @@ public class UserService {
 
         return Optional.of((UserEntity) principal);
 
+    }
+  
+    public Optional<UserAuthRoleEntity> getUserAuthRole(Authentication authentication){
+
+        // TODO: 22.05.2023 Perhaps this method will need to be corrected, but this is after adding a full-fledged user role assignment system
+
+        if (authentication.getAuthorities() != null){
+            if (!(authentication.getPrincipal() instanceof UserEntity user)){
+                return Optional.empty();
+            }
+
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+            List<UserAuthRoleEntity> userAuthRoles = userAuthRoleRepository.findUserAuthRoleEntitiesByUser(user)
+                    .orElse(new ArrayList<>());
+
+            for (UserAuthRoleEntity role : userAuthRoles){
+                if (authorities.contains(new SimpleGrantedAuthority(role.getRole()))) {
+                    return Optional.of(role);
+                }
+            }
+        }
+
+        return Optional.empty();
     }
 }

@@ -9,16 +9,22 @@ import {Flip, ToastContainer} from "react-toastify";
 import {UserAuthRole} from "./models/CodeNames/UserAuthRole";
 import {notify} from "./models";
 
+
+type WhoamiResponse = {
+    role: UserAuthRole;
+}
+
+
 function App() {
     const isAuthorized = useRef<boolean>(!!getAuthToken())
 
-    const [checkUserIsAuth, isLoading, error] = useFetching(async () => {
+    const [checkUserIsAuth] = useFetching(async () => {
         try {
-            const response: AxiosResponse<UserAuthRole> = await authRequest("GET", RestConfig.paths.request.whoami, {})
+            const response: AxiosResponse<WhoamiResponse> = await authRequest("GET", RestConfig.paths.request.whoami, {})
 
-            if (response.data === UserAuthRole.USER || response.data === UserAuthRole.ADMIN) {
+            if (response.data.role === UserAuthRole.USER || response.data.role === UserAuthRole.ADMIN) {
                 isAuthorized.current = true
-            } else if (response.data === UserAuthRole.GUEST) {
+            } else if (response.data.role === UserAuthRole.GUEST) {
                 notify.info("You are logged in as a GUEST, which may limit your possibilities")
             }
         } catch (e) {
